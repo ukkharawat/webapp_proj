@@ -2,15 +2,17 @@ var mongoose = require('mongoose')
 
 var user = mongoose.Schema({
     poster: String,
+    cosmetic_name : String,
     date: Date,
-    content: String,
+    content: String, //header
     comments: [{
-        user: String,
-        comment: String
+        user: String, // who comment
+        comment: String, // comment what?
+        date_comment: Date
     }],
     like: {
         count: Number,
-        who: []
+        who: [] // collect who like it
     },
     dislike: {
         count: Number,

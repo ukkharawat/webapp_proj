@@ -1,4 +1,4 @@
-var users = require('./user')
+var users = require('../database/user')
 var mongoose = require('mongoose')
 var bcrypt = require('bcrypt')
 var dbconfig = require('../config/database')

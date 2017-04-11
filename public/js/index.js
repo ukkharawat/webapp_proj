@@ -8,10 +8,12 @@
                 params: {id: $scope.search}
             })
 	        .then(function(response) {
-	            if(response.data[0]){
+	            if(response.data.length != 0){
                     $scope.data = response.data
+                    delete $scope.message
                 }else{
-                    $scope.brand = "Not Found"
+                    delete $scope.data
+                    $scope.message = "Not Found"
                 }
 	        })
 	    },
@@ -49,12 +51,23 @@
                 console.log(response)
             })
         },
+        $scope.getContent = function(){
+            $http({
+                url: '/getContent',
+                method: 'GET'
+            })
+            .then(function(response){
+                console.log(response)
+                $scope.sss = response.data
+            })
+        },
         $scope.getCookie = function(){
             $http({
                 url: '/getCookie',
                 method: 'GET'
             })
             .then(function(response){
+                console.log(response)
                 $scope.sss = response.data
             })
         }

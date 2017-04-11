@@ -1,4 +1,4 @@
-var cosmetics = require('./cosmetic')
+var cosmetics = require('../database/cosmetic')
 var mongoose = require('mongoose')
 var dbconfig = require('../config/database')
 

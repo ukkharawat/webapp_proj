@@ -16,6 +16,7 @@ app.use(express.static(path.join(__dirname,'node_modules')))
 app.use('/' , index)
 app.use('/user' , user)
 
+// test cookie
 app.get('/getCookie' , function(req,res){
     res.json(req.cookies)
 })
