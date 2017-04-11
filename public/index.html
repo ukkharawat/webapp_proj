@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <script src="angular/angular.js"></script>
+        <script src="js/index.js"></script>
+    </head>
+    <body>
+        <div ng-app="listed" ng-controller="controller">
+            <form>
+                <input type="text" ng-model="search">
+                <button type="submit" ng-click="submit()">Search</button>
+            </form>
+            <h1> Your keyword : {{search}} </h1>
+            <div ng-repeat="d in data">
+                <h1>{{d.brand}}</h1>
+                <h1>{{d.type}}</h1>
+                <h1>{{d.name}}</h1>
+            </div>
+            <form>
+                brand : <input type="text" ng-model="brands"><br>
+                type : <input type="text" ng-model="types"><br>
+                name : <input type="text" ng-model="names"><br>
+                <button type="submit" ng-click="add()">Search</button>
+            </form>
+            <hr>
+            <form>
+                username : <input type="text" ng-model="username"><br>
+                password : <input type="password" ng-model="password"><br>
+                <button type="submit" ng-click="register()">register</button>
+            </form>
+            <hr>
+            login
+            <form>
+                username : <input type="text" ng-model="user"><br>
+                password : <input type="password" ng-model="pwd"><br>
+                <button type="submit" ng-click="login()">login</button>
+            </form>
+
+            <button type="submit" ng-click="getCookie()">get Cookie</button>
+            <h1>{{sss.username}}</h1>
+            <h1>{{sss.auth}}</h1>
+        </div>
+        
+    </body>
+</html>
