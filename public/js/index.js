@@ -34,13 +34,16 @@
                 url: '/user/login',
                 method: 'POST',
                 data: {
-                    username: $scope.user,
-                    password: $scope.pwd
+                    username: $scope.obj.user,
+                    password: $scope.obj.pwd
                 }
             })
             .then(function(response){
                 console.log(response)
-                $window.location.reload()
+                if(response.data.username){
+                    $scope.sss = response.data
+                    $scope.cc = true
+                }
             })
         },
         $scope.getContent = function(){
@@ -59,6 +62,8 @@
             })
             .then(function(response){
                 delete $scope.sss
+                delete $scope.obj
+                $scope.cc = false
             })
         },
         $scope.getCookie = function(){
@@ -70,13 +75,13 @@
                 console.log(response)
                 if(response.data.username){
                     $scope.sss = response.data
-                }else{
-                    $scope.sss = {
-                        username : "not login",
-                        auth : '-1'
-                    }
+                    $scope.cc = true
                 }
             })
+        },
+        $scope.obj = {
+            user : "",
+            pwd : ""
         }
     })
 })()

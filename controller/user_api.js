@@ -51,7 +51,7 @@ module.exports.login = function(req,res){
                 expires : new Date(Date.now() + 36000000)
                 , httpOnly: true 
             })
-            res.json({message: 'true'})
+            res.json({username: data.username , auth : data.authen })
             mongoose.disconnect()
         })
     })

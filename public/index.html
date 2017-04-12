@@ -23,12 +23,12 @@
             </form>
             <hr>
             login
-            <form>
-                username : <input type="text" ng-model="user"><br>
-                password : <input type="password" ng-model="pwd"><br>
+            <form ng-if="!cc">
+                username : <input type="text" ng-model="obj.user"><br>
+                password : <input type="password" ng-model="obj.pwd"><br>
                 <button type="submit" ng-click="login()">login</button>
             </form>
-            <button type="submit" ng-click="logout()">Logout</button>
+            <button ng-if="cc" type="submit" ng-click="logout()">Logout</button>
             <h1>{{sss.username}}</h1>
             <h1>{{sss.auth}}</h1>
         </div>
