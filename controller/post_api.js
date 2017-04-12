@@ -13,6 +13,7 @@ module.exports = {
     },
     getAllPost: function(req,res){
         mongoose.connect(dbconfig.url)
+        // user search product then they can see all post
         posts.find({cosmetic_name:req.query.cosmetic}).sort({date: -1}).exec(function(err , data){
             if(err) console.log(err)
             else res.json(data)
@@ -21,18 +22,28 @@ module.exports = {
     },
     getPost: function(req,res){
         mongoose.connect(dbconfig.url)
+        // for each
         posts.find({_id:req.query.id} , function(err , data){
             if(err) console.log(err)
-            else res.json(data)
+            else {
+                var isContain = false
+                for(var i = 0 ; i < data.like.who.length ; i++){
+                    if(data.like.who[i] == req.cookies.username){
+                        isContain = true
+                        break
+                    }
+                }
+                if(isContain){
+                    res.json({data:data , like:true})
+                }else{
+                    res.json({data:data , like:false})
+                }
+            }
             mongoose.disconnect()
         })
     },
     post: function(req,res){
         mongoose.connect(dbconfig.url)
-        if(req.cookies.username == undefined){
-            res.json({message: "You have to login before post"})
-            return
-        }
         var aaa = new cosmetics({
             poster: req.cookies.username ,
             cosmetic_name : req.body.cosmetic_name ,
@@ -56,10 +67,6 @@ module.exports = {
     },
     comment: function(req,res){
         mongoose.connect(dbconfig.url)
-        if(req.cookies.username == undefined){
-            res.json({message: "You have to login before comment"})
-            return
-        }
         posts.find({cosmetic_name:req.body.cosmetic_name , poster: req.body.poster , content: req.body.content}, function(err , data){
             if(!err){
                 data.comments.push({
@@ -74,19 +81,28 @@ module.exports = {
             }
         })
     },
+    getComment: function(req,res){
+        mongoose.connect(dbconfig.url)
+        posts.find({cosmetic_name:req.body.cosmetic_name 
+            , poster: req.body.poster 
+            , content: req.body.content}, function(err , data){
+            if(!err){
+                res.json(data)
+            }
+        })   
+    },
     like: function(req,res){
         mongoose.connect(dbconfig.url)
-        if(req.cookies.username == undefined){
-            res.json({message: "You have to login before like"})
-            return
-        }
-        posts.find({cosmetic_name:req.body.cosmetic_name , poster: req.body.poster , content: req.body.content}, function(err , data){
+        posts.find({cosmetic_name:req.body.cosmetic_name 
+            , poster: req.body.poster 
+            , content: req.body.content}, function(err , data){
             if(!err){
                 var isContain = false
                 for(var i = 0 ; i < data.like.who.length ; i++){
                     if(data.like.who[i] == req.cookies.username){
                         isContain = true
                         var index = i
+                        break
                     }
                 }
                 if(isContain){

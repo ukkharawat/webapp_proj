@@ -16,9 +16,9 @@ module.exports.register = function(req,res){
             })
             user.save(function(err , data){
                 if(err) 
-                    console.log(err)
+                    res.json({message:'false'})
                 else 
-                    console.log(data)
+                    res.json({message:'success'})
                 mongoose.disconnect()
             })
         })
@@ -29,10 +29,20 @@ module.exports.register = function(req,res){
 
 module.exports.login = function(req,res){
     mongoose.connect(dbconfig.url)
+    if(!req.body.username || !req.body.password){
+        res.json({message: 'false'})
+        return
+    }
     users.findOne({username: req.body.username} , function(err,data){
-        if(err) return false
+        if(err){
+            res.json({message: "false"})
+            return
+        }
         bcrypt.compare(req.body.password , data.password , function(err , same){
-            if(err) return false
+            if(err){
+                res.json({message: "false"})
+                return
+            }
             res.cookie('username' , data.username , {
                 expires : new Date(Date.now() + 36000000)
                 , httpOnly: true 
@@ -41,7 +51,7 @@ module.exports.login = function(req,res){
                 expires : new Date(Date.now() + 36000000)
                 , httpOnly: true 
             })
-            res.json({message: "success"})
+            res.json({message: 'true'})
             mongoose.disconnect()
         })
     })
