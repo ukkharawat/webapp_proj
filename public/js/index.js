@@ -1,11 +1,11 @@
 (function(){
     angular.module('listed' , [])
-    .controller('controller' , function($scope , $http){
+    .controller('controller' , function($scope , $http , $window){
         $scope.submit = function(){
 	        $http({
                 url: '/search', 
                 method: "GET",
-                params: {id: $scope.search}
+                params: {search: $scope.search}
             })
 	        .then(function(response) {
 	            if(response.data.length != 0){
@@ -17,17 +17,6 @@
                 }
 	        })
 	    },
-        $scope.add = function(){
-            $http({
-                url: '/add',
-                method: 'POST',
-                data: {
-                    brand: $scope.brands,
-                    type: $scope.types,
-                    name: $scope.names
-                }
-            })
-        },
         $scope.register = function(){
             $http({
                 url: '/user/register',
@@ -36,6 +25,8 @@
                     username: $scope.username,
                     password: $scope.password
                 }
+            }).then(function(response){
+                console.log(response)
             })
         },
         $scope.login = function(){
@@ -49,16 +40,25 @@
             })
             .then(function(response){
                 console.log(response)
+                $window.location.reload()
             })
         },
         $scope.getContent = function(){
             $http({
-                url: '/getContent',
+                url: '/getNewPost',
                 method: 'GET'
             })
             .then(function(response){
                 console.log(response)
-                $scope.sss = response.data
+            })
+        },
+        $scope.logout = function(){
+            $http({
+                url: '/logout',
+                method: 'GET'
+            })
+            .then(function(response){
+                delete $scope.sss
             })
         },
         $scope.getCookie = function(){
@@ -68,7 +68,14 @@
             })
             .then(function(response){
                 console.log(response)
-                $scope.sss = response.data
+                if(response.data.username){
+                    $scope.sss = response.data
+                }else{
+                    $scope.sss = {
+                        username : "not login",
+                        auth : '-1'
+                    }
+                }
             })
         }
     })

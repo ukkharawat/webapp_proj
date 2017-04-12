@@ -13,10 +13,6 @@ var user = mongoose.Schema({
     like: {
         count: Number,
         who: [] // collect who like it
-    },
-    dislike: {
-        count: Number,
-        who: []
     }
 })
 

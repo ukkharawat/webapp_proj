@@ -4,7 +4,7 @@
         <script src="js/index.js"></script>
     </head>
     <body>
-        <div ng-app="listed" ng-controller="controller" ng-init="getContent()">
+        <div ng-app="listed" ng-controller="controller" ng-init="getCookie()">
             <form>
                 <input type="text" ng-model="search" ng-change="submit()">
             </form>
@@ -15,12 +15,6 @@
                 <h1>{{d.type}}</h1>
                 <h1>{{d.name}}</h1>
             </div>
-            <form>
-                brand : <input type="text" ng-model="brands"><br>
-                type : <input type="text" ng-model="types"><br>
-                name : <input type="text" ng-model="names"><br>
-                <button type="submit" ng-click="add()">Search</button>
-            </form>
             <hr>
             <form>
                 username : <input type="text" ng-model="username"><br>
@@ -34,8 +28,7 @@
                 password : <input type="password" ng-model="pwd"><br>
                 <button type="submit" ng-click="login()">login</button>
             </form>
-
-            <button type="submit" ng-click="getCookie()">get Cookie</button>
+            <button type="submit" ng-click="logout()">Logout</button>
             <h1>{{sss.username}}</h1>
             <h1>{{sss.auth}}</h1>
         </div>
