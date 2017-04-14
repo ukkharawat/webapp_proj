@@ -1,19 +1,22 @@
 var mongoose = require('mongoose')
+var autoIncrement = require('mongoose-sequence')
 
-var user = mongoose.Schema({
-    poster: String,
-    cosmetic_name : String,
+var post = mongoose.Schema({
+    _id: Number,
+    poster: {type: String , ref: 'User'},
+    cosmetic_name : {type: String , ref: 'Cosmetic'},
     date: Date,
     content: String, //header
     comments: [{
-        user: String, // who comment
+        user: {type: String , ref: 'User'}, // who comment
         comment: String, // comment what?
         date_comment: Date
     }],
     like: {
         count: Number,
-        who: [] // collect who like it
+        who: [{type: String , ref: 'User'}] // collect who like it
     }
-})
+}, {_id: false})
 
-module.exports = mongoose.model('Post', user)
+post.plugin(autoIncrement, {inc_field: '_id'})
+module.exports = mongoose.model('Post', post)

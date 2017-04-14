@@ -1,4 +1,5 @@
 var mongoose = require('mongoose')
+var autoIncrement = require('mongoose-sequence')
 
 var cosmetic = mongoose.Schema({
     brand: String,
@@ -7,5 +8,7 @@ var cosmetic = mongoose.Schema({
     name: {type: String , index:true},
     detail: String
 })
+
+cosmetic.plugin(autoIncrement, {inc_field: 'id'})
 
 module.exports = mongoose.model('Cosmetic', cosmetic)
