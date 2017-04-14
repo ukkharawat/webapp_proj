@@ -82,6 +82,21 @@
         $scope.obj = {
             user : "",
             pwd : ""
+        },
+        $scope.add = function(){
+            $http({
+                url: '/admin/addCosmetic',
+                method: 'POST',
+                data: {
+                    brand: $scope.brand,
+                    collections: $scope.collection,
+                    type: $scope.type,
+                    name: $scope.name,
+                    detail : "Ccc"
+                }
+            }).then(function(response){
+                console.log(response)
+            })
         }
     })
 })()
