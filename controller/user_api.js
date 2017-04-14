@@ -4,6 +4,11 @@ var bcrypt = require('bcrypt')
 var dbconfig = require('../config/database')
 var salt_factor = 10
 
+/*
+    Register
+    Login
+*/
+
 module.exports.register = function(req,res){
     mongoose.connect(dbconfig.url) 
     bcrypt.genSalt(salt_factor , function(err , salt){

@@ -1,7 +1,15 @@
 var posts = require('../database/post')
 var mongoose = require('mongoose')
 var dbconfig = require('../config/database')
-
+/*
+    getNewPost ==> limit on 10
+    getAllPost
+    getPost
+    post
+    comment
+    getComment
+    like
+*/
 module.exports = {
     getNewPost: function(req,res){
         mongoose.connect(dbconfig.url)
@@ -87,7 +95,7 @@ module.exports = {
             , poster: req.body.poster 
             , content: req.body.content}, function(err , data){
             if(!err){
-                res.json(data)
+                res.json(data.sort({data_comment: -1}))
             }
         })   
     },
