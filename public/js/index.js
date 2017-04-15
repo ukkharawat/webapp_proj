@@ -8,12 +8,15 @@
                 params: {search: $scope.search}
             })
 	        .then(function(response) {
-	            if(response.data.length != 0){
+                if(response.data.message){
+                    $scope.message = response.data.message
+                    delete $scope.data
+                }else{
                     $scope.data = response.data
                     delete $scope.message
-                }else{
-                    delete $scope.data
-                    $scope.message = "Not Found"
+                }
+                if($scope.search.length == 0){
+                    delete $scope.message
                 }
 	        })
 	    },
@@ -41,7 +44,7 @@
             .then(function(response){
                 console.log(response)
                 if(response.data.username){
-                    $scope.sss = response.data
+                    $scope.sss = response.data.username
                     $scope.cc = true
                 }
             })
@@ -62,7 +65,10 @@
             })
             .then(function(response){
                 delete $scope.sss
-                delete $scope.obj
+                $scope.obj = {
+                    user : "",
+                    pwd : ""
+                }
                 $scope.cc = false
             })
         },
@@ -74,7 +80,7 @@
             .then(function(response){
                 console.log(response)
                 if(response.data.username){
-                    $scope.sss = response.data
+                    $scope.sss = response.data.username
                     $scope.cc = true
                 }
             })
