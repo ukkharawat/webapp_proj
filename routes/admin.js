@@ -6,7 +6,7 @@ function checkAuth(req,res,next){
     if(req.cookies.auth == 1){
         next()
     }else{
-        res.json({message: "u need 2 loign "})
+        res.json({message: "You don't have permission"})
     }
 }
 routes.get('/' , checkAuth , function(req,res){

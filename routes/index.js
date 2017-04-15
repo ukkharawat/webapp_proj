@@ -7,7 +7,7 @@ function checkAuthen(req,res,next){
     if(req.cookies.username && res.cookies.authen){
         next()
     }else{
-        res.json({message: 'false'})
+        res.json({message: 'You have to login before like , comment or post'})
     }
 }
 
