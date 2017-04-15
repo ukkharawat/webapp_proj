@@ -37,15 +37,11 @@ module.exports = {
                 var isContain = false
                 for(var i = 0 ; i < data.like.who.length ; i++){
                     if(data.like.who[i] == req.cookies.username){
-                        isContain = true
+                        isContain = !isContain
                         break
                     }
                 }
-                if(isContain){
-                    res.json({data:data , like:true})
-                }else{
-                    res.json({data:data , like:false})
-                }
+                res.json({data:data , like:isContain})
             }
             mongoose.disconnect()
         })
@@ -61,10 +57,6 @@ module.exports = {
             like: {
                 count: 0,
                 who: [] // collect who like it
-            },
-            dislike: {
-                count: 0,
-                who: []
             }
         })
         aaa.save(function(err , data){
@@ -95,7 +87,7 @@ module.exports = {
             , poster: req.body.poster 
             , content: req.body.content}, function(err , data){
             if(!err){
-                res.json(data.sort({data_comment: -1}))
+                res.json(data.sort({date_comment: -1}))
             }
         })   
     },

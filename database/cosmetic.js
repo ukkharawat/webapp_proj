@@ -5,7 +5,7 @@ var cosmetic = mongoose.Schema({
     brand: String,
     type: String,
     collections: String,
-    name: {type: String , index:true},
+    name: {type: String , unique: true , index:true},
     detail: String
 })
 

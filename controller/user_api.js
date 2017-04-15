@@ -10,10 +10,13 @@ var salt_factor = 10
 */
 
 module.exports.register = function(req,res){
-    mongoose.connect(dbconfig.url) 
+    if(!req.body.username || !req.body.password){
+        res.json({message: 'Enter username and password'})
+        return
+    }
     bcrypt.genSalt(salt_factor , function(err , salt){
-        if(err) return err
         bcrypt.hash(req.body.password , salt , function(err , hash){
+            mongoose.connect(dbconfig.url)
             var user = new users({
                     username : req.body.username,
                     password : hash,
@@ -21,43 +24,38 @@ module.exports.register = function(req,res){
             })
             user.save(function(err , data){
                 if(err) 
-                    res.json({message:'false'})
+                    res.json({message:'This account is exists'})
                 else 
                     res.json({message:'success'})
                 mongoose.disconnect()
             })
         })
-
     })
     
 }
 
 module.exports.login = function(req,res){
-    mongoose.connect(dbconfig.url)
     if(!req.body.username || !req.body.password){
-        res.json({message: 'false'})
+        res.json({message: 'Enter username and password'})
         return
     }
+    mongoose.connect(dbconfig.url)
     users.findOne({username: req.body.username} , function(err,data){
-        if(err){
-            res.json({message: "false"})
-            return
+        if(data != null){
+            bcrypt.compare(req.body.password , data.password , function(err , same){
+                res.cookie('username' , data.username , {
+                    expires : new Date(Date.now() + 36000000)
+                    , httpOnly: true 
+                })
+                res.cookie('auth' , data.authen , {
+                    expires : new Date(Date.now() + 36000000)
+                    , httpOnly: true
+                })
+                res.json({username: data.username})
+            })
+        }else{
+            res.json({message: "This account isn't exists"})
         }
-        bcrypt.compare(req.body.password , data.password , function(err , same){
-            if(err){
-                res.json({message: "false"})
-                return
-            }
-            res.cookie('username' , data.username , {
-                expires : new Date(Date.now() + 36000000)
-                , httpOnly: true 
-            })
-            res.cookie('auth' , data.authen , {
-                expires : new Date(Date.now() + 36000000)
-                , httpOnly: true 
-            })
-            res.json({username: data.username , auth : data.authen })
-            mongoose.disconnect()
-        })
+        mongoose.disconnect()
     })
 }
