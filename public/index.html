@@ -11,9 +11,11 @@
             <h1> Your keyword : {{search}} </h1>
             <h1>{{message}}</h1>
             <div ng-repeat="d in data">
-                <h1>{{d.brand}}</h1>
-                <h1>{{d.type}}</h1>
-                <h1>{{d.name}}</h1>
+                <h6>{{d.brand}}</h6>
+                <h6>{{d.type}}</h6>
+                <h6>{{d.name}}</h6>
+                <h6>{{d.collections}}</h6>
+                <h6>{{d.detail}}</h6>
             </div>
             <hr>
             <form>
@@ -37,6 +39,13 @@
                 name : <input type="text" ng-model="name"><br>
                 <button type="submit" ng-click="add()">add</button>
             </form>
+            <hr>
+            <form>
+                name : <input type="text" ng-model="cos_name"><br>
+                content : <input type="text" ng-model="content"><br>
+                <button type="submit" ng-click="post()">add</button>
+            </form>
+            <button type="submit" ng-click="like()">like</button>
         </div>
         
     </body>

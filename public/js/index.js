@@ -29,7 +29,7 @@
                     password: $scope.password
                 }
             }).then(function(response){
-                console.log(response)
+                $window.location.href = "/"
             })
         },
         $scope.login = function(){
@@ -89,6 +89,7 @@
             user : "",
             pwd : ""
         },
+        $scope.search = "",
         $scope.add = function(){
             $http({
                 url: '/admin/addCosmetic',
@@ -99,6 +100,29 @@
                     type: $scope.type,
                     name: $scope.name,
                     detail : "Ccc"
+                }
+            }).then(function(response){
+                console.log(response)
+            })
+        },
+        $scope.post = function(){
+            $http({
+                url: '/post',
+                method: 'POST',
+                data: {
+                    cosmetic_name : $scope.cos_name,
+                    content : $scope.content
+                }
+            }).then(function(response){
+                console.log(response)
+            })
+        },
+        $scope.like = function(){
+            $http({
+                url: '/like', 
+                method: "GET",
+                params: {
+                    id: 1
                 }
             }).then(function(response){
                 console.log(response)
