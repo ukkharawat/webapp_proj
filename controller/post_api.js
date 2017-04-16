@@ -1,6 +1,7 @@
 var posts = require('../database/post')
 var mongoose = require('mongoose')
 var dbconfig = require('../config/database')
+var fc = require('../config/function')
 /*
     getNewPost ==> limit on 10
     getAllPost
@@ -47,12 +48,16 @@ module.exports = {
         })
     },
     post: function(req,res){
+        if(!req.body.cosmetic_name || !req.body.content){
+            res.json({message: "Please fill every field"})
+            return
+        }
         mongoose.connect(dbconfig.url)
-        var aaa = new cosmetics({
-            poster: req.cookies.username ,
-            cosmetic_name : req.body.cosmetic_name ,
+        var aaa = new posts({
+            poster: String(req.cookies.username) ,
+            cosmetic_name : fc.stringForm(String(req.body.cosmetic_name)) ,
             date: new Date() ,
-            content: req.body.content, //header
+            content: String(req.body.content), //header
             comments: [],
             like: {
                 count: 0,
@@ -61,13 +66,17 @@ module.exports = {
         })
         aaa.save(function(err , data){
             if(err) console.log(err)
-            else console.log(data)
+            else res.json(data)
             mongoose.disconnect()
         })
     },
     comment: function(req,res){
+        if(!req.body.comment){
+            res.json({message: "Please fill every field"})
+            return
+        }
         mongoose.connect(dbconfig.url)
-        posts.find({cosmetic_name:req.body.cosmetic_name , poster: req.body.poster , content: req.body.content}, function(err , data){
+        posts.find({_id : req.body.id }, function(err , data){
             if(!err){
                 data.comments.push({
                     user: req.cookie.username,
@@ -77,25 +86,24 @@ module.exports = {
                 data.save(function(err , data){
                     if(!err)
                         res.json({message: "success"}) 
+                    mongoose.disconnect()
                 })
             }
         })
     },
     getComment: function(req,res){
         mongoose.connect(dbconfig.url)
-        posts.find({cosmetic_name:req.body.cosmetic_name 
-            , poster: req.body.poster 
-            , content: req.body.content}, function(err , data){
+        posts.find({_id : req.body.id }, function(err , data){
             if(!err){
                 res.json(data.sort({date_comment: -1}))
+            mongoose.disconnect()
             }
         })   
     },
     like: function(req,res){
         mongoose.connect(dbconfig.url)
-        posts.find({cosmetic_name:req.body.cosmetic_name 
-            , poster: req.body.poster 
-            , content: req.body.content}, function(err , data){
+        posts.find({_id : req.query.id }, function(err , datas){
+            var data = datas[0]
             if(!err){
                 var isContain = false
                 for(var i = 0 ; i < data.like.who.length ; i++){
@@ -113,8 +121,8 @@ module.exports = {
                     data.like.who.push(req.cookies.username)
                 }
                 data.save(function(err , data){
-                    if(!err)
-                        res.json({message: "success"}) 
+                    res.json({message: "success"})
+                    mongoose.disconnect()
                 })
             }
         })
