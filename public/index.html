@@ -4,7 +4,7 @@
         <script src="js/index.js"></script>
     </head>
     <body>
-        <div ng-app="listed" ng-controller="controller" ng-init="getCookie();getPost()">
+        <div ng-app="listed" ng-controller="controller" ng-init="getCookie();getCosmetics()">
             <form>
                 <input type="text" ng-model="search" ng-change="submit()">
             </form>
@@ -17,6 +17,15 @@
                 <h6>{{d.collections}}</h6>
                 <h6>{{d.detail}}</h6>
             </div>
+            <select ng-options="ob as ob.name for ob in objs"  ng-model="th" ng-change="setData()"></select>
+            <form>
+                brand : <input type="text" ng-model="th.brand"><br>
+                type : <input type="text" ng-model="th.type"><br>
+                name : <input type="text" ng-model="th.name"><br>
+                collections : <input type="text" ng-model="th.collections"><br>
+                detail : <input type="text" ng-model="th.detail"><br>
+                <button type="submit" ng-click="edit()">EDIT</button>
+            </form>
             <hr>
             <form>
                 username : <input type="text" ng-model="username"><br>
@@ -35,7 +44,7 @@
             <form>
                 brand : <input type="text" ng-model="brand"><br>
                 type : <input type="text" ng-model="type"><br>
-                collection : <input type="text" ng-model="collection"><br>
+                collections : <input type="text" ng-model="collections"><br>
                 name : <input type="text" ng-model="name"><br>
                 <button type="submit" ng-click="add()">add</button>
             </form>
