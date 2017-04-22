@@ -72,13 +72,24 @@
                 $scope.cc = false
             })
         },
+        $scope.getPost = function(){
+            $http({
+                url: '/getPost',
+                method: 'GET',
+                params : {
+                    id : 1
+                }
+            })
+            .then(function(response){
+                console.log(response)
+            })
+        },
         $scope.getCookie = function(){
             $http({
                 url: '/getCookie',
                 method: 'GET'
             })
             .then(function(response){
-                console.log(response)
                 if(response.data.username){
                     $scope.sss = response.data.username
                     $scope.cc = true
@@ -120,6 +131,17 @@
         $scope.like = function(){
             $http({
                 url: '/like', 
+                method: "GET",
+                params: {
+                    id: 1
+                }
+            }).then(function(response){
+                console.log(response)
+            })
+        },
+        $scope.getComment = function(){
+            $http({
+                url: '/getComment', 
                 method: "GET",
                 params: {
                     id: 1

@@ -4,7 +4,7 @@
         <script src="js/index.js"></script>
     </head>
     <body>
-        <div ng-app="listed" ng-controller="controller" ng-init="getCookie()">
+        <div ng-app="listed" ng-controller="controller" ng-init="getCookie();getPost()">
             <form>
                 <input type="text" ng-model="search" ng-change="submit()">
             </form>
@@ -46,6 +46,10 @@
                 <button type="submit" ng-click="post()">add</button>
             </form>
             <button type="submit" ng-click="like()">like</button>
+            <hr>
+            <form>
+                <button type="submit" ng-click="getComment()">comment</button>
+            </form>
         </div>
         
     </body>

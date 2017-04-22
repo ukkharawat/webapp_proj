@@ -23,6 +23,8 @@ routes.get('/getAllPost' , postController.getAllPost)
 
 routes.get('/getPost' , postController.getPost)
 
+routes.get('/getComment' , postController.getComment)
+
 routes.get('/like' , checkAuthen , postController.like)
 
 routes.post('/post' , checkAuthen , postController.post)
