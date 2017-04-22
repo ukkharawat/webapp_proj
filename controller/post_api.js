@@ -36,13 +36,13 @@ module.exports = {
             if(err) console.log(err)
             else {
                 var isContain = false
-                for(var i = 0 ; i < data.like.who.length ; i++){
-                    if(data.like.who[i] == req.cookies.username){
+                for(var i = 0 ; i < data[0].like.who.length ; i++){
+                    if(data[0].like.who[i] == req.cookies.username){
                         isContain = !isContain
                         break
                     }
                 }
-                res.json({data:data , like:isContain})
+                res.json({data:data[0] , like:isContain})
             }
             mongoose.disconnect()
         })
@@ -78,12 +78,12 @@ module.exports = {
         mongoose.connect(dbconfig.url)
         posts.find({_id : req.body.id }, function(err , data){
             if(!err){
-                data.comments.push({
-                    user: req.cookie.username,
+                data[0].comments.push({
+                    user: req.cookies.username,
                     comment: req.body.comment,
                     date_comment: new Date()
                 })
-                data.save(function(err , data){
+                data[0].save(function(err , data){
                     if(!err)
                         res.json({message: "success"}) 
                     mongoose.disconnect()
@@ -93,9 +93,9 @@ module.exports = {
     },
     getComment: function(req,res){
         mongoose.connect(dbconfig.url)
-        posts.find({_id : req.body.id }, function(err , data){
+        posts.find({_id : req.query.id }, function(err , data){
             if(!err){
-                res.json(data.sort({date_comment: -1}))
+                res.json(data[0].comments)
             mongoose.disconnect()
             }
         })   
