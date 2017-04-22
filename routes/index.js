@@ -15,7 +15,7 @@ routes.get('/',function(req,res){
     res.sendFile(path.join(__dirname , '../public/index.html'))
 })
 
-routes.get('/search',cosmeticController.getCosmetics)
+routes.get('/getCosmetics',cosmeticController.getCosmetics)
 
 routes.get('/getNewPost' , postController.getNewPost)
 

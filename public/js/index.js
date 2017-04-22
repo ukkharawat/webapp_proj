@@ -2,24 +2,34 @@
     angular.module('listed' , [])
     .controller('controller' , function($scope , $http , $window){
         $scope.submit = function(){
-	        $http({
-                url: '/search', 
-                method: "GET",
-                params: {search: $scope.search}
-            })
-	        .then(function(response) {
-                if(response.data.message){
-                    $scope.message = response.data.message
-                    delete $scope.data
-                }else{
-                    $scope.data = response.data
-                    delete $scope.message
+            if($scope.search){
+                $scope.data = []
+                searchBigger = $scope.search.toUpperCase()
+                for(i = 0 ; i < $scope.objs.length ; i++){
+                    if($scope.objs[i].brand.toUpperCase().includes(searchBigger) 
+                    || $scope.objs[i].type.toUpperCase().includes(searchBigger)  
+                    || $scope.objs[i].name.toUpperCase().includes(searchBigger)  
+                    || $scope.objs[i].brand.toUpperCase().includes(searchBigger)   ){
+                        $scope.data.push($scope.objs[i])
+                    }
                 }
-                if($scope.search.length == 0){
-                    delete $scope.message
-                }
-	        })
+            }else{
+                $scope.data = []
+            }
+            
 	    },
+        $scope.getCosmetics = function(){
+            $http({
+                url: '/getCosmetics', 
+                method: "GET"
+            })
+            .then(function(response){
+                console.log(response)
+                
+                $scope.objs = response.data
+                
+            })
+        },
         $scope.register = function(){
             $http({
                 url: '/user/register',
@@ -29,7 +39,7 @@
                     password: $scope.password
                 }
             }).then(function(response){
-                $window.location.href = "/"
+                console.log(response)
             })
         },
         $scope.login = function(){
@@ -107,7 +117,7 @@
                 method: 'POST',
                 data: {
                     brand: $scope.brand,
-                    collections: $scope.collection,
+                    collections: $scope.collections,
                     type: $scope.type,
                     name: $scope.name,
                     detail : "Ccc"
@@ -147,6 +157,23 @@
                     id: 1
                 }
             }).then(function(response){
+                console.log(response)
+            })
+        },
+        $scope.edit = function(){
+            $http({
+                url: '/admin/editCosmetic',
+                method: 'POST',
+                data: {
+                    name: $scope.th.name,
+                    type: $scope.th.type,
+                    collections: $scope.th.collections,
+                    brand: $scope.th.brand,
+                    detail: $scope.th.detail,
+                    id: $scope.th.id
+                }
+            })
+            .then(function(response){
                 console.log(response)
             })
         }

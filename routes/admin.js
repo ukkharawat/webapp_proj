@@ -13,7 +13,10 @@ routes.get('/' , checkAuth , function(req,res){
     res.sendFile(path.join(__dirname , '../public/admin.html'))
 })
 
+routes.get('/getCosmetics',cosmeticController.getCosmetics)
+
 routes.post('/addCosmetic',checkAuth,cosmeticController.addCosmetics)
 
+routes.post('/editCosmetic',checkAuth,cosmeticController.editCosmetics)
 
 module.exports = routes
