@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
 
 var user = mongoose.Schema({
-    username: {type: String , unique:true , index:true},
+    username: { type: String, index: { unique: true }},
     password: String,
     authen: Number
 })
