@@ -3,11 +3,13 @@ var bodyParser = require('body-parser')
 var path = require('path')
 var cookieParser = require('cookie-parser')
 var app = express()
+var cors = require('cors')
  
 var indexs = require('./routes/index')
 var users = require('./routes/user')
 var admins = require('./routes/admin')
 
+app.use(cors())
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
