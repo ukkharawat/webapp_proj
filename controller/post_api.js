@@ -6,9 +6,9 @@ var fc = require('../config/function')
     getNewPost ==> limit on 10
     getAllPost
     getPost
+    getOwnPost
     post
     comment
-    getComment
     like
 
     unfinished
@@ -87,15 +87,6 @@ module.exports = {
             }
         })
     },
-    getComment: function(req,res){
-        mongoose.connect(dbconfig.url)
-        posts.find({_id : req.query.id }, function(err , data){
-            if(!err){
-                res.json(data[0].comments)
-            mongoose.disconnect()
-            }
-        })   
-    },
     like: function(req,res){
         mongoose.connect(dbconfig.url)
         posts.find({_id : req.query.id }, function(err , datas){
@@ -121,6 +112,16 @@ module.exports = {
                     mongoose.disconnect()
                 })
             }
+        })
+    },
+    getOwnPost : function(req,res){
+        mongoose.connect(dbconfig.url)
+        posts.find({poster:req.cookies.username} , function(err , data){
+            if(err) console.log(err)
+            else {
+                res.json(data)
+            }
+            mongoose.disconnect()
         })
     }
 }
