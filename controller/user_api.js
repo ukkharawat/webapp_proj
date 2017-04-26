@@ -15,9 +15,11 @@ module.exports.register = function(req,res){
         bcrypt.hash(req.body.password , salt , function(err , hash){
             mongoose.connect(dbconfig.url)
             var user = new users({
+                    displayname : req.body.displayname,
                     username : req.body.username,
                     password : hash,
-                    authen: 0
+                    authen: 0,
+                    wishlist : []
             })
             user.save(function(err , data){
                 if(err) 
@@ -37,15 +39,16 @@ module.exports.login = function(req,res){
         if(data != null){
             bcrypt.compare(req.body.password , data.password , function(err , same){
                 if(same){
+                    res.cookie('displayname' , data.displayname , {
+                        expires : new Date(Date.now() + 36000000), httpOnly: true 
+                    })
                     res.cookie('username' , data.username , {
-                        expires : new Date(Date.now() + 36000000)
-                        , httpOnly: true 
+                        expires : new Date(Date.now() + 36000000), httpOnly: true 
                     })
                     res.cookie('auth' , data.authen , {
-                        expires : new Date(Date.now() + 36000000)
-                        , httpOnly: true
+                        expires : new Date(Date.now() + 36000000), httpOnly: true
                     })
-                    res.json({username: data.username})
+                    res.json({username: data.displayname})
                 }else{
                     res.json({message: "Username and Password aren't match"})
                 }
