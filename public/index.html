@@ -32,6 +32,11 @@
                 password : <input type="password" ng-model="password"><br>
                 <button type="submit" ng-click="register()">register</button>
             </form>
+            <form>
+                oldpassword : <input type="password" ng-model="oldpassword"><br>
+                newpassword : <input type="password" ng-model="newpassword"><br>
+                <button type="submit" ng-click="changePassword()">changePassword</button>
+            </form>
             <hr>
             login
             <form ng-if="!cc">

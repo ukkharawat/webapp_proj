@@ -176,6 +176,18 @@
             .then(function(response){
                 console.log(response)
             })
+        },
+        $scope.changePassword = function(){
+            $http({
+                url: '/user/changePassword',
+                method: 'POST',
+                data: {
+                    oldpassword: $scope.oldpassword,
+                    newpassword: $scope.newpassword
+                }
+            }).then(function(response){
+                console.log(response)
+            })
         }
     })
 })()

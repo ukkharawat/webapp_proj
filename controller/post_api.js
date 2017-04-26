@@ -10,6 +10,10 @@ var fc = require('../config/function')
     comment
     getComment
     like
+
+    unfinished
+        editPost
+        editComment
 */
 module.exports = {
     getNewPost: function(req,res){
