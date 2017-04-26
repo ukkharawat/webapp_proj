@@ -73,6 +73,7 @@ module.exports.changePassword = function(req,res){
                                 }else{
                                     res.json({message : "incomplete"})
                                 }
+                                mongoose.disconnect()
                             })
                         })
                     })
