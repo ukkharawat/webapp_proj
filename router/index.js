@@ -23,12 +23,12 @@ routes.get('/getAllPost' , postController.getAllPost)
 
 routes.get('/getPost' , postController.getPost)
 
-routes.get('/getComment' , postController.getComment)
-
 routes.get('/like' , checkAuthen , postController.like)
 
 routes.post('/post' , checkAuthen , postController.post)
 
 routes.post('/comment' , checkAuthen , postController.comment)
+
+routes.get('/getOwnPost' , checkAuthen , postController.getOwnPost)
 
 module.exports = routes

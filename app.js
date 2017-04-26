@@ -5,9 +5,9 @@ var cookieParser = require('cookie-parser')
 var app = express()
 var cors = require('cors')
  
-var indexs = require('./routes/index')
-var users = require('./routes/user')
-var admins = require('./routes/admin')
+var indexs = require('./router/index')
+var users = require('./router/user')
+var admins = require('./router/admin')
 
 app.use(cors())
 app.use(cookieParser())
