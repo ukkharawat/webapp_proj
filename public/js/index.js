@@ -7,7 +7,7 @@
                 searchBigger = $scope.search.toUpperCase()
                 for(i = 0 ; i < $scope.objs.length ; i++){
                     if($scope.objs[i].brand.toUpperCase().includes(searchBigger) 
-                    || $scope.objs[i].type.toUpperCase().includes(searchBigger)  
+                    || $scope.objs[i].category.toUpperCase().includes(searchBigger)  
                     || $scope.objs[i].name.toUpperCase().includes(searchBigger)  
                     || $scope.objs[i].brand.toUpperCase().includes(searchBigger)   ){
                         $scope.data.push($scope.objs[i])
@@ -118,7 +118,7 @@
                 data: {
                     brand: $scope.brand,
                     collections: $scope.collections,
-                    type: $scope.type,
+                    category: $scope.category,
                     name: $scope.name,
                     detail : "Ccc"
                 }
@@ -149,24 +149,13 @@
                 console.log(response)
             })
         },
-        $scope.getComment = function(){
-            $http({
-                url: '/getComment', 
-                method: "GET",
-                params: {
-                    id: 1
-                }
-            }).then(function(response){
-                console.log(response)
-            })
-        },
         $scope.edit = function(){
             $http({
                 url: '/admin/editCosmetic',
                 method: 'POST',
                 data: {
                     name: $scope.th.name,
-                    type: $scope.th.type,
+                    category: $scope.th.category,
                     collections: $scope.th.collections,
                     brand: $scope.th.brand,
                     detail: $scope.th.detail,
@@ -174,6 +163,14 @@
                 }
             })
             .then(function(response){
+                console.log(response)
+            })
+        },
+        $scope.getOwnPost = function(){
+            $http({
+                url: '/getOwnPost',
+                method: 'GET'
+            }).then(function(response){
                 console.log(response)
             })
         },

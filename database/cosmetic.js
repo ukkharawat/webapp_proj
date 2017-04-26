@@ -3,7 +3,7 @@ var autoIncrement = require('mongoose-sequence')
 
 var cosmetic = mongoose.Schema({
     brand: String,
-    type: String,
+    category: String,
     collections: String,
     name: {type: String , unique: true , index:true},
     detail: String
