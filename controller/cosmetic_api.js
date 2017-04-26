@@ -18,9 +18,6 @@ module.exports.getCosmetics = function(req,res){
 }
 
 module.exports.editCosmetics = function(req,res){
-	if(!req.body.brand || !req.body.type || !req.body.collections || !req.body.name || !req.body.detail){
-		res.json({message: "Every field can't be empty"})
-	}
 	console.log(req.body)
 	if(req.cookies.auth == 1){
 		var brand = fc.stringForm(String(req.body.brand))
@@ -46,9 +43,6 @@ module.exports.editCosmetics = function(req,res){
 }
 
 module.exports.addCosmetics = function(req,res){
-	if(!req.body.brand || !req.body.type || !req.body.collections || !req.body.name || !req.body.detail){
-		res.json({message: "Every field can't be empty"})
-	}
 	if(req.cookies.auth == 1){
 		var brand = fc.stringForm(String(req.body.brand))
 		var type = fc.stringForm(String(req.body.type))

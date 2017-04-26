@@ -19,11 +19,11 @@
             </div>
             <select ng-options="ob as ob.name for ob in objs"  ng-model="th" ng-change="setData()"></select>
             <form>
-                brand : <input type="text" ng-model="th.brand"><br>
-                type : <input type="text" ng-model="th.type"><br>
-                name : <input type="text" ng-model="th.name"><br>
-                collections : <input type="text" ng-model="th.collections"><br>
-                detail : <input type="text" ng-model="th.detail"><br>
+                brand : <input type="text" ng-model="th.brand" required><br>
+                type : <input type="text" ng-model="th.type" required><br>
+                name : <input type="text" ng-model="th.name" required><br>
+                collections : <input type="text" ng-model="th.collections" required><br>
+                detail : <input type="text" ng-model="th.detail" required><br>
                 <button type="submit" ng-click="edit()">EDIT</button>
             </form>
             <hr>

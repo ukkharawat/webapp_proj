@@ -52,10 +52,6 @@ module.exports = {
         })
     },
     post: function(req,res){
-        if(!req.body.cosmetic_name || !req.body.content){
-            res.json({message: "Please fill every field"})
-            return
-        }
         mongoose.connect(dbconfig.url)
         var aaa = new posts({
             poster: String(req.cookies.username) ,
@@ -75,10 +71,6 @@ module.exports = {
         })
     },
     comment: function(req,res){
-        if(!req.body.comment){
-            res.json({message: "Please fill every field"})
-            return
-        }
         mongoose.connect(dbconfig.url)
         posts.find({_id : req.body.id }, function(err , data){
             if(!err){
