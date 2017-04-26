@@ -33,18 +33,20 @@ module.exports.editCosmetics = function(req,res){
 	if(req.cookies.auth == 1){
 		var brand = fc.stringForm(String(req.body.brand))
 		var category = fc.stringForm(String(req.body.category))
+		var color = fc.stringForm(String(req.body.color))
 		var collections = fc.stringForm(String(req.body.collections))
 		var name = fc.stringForm(String(req.body.name))
 		mongoose.connect(dbconfig.url)
-		cosmetics.find({id:req.body.id} , function(err,data){
+		cosmetics.findOne({id:req.body.id} , function(err,data){
 			console.log(data)
 			if(!err){
-				data[0].brand = brand
-				data[0].category = category
-				data[0].collections = collections
-				data[0].name = name
-				data[0].detail = String(req.body.detail)
-				data[0].save(function(err,data){
+				data.brand = brand
+				data.category = category
+				data.collections = collections
+				data.color = color
+				data.name = name
+				data.detail = String(req.body.detail)
+				data.save(function(err,data){
 					res.json(data)
 					mongoose.disconnect()
 				})
@@ -56,6 +58,7 @@ module.exports.editCosmetics = function(req,res){
 module.exports.addCosmetics = function(req,res){
 	if(req.cookies.auth == 1){
 		var brand = fc.stringForm(String(req.body.brand))
+		var color = fc.stringForm(String(req.body.color))
 		var category = fc.stringForm(String(req.body.category))
 		var collections = fc.stringForm(String(req.body.collections))
 		var name = fc.stringForm(String(req.body.name))
@@ -64,6 +67,7 @@ module.exports.addCosmetics = function(req,res){
 			brand: brand,
 			category: category,
 			collections: collections,
+			color: color,
 			name: name,
 			detail: String(req.body.detail)
 		})
