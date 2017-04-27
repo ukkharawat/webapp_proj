@@ -5,7 +5,8 @@ var user = mongoose.Schema({
     password: String,
     authen: Number,
     wishlist: [{
-        type: String , ref : "Cosmetic"
+        name : {type: String , ref : "Cosmetic"},
+        id : Number
     }]
 })
 

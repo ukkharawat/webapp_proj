@@ -1,14 +1,17 @@
 var cosmetics = require('../database/cosmetic')
+var users = require('../database/user')
 var mongoose = require('mongoose')
 var dbconfig = require('../config/database')
 var fc = require('../config/function')
 
 /*
 	getCosmetic
+	getNewCosmetic
 	getCosmeticByCategory
 	addCosmetic
 	editCosmetic
 	likeCosmetic
+	addToWishlist
 */
 
 module.exports.getCosmetics = function(req,res){
@@ -86,7 +89,6 @@ module.exports.addCosmetics = function(req,res){
 module.exports.likeCosmetics = function(req,res){
 	mongoose.connect(dbconfig.url)
 	cosmetics.findOne({id : req.query.id }, function(err , data){
-		console.log(data)
 		if(!err){
 			var isContain = false
 			for(var i = 0 ; i < data.like.who.length ; i++){
@@ -104,6 +106,34 @@ module.exports.likeCosmetics = function(req,res){
 				data.like.who.push(req.cookies.username)
 			}
 			console.log(data.like)
+			data.save(function(err , data){
+				res.json({message: "success"})
+				mongoose.disconnect()
+			})
+		}
+	})
+}
+
+module.exports.addToWishlist = function(req,res){
+	mongoose.connect(dbconfig.url)
+	users.findOne({username : req.cookies.username} , function(err, data){
+		if(!err){
+			var isContain = false
+			for(var i = 0 ; i < data.wishlist.length ; i++){
+				if(data.wishlist[i].id == req.body.id){
+					isContain = true
+					var index = i
+					break
+				}
+			}
+			if(isContain){
+				data.wishlist.splice( index, 1 )
+			}else{
+				data.wishlist.push({
+					name : req.body.name,
+					id : req.body.id
+				})
+			}
 			data.save(function(err , data){
 				res.json({message: "success"})
 				mongoose.disconnect()
