@@ -1,8 +1,9 @@
-var posts = require('../database/post')
+var reviews = require('../database/review')
 var mongoose = require('mongoose')
 var dbconfig = require('../config/database')
 var fc = require('../config/function')
 /*
+    likeCosmetic
     getNewPost ==> limit on 10
     getAllPost
     getPost
