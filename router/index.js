@@ -25,6 +25,8 @@ routes.get('/getPost' , reviewController.getPost)
 
 routes.get('/likeCosmetic' , checkAuthen , cosmeticController.likeCosmetics)
 
+routes.post('/addToWishlist' , checkAuthen , cosmeticController.addToWishlist)
+
 routes.post('/post' , checkAuthen , reviewController.post)
 
 routes.post('/comment' , checkAuthen , reviewController.comment)

@@ -185,6 +185,18 @@
             }).then(function(response){
                 console.log(response)
             })
+        },
+        $scope.addToWishlist = function(){
+            $http({
+                url : '/addToWishlist',
+                method : 'POST',
+                data: {
+                    name : "Uv aqua rich watery essence spf50+/pa++++", 
+                    id : 1
+                }
+            }).then(function(response){
+                console.log(response)
+            })
         }
     })
 })()
