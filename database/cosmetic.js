@@ -7,7 +7,11 @@ var cosmetic = mongoose.Schema({
     collections: String,
     color: String,
     name: {type: String , unique: true , index:true},
-    detail: String
+    detail: String,
+    like: {
+        count: Number,
+        who: [{type: String , ref: 'User'}] // collect who like it
+    }
 })
 
 cosmetic.plugin(autoIncrement, {inc_field: 'id'})
