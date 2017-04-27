@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 var dbconfig = require('../config/database')
 var fc = require('../config/function')
 /*
-    likeCosmetic
+    
     getNewPost ==> limit on 10
     getAllPost
     getPost
@@ -12,10 +12,32 @@ var fc = require('../config/function')
     comment
     like
 
-    unfinished
-        editPost
-        editComment
+    renew
+        review
+        getTopReview
+        getAllReview
+        getOwnReview
+        editReview
+        likeReview
 */
+var review = function(req,res){
+
+}
+var getTopReview = function(req,res){
+    
+}
+var getAllReview = function(req,res){
+    
+}
+var getOwnReview = function(req,res){
+    
+}
+var editReview = function(req,res){
+    
+}
+var likeReview = function(req,res){
+    
+}
 module.exports = {
     getNewPost: function(req,res){
         mongoose.connect(dbconfig.url)

@@ -22,6 +22,15 @@ module.exports.getCosmetics = function(req,res){
 	})
 }
 
+module.exports.getNewCosmetics = function(req,res){
+	mongoose.connect(dbconfig.url)
+	cosmetics.find({}).sort({id: -1}).limit(10).exec(function(err , data){
+		if(err) console.log(err)
+		else res.json(data)
+		mongoose.disconnect()
+	})
+}
+
 module.exports.getCosmeticByCategory = function(req,res){
 	mongoose.connect(dbconfig.url)
 	cosmetics.find({category : fc.stringForm(String(req.body.category))} , function(err,data){
