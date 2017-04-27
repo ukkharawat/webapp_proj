@@ -23,7 +23,7 @@ routes.get('/getAllPost' , reviewController.getAllPost)
 
 routes.get('/getPost' , reviewController.getPost)
 
-routes.get('/like' , checkAuthen , reviewController.like)
+routes.get('/likeCosmetic' , checkAuthen , cosmeticController.likeCosmetics)
 
 routes.post('/post' , checkAuthen , reviewController.post)
 

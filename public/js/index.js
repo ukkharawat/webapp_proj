@@ -140,7 +140,7 @@
         },
         $scope.like = function(){
             $http({
-                url: '/like', 
+                url: '/likeCosmetic', 
                 method: "GET",
                 params: {
                     id: 1

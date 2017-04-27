@@ -70,7 +70,11 @@ module.exports.addCosmetics = function(req,res){
 			collections: collections,
 			color: color,
 			name: name,
-			detail: String(req.body.detail)
+			detail: String(req.body.detail),
+			like : {
+				count: 0,
+				who: []
+			}
 		})
 		cosmetic.save(function(err , data){
 			res.json(data)
@@ -82,6 +86,7 @@ module.exports.addCosmetics = function(req,res){
 module.exports.likeCosmetics = function(req,res){
 	mongoose.connect(dbconfig.url)
 	cosmetics.findOne({id : req.query.id }, function(err , data){
+		console.log(data)
 		if(!err){
 			var isContain = false
 			for(var i = 0 ; i < data.like.who.length ; i++){
@@ -98,6 +103,7 @@ module.exports.likeCosmetics = function(req,res){
 				data.like.count++
 				data.like.who.push(req.cookies.username)
 			}
+			console.log(data.like)
 			data.save(function(err , data){
 				res.json({message: "success"})
 				mongoose.disconnect()

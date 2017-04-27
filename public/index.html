@@ -20,7 +20,7 @@
             <select ng-options="ob as ob.name for ob in objs"  ng-model="th" ng-change="setData()"></select>
             <form>
                 brand : <input type="text" ng-model="th.brand" required><br>
-                type : <input type="text" ng-model="th.type" required><br>
+                type : <input type="text" ng-model="th.category" required><br>
                 name : <input type="text" ng-model="th.name" required><br>
                 collections : <input type="text" ng-model="th.collections" required><br>
                 detail : <input type="text" ng-model="th.detail" required><br>
@@ -48,7 +48,7 @@
             <h1>{{sss}}</h1>
             <form>
                 brand : <input type="text" ng-model="brand"><br>
-                type : <input type="text" ng-model="type"><br>
+                type : <input type="text" ng-model="category"><br>
                 collections : <input type="text" ng-model="collections"><br>
                 name : <input type="text" ng-model="name"><br>
                 <button type="submit" ng-click="add()">add</button>
