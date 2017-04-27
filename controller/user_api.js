@@ -8,6 +8,7 @@ var salt_factor = 10
     Register
     Login
     ChangePassword
+    getWishlist
 */
 
 module.exports.register = function(req,res){
@@ -80,6 +81,16 @@ module.exports.changePassword = function(req,res){
             })
         }else{
             res.json({message: "This account isn't exists"})
+        }
+        mongoose.disconnect()
+    })
+}
+
+exports.module.getWishlist = function(req,res){
+    mongoose.connect(dbconfig.url)
+    users.findOne({username: req.cookies.username} , function(err,data){
+        if(!err){
+            res.json(data.wishlist)
         }
         mongoose.disconnect()
     })
