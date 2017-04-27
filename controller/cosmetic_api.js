@@ -8,6 +8,7 @@ var fc = require('../config/function')
 	getCosmeticByCategory
 	addCosmetic
 	editCosmetic
+	likeCosmetic
 */
 
 module.exports.getCosmetics = function(req,res){
@@ -76,4 +77,31 @@ module.exports.addCosmetics = function(req,res){
 			mongoose.disconnect()
 		})
 	}
+}
+
+module.exports.likeCosmetics = function(req,res){
+	mongoose.connect(dbconfig.url)
+	cosmetics.findOne({id : req.query.id }, function(err , data){
+		if(!err){
+			var isContain = false
+			for(var i = 0 ; i < data.like.who.length ; i++){
+				if(data.like.who[i] == req.cookies.username){
+					isContain = true
+					var index = i
+					break
+				}
+			}
+			if(isContain){
+				data.like.count--
+				data.like.who.splice( index, 1 )
+			}else{
+				data.like.count++
+				data.like.who.push(req.cookies.username)
+			}
+			data.save(function(err , data){
+				res.json({message: "success"})
+				mongoose.disconnect()
+			})
+		}
+	})
 }
