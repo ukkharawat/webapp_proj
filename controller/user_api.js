@@ -86,7 +86,7 @@ module.exports.changePassword = function(req,res){
     })
 }
 
-exports.module.getWishlist = function(req,res){
+module.exports.getWishlist = function(req,res){
     mongoose.connect(dbconfig.url)
     users.findOne({username: req.cookies.username} , function(err,data){
         if(!err){
