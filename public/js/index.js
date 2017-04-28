@@ -89,35 +89,6 @@
             pwd : ""
         },
         $scope.search = "",
-        $scope.edit = function(){
-            $http({
-                url: '/admin/editCosmetic',
-                method: 'POST',
-                data: {
-                    name: $scope.th.name,
-                    category: $scope.th.category,
-                    collections: $scope.th.collections,
-                    brand: $scope.th.brand,
-                    detail: $scope.th.detail,
-                    id: $scope.th.id
-                }
-            })
-            .then(function(response){
-                console.log(response)
-            })
-        },
-        $scope.changePassword = function(){
-            $http({
-                url: '/user/changePassword',
-                method: 'POST',
-                data: {
-                    oldpassword: $scope.oldpassword,
-                    newpassword: $scope.newpassword
-                }
-            }).then(function(response){
-                console.log(response)
-            })
-        },
         $scope.review = function(){
             $http({
                 url : '/review',
@@ -148,6 +119,19 @@
         $scope.data = [
             {id : 1},
             {id : 2}
-        ]
+        ],
+        $scope.likeReview = function(){
+             $http({
+                url : '/likeReview',
+                method : 'POST' ,
+                data : {
+                    cosmetic_name : "Wipe-off cleansing micellar water",
+                    content : "hey",
+                    reviewer : "admin"
+                }
+            }).then(function(response){
+                console.log(response)
+            })
+        }
     })
 })()

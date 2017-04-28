@@ -17,7 +17,7 @@
                 <h6>{{d.collections}}</h6>
                 <h6>{{d.detail}}</h6>
             </div>
-            <select ng-options="ob as ob.name for ob in objs"  ng-model="th" ng-change="setData()"></select>
+            <!--<select ng-options="ob as ob.name for ob in objs"  ng-model="th" ng-change="setData()"></select>
             <form>
                 brand : <input type="text" ng-model="th.brand" required><br>
                 type : <input type="text" ng-model="th.category" required><br>
@@ -25,7 +25,7 @@
                 collections : <input type="text" ng-model="th.collections" required><br>
                 detail : <input type="text" ng-model="th.detail" required><br>
                 <button type="submit" ng-click="edit()">EDIT</button>
-            </form>
+            </form>-->
             <hr>
             <!--<form ref='uploadForm' id='uploadForm' action='/user/register' method='post' encType="multipart/form-data">
                 <input type="file" name="sampleFile" />
@@ -58,6 +58,7 @@
                 <button type="submit" ng-click="review()">review</button>
             </form>
             <button type="submit" ng-click="getTopReview()"> get </button>
+            <button type="submit" ng-click="likeReview()"> get </button>
             
             <div ng-repeat="i in data">
                 Name: {{i.id}}

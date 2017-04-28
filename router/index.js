@@ -19,6 +19,12 @@ routes.post('/review' ,checkAuthen ,  reviewController.review)
 
 routes.get('/getTopReview' ,checkAuthen ,  reviewController.getTopReview)
 
+routes.get('/getAllReview' ,checkAuthen ,  reviewController.getAllReview)
+
+routes.post('/likeReview' ,checkAuthen ,  reviewController.likeReview)
+
+routes.post('/editReview' ,checkAuthen ,  reviewController.editReview)
+
 routes.get('/getCosmetics',cosmeticController.getNewCosmetics)
 
 routes.get('/getNewCosmetics', cosmeticController.getNewCosmetics)
