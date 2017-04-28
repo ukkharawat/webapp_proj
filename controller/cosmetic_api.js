@@ -2,6 +2,7 @@ var cosmetics = require('../database/cosmetic')
 var users = require('../database/user')
 var mongoose = require('mongoose')
 var dbconfig = require('../config/database')
+var path = require('path')
 var fc = require('../config/function')
 
 /*
@@ -24,7 +25,7 @@ module.exports.getCosmetics = function(req,res){
 
 module.exports.getNewCosmetics = function(req,res){
 	mongoose.connect(dbconfig.url)
-	cosmetics.find({}).sort({id: -1}).limit(10).exec(function(err , data){
+	cosmetics.find({}).sort({id: -1}).limit(16).exec(function(err , data){
 		if(err) console.log(err)
 		else res.json(data)
 		mongoose.disconnect()
@@ -69,17 +70,21 @@ module.exports.editCosmetics = function(req,res){
 }
 
 module.exports.addCosmetics = function(req,res){
+	var file = req.files.file
 	if(req.cookies.auth == 1){
+		var image = file.name
 		var brand = fc.stringForm(String(req.body.brand))
 		var color = fc.stringForm(String(req.body.color))
 		var category = fc.stringForm(String(req.body.category))
-		var collections = fc.stringForm(String(req.body.collections))
+		var specific = fc.stringForm(String(req.body.specific))
 		var name = fc.stringForm(String(req.body.name))
+		file.mv(path.join(__dirname , '../public/cosmetic_image/' , name + "_image." + image.split('.').pop()))
 		mongoose.connect(dbconfig.url)
 		var cosmetic = new cosmetics({
+			image: name + "_image." + image.split('.').pop(),
 			brand: brand,
 			category: category,
-			collections: collections,
+			specific: specific,
 			color: color,
 			name: name,
 			detail: String(req.body.detail),
@@ -89,7 +94,7 @@ module.exports.addCosmetics = function(req,res){
 			}
 		})
 		cosmetic.save(function(err , data){
-			res.json(data)
+			res.redirect('/')
 			mongoose.disconnect()
 		})
 	}

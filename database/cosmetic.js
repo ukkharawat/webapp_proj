@@ -2,9 +2,10 @@ var mongoose = require('mongoose')
 var autoIncrement = require('mongoose-sequence')
 
 var cosmetic = mongoose.Schema({
+    image: String,
     brand: String,
     category: String,
-    collections: String,
+    specific: String,
     color: {type: String},
     name: {type: String , unique: true , index:true},
     detail: String,

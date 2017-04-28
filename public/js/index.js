@@ -62,23 +62,12 @@
             })
             .then(function(response){
                 delete $scope.sss
+                delete $scope.image
                 $scope.obj = {
                     user : "",
                     pwd : ""
                 }
                 $scope.cc = false
-            })
-        },
-        $scope.getPost = function(){
-            $http({
-                url: '/getPost',
-                method: 'GET',
-                params : {
-                    id : 1
-                }
-            })
-            .then(function(response){
-                console.log(response)
             })
         },
         $scope.getCookie = function(){
@@ -100,44 +89,6 @@
             pwd : ""
         },
         $scope.search = "",
-        $scope.add = function(){
-            $http({
-                url: '/admin/addCosmetic',
-                method: 'POST',
-                data: {
-                    brand: $scope.brand,
-                    collections: $scope.collections,
-                    category: $scope.category,
-                    name: $scope.name,
-                    detail : "Ccc"
-                }
-            }).then(function(response){
-                console.log(response)
-            })
-        },
-        $scope.post = function(){
-            $http({
-                url: '/post',
-                method: 'POST',
-                data: {
-                    cosmetic_name : $scope.cos_name,
-                    content : $scope.content
-                }
-            }).then(function(response){
-                console.log(response)
-            })
-        },
-        $scope.like = function(){
-            $http({
-                url: '/likeCosmetic', 
-                method: "GET",
-                params: {
-                    id: 1
-                }
-            }).then(function(response){
-                console.log(response)
-            })
-        },
         $scope.edit = function(){
             $http({
                 url: '/admin/editCosmetic',
@@ -155,14 +106,6 @@
                 console.log(response)
             })
         },
-        $scope.getOwnPost = function(){
-            $http({
-                url: '/getOwnPost',
-                method: 'GET'
-            }).then(function(response){
-                console.log(response)
-            })
-        },
         $scope.changePassword = function(){
             $http({
                 url: '/user/changePassword',
@@ -170,18 +113,6 @@
                 data: {
                     oldpassword: $scope.oldpassword,
                     newpassword: $scope.newpassword
-                }
-            }).then(function(response){
-                console.log(response)
-            })
-        },
-        $scope.addToWishlist = function(){
-            $http({
-                url : '/addToWishlist',
-                method : 'POST',
-                data: {
-                    name : "Uv aqua rich watery essence spf50+/pa++++", 
-                    id : 1
                 }
             }).then(function(response){
                 console.log(response)
@@ -199,9 +130,6 @@
             }).then(function(response){
                 console.log(response)
             })
-        },
-        $scope.o = {
-            star : 0
         }
     })
 })()

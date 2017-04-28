@@ -27,12 +27,12 @@
                 <button type="submit" ng-click="edit()">EDIT</button>
             </form>
             <hr>
-            <form ref='uploadForm' id='uploadForm' action='/user/register' method='post' encType="multipart/form-data">
+            <!--<form ref='uploadForm' id='uploadForm' action='/user/register' method='post' encType="multipart/form-data">
                 <input type="file" name="sampleFile" />
                 username : <input type="text" name="username"><br>
                 password : <input type="password" name="password"><br>
                 <button type="submit" >register</button>
-            </form>
+            </form> -->
             <img ng-src="user_image/{{image}}" alt="" style="width:100px ;height: 100px">
             <hr>
             login
@@ -43,31 +43,19 @@
             </form>
             <button ng-if="cc" type="submit" ng-click="logout()">Logout</button>
             <h1>{{sss}}</h1>
-            <form>
-                brand : <input type="text" ng-model="brand"><br>
-                type : <input type="text" ng-model="category"><br>
-                collections : <input type="text" ng-model="collections"><br>
-                name : <input type="text" ng-model="name"><br>
-                <button type="submit" ng-click="add()">add</button>
+            <form ref='uploadForm' id='uploadForm' action='/admin/addCosmetics' method='post' encType="multipart/form-data">
+                <input type="file" name="file" />
+                brand : <input type="text" name="brand"><br>
+                type : <input type="text" name="category"><br>
+                specific : <input type="text" name="specific"><br>
+                name : <input type="text" name="name"><br>
+                <button type="submit" >add</button>
             </form>
             <hr>
             <form>
                 content : <input type="text" ng-model="content"><br>
                 starPoint : <input type="text" ng-model="starPoint"><br>
                 <button type="submit" ng-click="review()">review</button>
-            </form>
-            <button type="submit" ng-click="like()">like</button>
-            <hr>
-            <button type="submit" ng-click="addToWishlist()">addToWishlist</button>
-            <hr>
-            <p>{{o.star}}</p>
-            <form>
-                    <input type="radio" id="rating-0" ng-model="o.star" value="5" />5
-                    <input type="radio" id="rating-0" ng-model="o.star" value="4" />4
-                    <input type="radio" id="rating-0" ng-model="o.star" value="3" />3
-                    <input type="radio" id="rating-0" ng-model="o.star" value="2" />2
-                    <input type="radio" id="rating-0" ng-model="o.star" value="1" />1
-                    <input type="radio" id="rating-0" ng-model="o.star" value="0" />0
             </form>
         </div>
     </body>
