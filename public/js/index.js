@@ -130,6 +130,17 @@
             }).then(function(response){
                 console.log(response)
             })
+        },
+        $scope.getTopReview = function(){
+            $http({
+                url : '/getTopReview',
+                method : 'GET' ,
+                params : {
+                    cosmetic_name : "Wipe-off cleansing micellar water"
+                }
+            }).then(function(response){
+                console.log(response)
+            })
         }
     })
 })()

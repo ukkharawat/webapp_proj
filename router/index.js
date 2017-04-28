@@ -17,6 +17,8 @@ routes.get('/',function(req,res){
 
 routes.post('/review' ,checkAuthen ,  reviewController.review)
 
+routes.get('/getTopReview' ,checkAuthen ,  reviewController.getTopReview)
+
 routes.get('/getCosmetics',cosmeticController.getNewCosmetics)
 
 routes.get('/likeCosmetic' , checkAuthen , cosmeticController.likeCosmetics)

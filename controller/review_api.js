@@ -4,16 +4,9 @@ var dbconfig = require('../config/database')
 var fc = require('../config/function')
 /*
     
-    getNewPost ==> limit on 10
-    getAllPost
-    getPost
-    getOwnPost
-    post
-    comment
-    like
+    review
 
     renew
-        review
         getTopReview
         getAllReview
         getOwnReview
@@ -45,15 +38,34 @@ var review = function(req,res){
                     }
                 })
             }else{
-                
                 data.review.push(aaa)
+                data.save(function(err , data){
+                    if(!err)
+                        res.json(data)
+                })
             }
         }
         mongoose.disconnect()
     })
 }
 var getTopReview = function(req,res){
-    
+    mongoose.connect(dbconfig.url)
+    reviews.findOne({cosmetic_name : fc.stringForm(String(req.query.cosmetic_name))},function(err , data){
+        if(data == null){
+            res.json({message : "No comment in this cosmetic"})
+        }else{
+            var max = 0
+            for(var i = 0 ; i < data.review.legnth ; i++){
+                if(data.review[i].like.count > max){
+                    max = data.review[i].like.count
+                    var index = i
+                }
+            }
+            res.json(data.review[i])
+        }
+        mongoose.disconnect()
+    })
+    mongoose.disconnect()
 }
 var getAllReview = function(req,res){
     
@@ -68,7 +80,8 @@ var likeReview = function(req,res){
     
 }
 module.exports = {
-    review : review
+    review : review,
+    getTopReview : getTopReview
     // getNewPost: function(req,res){
     //     mongoose.connect(dbconfig.url)
     //     posts.find({}).sort({date: -1}).limit(10).exec(function(err , data){
