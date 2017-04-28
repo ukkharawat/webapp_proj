@@ -2,6 +2,7 @@ var users = require('../database/user')
 var mongoose = require('mongoose')
 var bcrypt = require('bcrypt')
 var dbconfig = require('../config/database')
+var path = require('path')
 var salt_factor = 10
 
 /*
@@ -12,25 +13,30 @@ var salt_factor = 10
 */
 
 module.exports.register = function(req,res){
+    var image = req.files.sampleFile ? req.files.sampleFile.name : 'default.png'
     bcrypt.genSalt(salt_factor , function(err , salt){
         bcrypt.hash(req.body.password , salt , function(err , hash){
             mongoose.connect(dbconfig.url)
             var user = new users({
                     username : req.body.username,
                     password : hash,
+                    displayImage : req.body.username + "_image." + image.split('.').pop(),
                     authen: 0,
                     wishlist : []
             })
             user.save(function(err , data){
                 if(err) 
-                    res.json({message:'This account is exists'})
-                else 
-                    res.json({message:'success'})
+                    res.redirect('/failed')
+
+                if(image != 'default.png'){
+                    var file = req.files.sampleFile
+                    file.mv(path.join(__dirname , '../public/user_image/' , req.body.username + "_image." + image.split('.').pop()))
+                }
+                res.redirect('/')
                 mongoose.disconnect()
             })
         })
     })
-    
 }
 
 module.exports.login = function(req,res){
@@ -45,7 +51,10 @@ module.exports.login = function(req,res){
                     res.cookie('auth' , data.authen , {
                         expires : new Date(Date.now() + 36000000), httpOnly: true
                     })
-                    res.json({username: data.username})
+                    res.cookie('displayImage' , data.displayImage , {
+                        expires : new Date(Date.now() + 36000000), httpOnly: true 
+                    })
+                    res.json({username: data.username , displayImage : data.displayImage})
                 }else{
                     res.json({message: "Username and Password aren't match"})
                 }
