@@ -141,6 +141,13 @@
             }).then(function(response){
                 console.log(response)
             })
-        }
+        },
+        $scope.test = function(i){
+            console.log(i)
+        },
+        $scope.data = [
+            {id : 1},
+            {id : 2}
+        ]
     })
 })()

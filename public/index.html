@@ -58,6 +58,14 @@
                 <button type="submit" ng-click="review()">review</button>
             </form>
             <button type="submit" ng-click="getTopReview()"> get </button>
+            
+            <div ng-repeat="i in data">
+                Name: {{i.id}}
+
+                <form ng-submit="test(i.id)">
+                    <input type="submit" value="Edit" />
+                </form>
+            </div>
         </div>
     </body>
 </html>
