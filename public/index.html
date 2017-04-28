@@ -55,18 +55,24 @@
             </form>
             <hr>
             <form>
-                name : <input type="text" ng-model="cos_name"><br>
                 content : <input type="text" ng-model="content"><br>
-                <button type="submit" ng-click="post()">add</button>
+                starPoint : <input type="text" ng-model="starPoint"><br>
+                <button type="submit" ng-click="review()">review</button>
             </form>
             <button type="submit" ng-click="like()">like</button>
             <hr>
             <button type="submit" ng-click="addToWishlist()">addToWishlist</button>
             <hr>
+            <p>{{o.star}}</p>
             <form>
-                <button type="submit" ng-click="getOwnPost()">getOwnPost</button>
+                    <input type="radio" id="rating-0" ng-model="o.star" value="5" />5
+                    <input type="radio" id="rating-0" ng-model="o.star" value="4" />4
+                    <input type="radio" id="rating-0" ng-model="o.star" value="3" />3
+                    <input type="radio" id="rating-0" ng-model="o.star" value="2" />2
+                    <input type="radio" id="rating-0" ng-model="o.star" value="1" />1
+                    <input type="radio" id="rating-0" ng-model="o.star" value="0" />0
+                   
             </form>
         </div>
-        
     </body>
 </html>

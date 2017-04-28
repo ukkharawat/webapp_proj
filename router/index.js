@@ -15,22 +15,12 @@ routes.get('/',function(req,res){
     res.sendFile(path.join(__dirname , '../public/index.html'))
 })
 
+routes.post('/review' ,checkAuthen ,  reviewController.review)
+
 routes.get('/getCosmetics',cosmeticController.getNewCosmetics)
-
-routes.get('/getNewPost' , reviewController.getNewPost)
-
-routes.get('/getAllPost' , reviewController.getAllPost)
-
-routes.get('/getPost' , reviewController.getPost)
 
 routes.get('/likeCosmetic' , checkAuthen , cosmeticController.likeCosmetics)
 
 routes.post('/addToWishlist' , checkAuthen , cosmeticController.addToWishlist)
-
-routes.post('/post' , checkAuthen , reviewController.post)
-
-routes.post('/comment' , checkAuthen , reviewController.comment)
-
-routes.get('/getOwnPost' , checkAuthen , reviewController.getOwnPost)
 
 module.exports = routes

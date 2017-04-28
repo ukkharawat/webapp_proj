@@ -197,6 +197,22 @@
             }).then(function(response){
                 console.log(response)
             })
+        },
+        $scope.review = function(){
+            $http({
+                url : '/review',
+                method : 'POST',
+                data : {
+                    cosmetic_name : "Wipe-off cleansing micellar water",
+                    content : $scope.content,
+                    starPoint : $scope.starPoint
+                }
+            }).then(function(response){
+                console.log(response)
+            })
+        },
+        $scope.o = {
+            star : 0
         }
     })
 })()
