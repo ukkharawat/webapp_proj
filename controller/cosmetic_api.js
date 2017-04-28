@@ -43,61 +43,56 @@ module.exports.getCosmeticsByCategory = function(req,res){
 }
 
 module.exports.editCosmetics = function(req,res){
-	console.log(req.body)
-	if(req.cookies.auth == 1){
-		var brand = fc.stringForm(String(req.body.brand))
-		var category = fc.stringForm(String(req.body.category))
-		var color = fc.stringForm(String(req.body.color))
-		var collections = fc.stringForm(String(req.body.collections))
-		var name = fc.stringForm(String(req.body.name))
-		mongoose.connect(dbconfig.url)
-		cosmetics.findOne({id:req.body.id} , function(err,data){
-			console.log(data)
-			if(!err){
-				data.brand = brand
-				data.category = category
-				data.collections = collections
-				data.color = color
-				data.name = name
-				data.detail = String(req.body.detail)
-				data.save(function(err,data){
-					res.json(data)
-					mongoose.disconnect()
-				})
-			}
-		})
-	}
+	var brand = fc.stringForm(String(req.body.brand))
+	var category = fc.stringForm(String(req.body.category))
+	var color = fc.stringForm(String(req.body.color))
+	var collections = fc.stringForm(String(req.body.collections))
+	var name = fc.stringForm(String(req.body.name))
+	mongoose.connect(dbconfig.url)
+	cosmetics.findOne({id:req.body.id} , function(err,data){
+		console.log(data)
+		if(!err){
+			data.brand = brand
+			data.category = category
+			data.collections = collections
+			data.color = color
+			data.name = name
+			data.detail = String(req.body.detail)
+			data.save(function(err,data){
+				res.json(data)
+				mongoose.disconnect()
+			})
+		}
+	})
 }
 
 module.exports.addCosmetics = function(req,res){
 	var file = req.files.file
-	if(req.cookies.auth == 1){
-		var image = file.name
-		var brand = fc.stringForm(String(req.body.brand))
-		var color = fc.stringForm(String(req.body.color))
-		var category = fc.stringForm(String(req.body.category))
-		var specific = fc.stringForm(String(req.body.specific))
-		var name = fc.stringForm(String(req.body.name))
-		file.mv(path.join(__dirname , '../public/cosmetic_image/' , name + "_image." + image.split('.').pop()))
-		mongoose.connect(dbconfig.url)
-		var cosmetic = new cosmetics({
-			image: name + "_image." + image.split('.').pop(),
-			brand: brand,
-			category: category,
-			specific: specific,
-			color: color,
-			name: name,
-			detail: String(req.body.detail),
-			like : {
-				count: 0,
-				who: []
-			}
-		})
-		cosmetic.save(function(err , data){
-			res.redirect('/')
-			mongoose.disconnect()
-		})
-	}
+	var image = file.name
+	var brand = fc.stringForm(String(req.body.brand))
+	var color = fc.stringForm(String(req.body.color))
+	var category = fc.stringForm(String(req.body.category))
+	var specific = fc.stringForm(String(req.body.specific))
+	var name = fc.stringForm(String(req.body.name))
+	file.mv(path.join(__dirname , '../public/cosmetic_image/' , name + "_image." + image.split('.').pop()))
+	mongoose.connect(dbconfig.url)
+	var cosmetic = new cosmetics({
+		image: name + "_image." + image.split('.').pop(),
+		brand: brand,
+		category: category,
+		specific: specific,
+		color: color,
+		name: name,
+		detail: String(req.body.detail),
+		like : {
+			count: 0,
+			who: []
+		}
+	})
+	cosmetic.save(function(err , data){
+		res.redirect('/')
+		mongoose.disconnect()
+	})
 }
 
 module.exports.likeCosmetics = function(req,res){
