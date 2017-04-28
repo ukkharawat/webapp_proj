@@ -4,11 +4,13 @@ var path = require('path')
 var cookieParser = require('cookie-parser')
 var app = express()
 var cors = require('cors')
+var fileUpload = require('express-fileupload')
  
 var indexs = require('./router/index')
 var users = require('./router/user')
 var admins = require('./router/admin')
 
+app.use(fileUpload())
 app.use(cors())
 app.use(cookieParser())
 app.use(bodyParser.json())
@@ -31,9 +33,9 @@ app.get('/logout' , function(req,res){
     res.redirect('/')
 })
 
-app.all('*',function(req,res){
-    res.redirect('/')
-})
+// app.all('*',function(req,res){
+//     res.redirect('/')
+// })
 app.listen(3000 || process.env.PORT , () => {
     console.log(process.env.PORT ? process.env.PORT : 3000)
 })

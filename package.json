@@ -15,6 +15,7 @@
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
     "express": "^4.15.2",
+    "express-fileupload": "^0.1.2",
     "mongoose": "^4.9.4",
     "mongoose-auto-increment": "^5.0.1",
     "mongoose-sequence": "^3.2.0",
