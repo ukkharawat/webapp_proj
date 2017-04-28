@@ -32,7 +32,7 @@ module.exports.getNewCosmetics = function(req,res){
 	})
 }
 
-module.exports.getCosmeticByCategory = function(req,res){
+module.exports.getCosmeticsByCategory = function(req,res){
 	mongoose.connect(dbconfig.url)
 	cosmetics.find({category : fc.stringForm(String(req.body.category))} , function(err,data){
 		if(!err){

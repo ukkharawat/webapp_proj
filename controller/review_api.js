@@ -5,11 +5,10 @@ var fc = require('../config/function')
 /*
     
     review
+    getTopReview
+    getAllReview
 
     renew
-        getTopReview
-        getAllReview
-        getOwnReview
         editReview
         likeReview
 */
@@ -55,7 +54,7 @@ var getTopReview = function(req,res){
             res.json({message : "No comment in this cosmetic"})
         }else{
             var max = 0
-            for(var i = 0 ; i < data.review.legnth ; i++){
+            for(var i = 0 ; i < data.review.length ; i++){
                 if(data.review[i].like.count > max){
                     max = data.review[i].like.count
                     var index = i
@@ -65,19 +64,46 @@ var getTopReview = function(req,res){
         }
         mongoose.disconnect()
     })
-    mongoose.disconnect()
 }
 var getAllReview = function(req,res){
-    
+    mongoose.connect(dbconfig.url)
+    reviews.findOne({cosmetic_name : fc.stringForm(String(req.query.cosmetic_name))},function(err , data){
+        if(data == null){
+            res.json({message : "No comment in this cosmetic"})
+        }else{
+            res.json(data.review)
+        }
+        mongoose.disconnect()
+    })
 }
-var getOwnReview = function(req,res){
-    
-}
+
 var editReview = function(req,res){
     
 }
+
 var likeReview = function(req,res){
-    
+    mongoose.connect(dbconfig.url)
+    reviews.findOne({cosmetic_name : fc.stringForm(String(req.query.cosmetic_name))},function(err , data){
+        for(var i = 0 ; i < data.review.length ; i++){
+            if(data.review[i].content == req.body.content && data.review[i].reviewer == req.body.reviewer){
+                var index = i , isContain = false
+                for(var j = 0 ; j < data.review[i].like.who.length ; j++){
+                    if(data.review[i].like.who[j] == req.cookies.username){
+                        isContain = true
+                        data.review[index].like.count--
+                        data.review[index].like.who.splice(j, 1 )
+                        break
+                    }
+                }
+                break
+            }
+        }
+        if(!isContain){
+            data.review[index].like.count++
+            data.review[index].like.who.push(req.cookies.username)
+        }
+        mongoose.disconnect()
+    })
 }
 module.exports = {
     review : review,
