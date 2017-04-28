@@ -27,16 +27,13 @@
                 <button type="submit" ng-click="edit()">EDIT</button>
             </form>
             <hr>
-            <form>
-                username : <input type="text" ng-model="username"><br>
-                password : <input type="password" ng-model="password"><br>
-                <button type="submit" ng-click="register()">register</button>
+            <form ref='uploadForm' id='uploadForm' action='/user/register' method='post' encType="multipart/form-data">
+                <input type="file" name="sampleFile" />
+                username : <input type="text" name="username"><br>
+                password : <input type="password" name="password"><br>
+                <button type="submit" >register</button>
             </form>
-            <form>
-                oldpassword : <input type="password" ng-model="oldpassword"><br>
-                newpassword : <input type="password" ng-model="newpassword"><br>
-                <button type="submit" ng-click="changePassword()">changePassword</button>
-            </form>
+            <img ng-src="user_image/{{image}}" alt="" style="width:100px ;height: 100px">
             <hr>
             login
             <form ng-if="!cc">
@@ -71,7 +68,6 @@
                     <input type="radio" id="rating-0" ng-model="o.star" value="2" />2
                     <input type="radio" id="rating-0" ng-model="o.star" value="1" />1
                     <input type="radio" id="rating-0" ng-model="o.star" value="0" />0
-                   
             </form>
         </div>
     </body>

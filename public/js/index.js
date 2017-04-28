@@ -25,21 +25,8 @@
             })
             .then(function(response){
                 console.log(response)
-                
                 $scope.objs = response.data
                 
-            })
-        },
-        $scope.register = function(){
-            $http({
-                url: '/user/register',
-                method: 'POST',
-                data: {
-                    username: $scope.username,
-                    password: $scope.password
-                }
-            }).then(function(response){
-                console.log(response)
             })
         },
         $scope.login = function(){
@@ -100,7 +87,9 @@
                 method: 'GET'
             })
             .then(function(response){
+                console.log(response)
                 if(response.data.username){
+                    $scope.image = response.data.displayImage
                     $scope.sss = response.data.username
                     $scope.cc = true
                 }
