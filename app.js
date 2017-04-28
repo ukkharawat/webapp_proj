@@ -33,9 +33,13 @@ app.get('/logout' , function(req,res){
     res.redirect('/')
 })
 
-// app.all('*',function(req,res){
-//     res.redirect('/')
-// })
+app.get('/failed' , function(req,res){
+    res.send("This account already exists")
+})
+
+app.all('*',function(req,res){
+     res.redirect('/')
+})
 app.listen(3000 || process.env.PORT , () => {
     console.log(process.env.PORT ? process.env.PORT : 3000)
 })

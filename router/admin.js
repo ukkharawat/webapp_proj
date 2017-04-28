@@ -15,7 +15,7 @@ routes.get('/' , checkAuth , function(req,res){
 
 routes.get('/getCosmetics',cosmeticController.getCosmetics)
 
-routes.post('/addCosmetic',checkAuth,cosmeticController.addCosmetics)
+routes.post('/addCosmetics',checkAuth,cosmeticController.addCosmetics)
 
 routes.post('/editCosmetic',checkAuth,cosmeticController.editCosmetics)
 
