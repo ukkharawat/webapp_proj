@@ -21,6 +21,10 @@ routes.get('/getTopReview' ,checkAuthen ,  reviewController.getTopReview)
 
 routes.get('/getCosmetics',cosmeticController.getNewCosmetics)
 
+routes.get('/getNewCosmetics', cosmeticController.getNewCosmetics)
+
+routes.get('/getCosmeticsByCategory' , cosmeticController.getCosmeticsByCategory)
+
 routes.get('/likeCosmetic' , checkAuthen , cosmeticController.likeCosmetics)
 
 routes.post('/addToWishlist' , checkAuthen , cosmeticController.addToWishlist)
