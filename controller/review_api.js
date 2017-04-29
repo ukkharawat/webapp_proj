@@ -78,10 +78,20 @@ var getAllReview = function(req,res){
 }
 
 var editReview = function(req,res){
-    var content = req.body.content
-    var starPoint = req.body.starPoint
     mongoose.connect(dbconfig.url)
-
+    reviews.findOne({cosmetic_name : req.body.cosmetic_name},function(err , data){
+        for(var i = 0 ; i < data.review.length ; i++){
+            if(data.review[i].content == req.body.oldcontent && data.review[i].reviewer == req.cookies.username){
+                data.review[i].starPoint = req.body.starPoint
+                data.review[i].date = new Date()
+                break
+            }
+        }
+        data.save(function(err , data){
+            res.json(data)
+            mongoose.disconnect()
+        })
+    })
 }
 
 var likeReview = function(req,res){

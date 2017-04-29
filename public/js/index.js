@@ -122,12 +122,13 @@
         ],
         $scope.likeReview = function(){
              $http({
-                url : '/likeReview',
+                url : '/editReview',
                 method : 'POST' ,
                 data : {
                     cosmetic_name : "Wipe-off cleansing micellar water",
-                    content : "hey",
-                    reviewer : "admin"
+                    oldcontent : "hey",
+                    content : "heys",
+                    starPoint : 4
                 }
             }).then(function(response){
                 console.log(response)
