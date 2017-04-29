@@ -90,8 +90,8 @@ module.exports.addCosmetics = function(req,res){
 		}
 	})
 	cosmetic.save(function(err , data){
-		res.redirect('/')
 		mongoose.disconnect()
+		res.redirect('/')
 	})
 }
 

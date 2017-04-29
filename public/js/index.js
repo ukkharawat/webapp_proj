@@ -100,6 +100,7 @@
                 }
             }).then(function(response){
                 console.log(response)
+                //$scope.getTopReview()
             })
         },
         $scope.getTopReview = function(){

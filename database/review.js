@@ -7,7 +7,7 @@ var review = mongoose.Schema({
     review: [{
         reviewer: {type: String , ref: 'User'},
         content: String,
-        date: Date,
+        date: String,
         starPoint : {type: Number , min: 0 , max:5},
         like: {
             count: Number,

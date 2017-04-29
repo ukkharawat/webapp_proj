@@ -16,35 +16,32 @@ var review = function(req,res){
     mongoose.connect(dbconfig.url)
     var aaa = {
         reviewer : req.cookies.username,
-        content : req.body.content,
+        content : String(req.body.content),
         date : new Date(),
-        starPoint : req.body.starPoint,
+        starPoint : Number(req.body.starPoint),
         like : {
             count : 0,
             who : []
         }
     }
-    reviews.findOne({cosmetic_name : fc.stringForm(String(req.body.cosmetic_name))},function(err,data){
-        if(!err){
-            if(data == null){
-                var review = new reviews({
-                    cosmetic_name : fc.stringForm(String(req.body.cosmetic_name)),
-                    review : aaa
-                })
-                review.save(function(err , data){
-                    if(!err){
-                        res.json(data)
-                    }
-                })
-            }else{
-                data.review.push(aaa)
-                data.save(function(err , data){
-                    if(!err)
-                        res.json(data)
-                })
-            }
+    reviews.findOne({cosmetic_name : req.body.cosmetic_name},function(err,data){
+        if(data == null){
+            var review = new reviews({
+                cosmetic_name : req.body.cosmetic_name,
+                review : aaa
+            })
+            review.save(function(err , data){
+                res.json({message : "complete"})
+                mongoose.disconnect()
+            })
+        }else{
+            data.review.push(aaa)
+            data.save(function(err , data){
+                res.json({message : "complete"})
+                mongoose.disconnect()
+            })
         }
-        mongoose.disconnect()
+        
     })
 }
 var getTopReview = function(req,res){
@@ -119,8 +116,8 @@ var likeReview = function(req,res){
         data.save(function(err , data){
             if(!err)
                 res.json(data)
+            mongoose.disconnect()
         })
-        mongoose.disconnect()
     })
 }
 module.exports = {
