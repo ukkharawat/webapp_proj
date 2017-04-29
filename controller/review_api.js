@@ -7,10 +7,8 @@ var fc = require('../config/function')
     review
     getTopReview
     getAllReview
-
-    renew
-        editReview
-        likeReview
+    editReview
+    likeReview
 */
 var review = function(req,res){
     mongoose.connect(dbconfig.url)
