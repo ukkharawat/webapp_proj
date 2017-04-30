@@ -1,5 +1,5 @@
-var cosmetics = require('../database/cosmetic')
-var users = require('../database/user')
+var cosmetics = require('../model/cosmetic')
+var users = require('../model/user')
 var mongoose = require('mongoose')
 var dbconfig = require('../config/database')
 var path = require('path')

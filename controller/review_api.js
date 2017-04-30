@@ -1,4 +1,4 @@
-var reviews = require('../database/review')
+var reviews = require('../model/review')
 var mongoose = require('mongoose')
 var dbconfig = require('../config/database')
 var fc = require('../config/function')
