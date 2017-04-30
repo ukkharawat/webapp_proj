@@ -1,5 +1,5 @@
 var routes = require('express').Router()
-var userController = require('../model/user')
+var user = require('../model/user')
 
 /*
     Register
@@ -67,7 +67,7 @@ routes.post('/changePassword', function(req,res){
 
 routes.get('/getWishlist', function(req,res){
     users.findByUsername(req.query.username , function(err , user){
-        console.log(user.wishlist)
+        res.json(user.wishlist)
     })
 })
 

@@ -11,6 +11,7 @@ var config = require('./config/database')
 var indexs = require('./router/index')
 var users = require('./router/user')
 var admins = require('./router/admin')
+var reviews = require('./router/review')
 
 mongoose.connect(config.url);
 
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname,'node_modules')))
 app.use('/' , indexs)
 app.use('/user' , users)
 app.use('/admin' , admins)
+app.use('/review' , reviews)
 
 // test cookie
 app.get('/getCookie' , function(req,res){
