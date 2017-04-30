@@ -17,4 +17,13 @@ var review = mongoose.Schema({
 }, {_id: false})
 
 review.plugin(autoIncrement, {inc_field: '_id'})
-module.exports = mongoose.model('Review', review)
+var Review = module.exports = mongoose.model('Review', review)
+
+module.exports.getAllReview = function(cosmetic_name , callback){
+    var query = {cosmetic_name : cosmetic_name}
+    Review.findOne(query , callback)
+}
+
+module.exports.review = function(review , callback){
+    review.save(callback)
+}
