@@ -9,7 +9,6 @@ var path = require('path')
 	getCosmeticByCategory
 	addCosmetic
 	editCosmetic
-	likeCosmetic
 	addToWishlist
 */
 
@@ -52,29 +51,6 @@ routes.get('/getCosmeticsByCategory' , function(req,res){
 routes.get('/getCosmeticsByBrand' , function(req,res){
 	cosmetics.getCosmeticByBrand(req.query.brand , function(err ,data){
 		res.json(data)
-	})
-})
-
-routes.get('/likeCosmetic' ,checkAuthen , function(req,res){
-	cosmetics.getById(req.query.id , function(err , data){
-		var isContain = false
-			for(var i = 0 ; i < data.like.who.length ; i++){
-				if(data.like.who[i] == req.cookies.username){
-					isContain = true
-					var index = i
-					break
-				}
-			}
-			if(isContain){
-				data.like.count--
-				data.like.who.splice( index, 1 )
-			}else{
-				data.like.count++
-				data.like.who.push(req.cookies.username)
-			}
-			data.save(function(err , data){
-				res.json(data)
-			})
 	})
 })
 
