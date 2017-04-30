@@ -5,10 +5,22 @@ var cookieParser = require('cookie-parser')
 var app = express()
 var cors = require('cors')
 var fileUpload = require('express-fileupload')
+var mongoose = require('mongoose')
+var config = require('./config/database')
  
 var indexs = require('./router/index')
 var users = require('./router/user')
 var admins = require('./router/admin')
+
+mongoose.connect(config.url);
+
+mongoose.connection.on('connected', () => {
+  console.log('Connected to database ')
+})
+
+mongoose.connection.on('error', (err) => {
+  console.log('Database error: '+err)
+})
 
 app.use(fileUpload())
 app.use(cors())

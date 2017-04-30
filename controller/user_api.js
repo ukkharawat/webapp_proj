@@ -1,9 +1,5 @@
 var users = require('../database/user')
-var mongoose = require('mongoose')
-var bcrypt = require('bcrypt')
-var dbconfig = require('../config/database')
 var path = require('path')
-var salt_factor = 10
 
 /*
     Register
@@ -14,37 +10,28 @@ var salt_factor = 10
 
 module.exports.register = function(req,res){
     var image = req.files.sampleFile ? req.files.sampleFile.name : 'default.png'
-    bcrypt.genSalt(salt_factor , function(err , salt){
-        bcrypt.hash(req.body.password , salt , function(err , hash){
-            mongoose.connect(dbconfig.url)
-            var user = new users({
-                    username : req.body.username,
-                    password : hash,
-                    displayImage : req.body.username + "_image." + image.split('.').pop(),
-                    authen: 0,
-                    wishlist : []
-            })
-            user.save(function(err , data){
-                if(err) 
-                    res.redirect('/failed')
-
-                if(image != 'default.png'){
-                    var file = req.files.sampleFile
-                    file.mv(path.join(__dirname , '../public/user_image/' , req.body.username + "_image." + image.split('.').pop()))
-                }
-                res.redirect('/')
-                mongoose.disconnect()
-            })
-        })
+    var user = new users({
+            username : req.body.username,
+            password : req.body.password,
+            displayImage : req.body.username + "_image." + image.split('.').pop(),
+            authen: 0,
+            wishlist : []
     })
+    users.register(user , function(err , data){
+        if(image != 'default.png'){
+            var file = req.files.sampleFile
+            file.mv(path.join(__dirname , '../public/user_image/' , req.body.username + "_image." + image.split('.').pop()))
+        }
+    })     
 }
 
 module.exports.login = function(req,res){
-    mongoose.connect(dbconfig.url)
-    users.findOne({username: req.body.username} , function(err,data){
-        if(data != null){
-            bcrypt.compare(req.body.password , data.password , function(err , same){
-                if(same){
+    users.findByUsername(req.body.username , function(err , user){
+        if(!user){
+            res.json({message : "User not found"})
+        }else{
+            users.comparePassword(req.body.password , user.password , function(err , isMatch){
+                if(isMatch){
                     res.cookie('username' , data.username , {
                         expires : new Date(Date.now() + 36000000), httpOnly: true 
                     })
@@ -59,48 +46,27 @@ module.exports.login = function(req,res){
                     res.json({message: "Username and Password aren't match"})
                 }
             })
-        }else{
-            res.json({message: "Username and Password aren't match"})
         }
-        mongoose.disconnect()
     })
 }
 
 module.exports.changePassword = function(req,res){
-    mongoose.connect(dbconfig.url)
-    users.findOne({username: req.cookies.username} , function(err,data){
-        if(data != null){
-            bcrypt.compare(req.body.oldpassword , data.password , function(err , same){
-                if(same){
-                    bcrypt.genSalt(salt_factor , function(err , salt){
-                        bcrypt.hash(req.body.newpassword , salt , function(err , hash){
-                            mongoose.connect(dbconfig.url)
-                            data.password = hash
-                            data.save(function(err , data){
-                                if(!err){
-                                    res.json({message : "complete"})
-                                }else{
-                                    res.json({message : "incomplete"})
-                                }
-                                mongoose.disconnect()
-                            })
-                        })
-                    })
-                }
-            })
-        }else{
-            res.json({message: "This account isn't exists"})
-        }
-        mongoose.disconnect()
+    users.findByUsername(req.cookies.username , function(err , user){
+        users.comparePassword(req.body.oldpassword , user.password , function(err , isMatch){
+            if(isMatch){
+                user.password = req.body.newpassword
+                users.register(user , function(err , data){
+                    res.json({message : "complete"})
+                })
+            }else{
+                res.json({message : "Current password is wrong"})
+            }
+        })
     })
 }
 
 module.exports.getWishlist = function(req,res){
-    mongoose.connect(dbconfig.url)
-    users.findOne({username: req.cookies.username} , function(err,data){
-        if(!err){
-            res.json(data.wishlist)
-        }
-        mongoose.disconnect()
+    users.findByUsername(req.query.username , function(err , user){
+        console.log(user.wishlist)
     })
 }

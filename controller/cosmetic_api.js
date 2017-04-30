@@ -16,29 +16,23 @@ var fc = require('../config/function')
 */
 
 module.exports.getCosmetics = function(req,res){
-	mongoose.connect(dbconfig.url)
 	cosmetics.find({}, function(err, data){
 		res.json(data)
-		mongoose.disconnect()
 	})
 }
 
 module.exports.getNewCosmetics = function(req,res){
-	mongoose.connect(dbconfig.url)
 	cosmetics.find({}).sort({id: -1}).limit(16).exec(function(err , data){
 		if(err) console.log(err)
 		else res.json(data)
-		mongoose.disconnect()
 	})
 }
 
 module.exports.getCosmeticsByCategory = function(req,res){
-	mongoose.connect(dbconfig.url)
 	cosmetics.find({category : fc.stringForm(String(req.body.category))} , function(err,data){
 		if(!err){
 			res.json(data)
 		}
-		mongoose.disconnect()
 	})
 }
 
@@ -48,7 +42,6 @@ module.exports.editCosmetics = function(req,res){
 	var color = fc.stringForm(String(req.body.color))
 	var collections = fc.stringForm(String(req.body.collections))
 	var name = fc.stringForm(String(req.body.name))
-	mongoose.connect(dbconfig.url)
 	cosmetics.findOne({id:req.body.id} , function(err,data){
 		console.log(data)
 		if(!err){
@@ -60,7 +53,6 @@ module.exports.editCosmetics = function(req,res){
 			data.detail = String(req.body.detail)
 			data.save(function(err,data){
 				res.json(data)
-				mongoose.disconnect()
 			})
 		}
 	})
@@ -75,7 +67,6 @@ module.exports.addCosmetics = function(req,res){
 	var specific = fc.stringForm(String(req.body.specific))
 	var name = fc.stringForm(String(req.body.name))
 	file.mv(path.join(__dirname , '../public/cosmetic_image/' , name + "_image." + image.split('.').pop()))
-	mongoose.connect(dbconfig.url)
 	var cosmetic = new cosmetics({
 		image: name + "_image." + image.split('.').pop(),
 		brand: brand,
@@ -90,13 +81,11 @@ module.exports.addCosmetics = function(req,res){
 		}
 	})
 	cosmetic.save(function(err , data){
-		mongoose.disconnect()
 		res.redirect('/')
 	})
 }
 
 module.exports.likeCosmetics = function(req,res){
-	mongoose.connect(dbconfig.url)
 	cosmetics.findOne({id : req.query.id }, function(err , data){
 		if(!err){
 			var isContain = false
@@ -117,14 +106,12 @@ module.exports.likeCosmetics = function(req,res){
 			console.log(data.like)
 			data.save(function(err , data){
 				res.json({message: "success"})
-				mongoose.disconnect()
 			})
 		}
 	})
 }
 
 module.exports.addToWishlist = function(req,res){
-	mongoose.connect(dbconfig.url)
 	users.findOne({username : req.cookies.username} , function(err, data){
 		if(!err){
 			var isContain = false
@@ -145,7 +132,6 @@ module.exports.addToWishlist = function(req,res){
 			}
 			data.save(function(err , data){
 				res.json({message: "success"})
-				mongoose.disconnect()
 			})
 		}
 	})

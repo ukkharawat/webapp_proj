@@ -7,4 +7,6 @@ routes.post('/login',userController.login)
 
 routes.post('/changePassword',userController.changePassword)
 
+routes.get('/getWishlist',userController.getWishlist)
+
 module.exports = routes
