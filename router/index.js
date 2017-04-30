@@ -1,6 +1,5 @@
 var routes = require('express').Router()
 var cosmeticController = require('../controller/cosmetic_api')
-var reviewController = require('../controller/review_api')
 var path = require('path')
 
 function checkAuthen(req,res,next){
@@ -14,16 +13,6 @@ function checkAuthen(req,res,next){
 routes.get('/',function(req,res){
     res.sendFile(path.join(__dirname , '../public/index.html'))
 })
-
-routes.post('/review' ,checkAuthen ,  reviewController.review)
-
-routes.get('/getTopReview' ,checkAuthen ,  reviewController.getTopReview)
-
-routes.get('/getAllReview' ,checkAuthen ,  reviewController.getAllReview)
-
-routes.post('/likeReview' ,checkAuthen ,  reviewController.likeReview)
-
-routes.post('/editReview' ,checkAuthen ,  reviewController.editReview)
 
 routes.get('/getCosmetics',cosmeticController.getNewCosmetics)
 

@@ -6,14 +6,13 @@ var app = express()
 var cors = require('cors')
 var fileUpload = require('express-fileupload')
 var mongoose = require('mongoose')
+
 var config = require('./config/database')
- 
 var indexs = require('./router/index')
 var users = require('./router/user')
-var admins = require('./router/admin')
 var reviews = require('./router/review')
 
-mongoose.connect(config.url);
+mongoose.connect(config.url)
 
 mongoose.connection.on('connected', () => {
   console.log('Connected to database ')
@@ -33,7 +32,6 @@ app.use(express.static(path.join(__dirname,'node_modules')))
 
 app.use('/' , indexs)
 app.use('/user' , users)
-app.use('/admin' , admins)
 app.use('/review' , reviews)
 
 // test cookie
