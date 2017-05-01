@@ -6,6 +6,7 @@ var app = express()
 var cors = require('cors')
 var fileUpload = require('express-fileupload')
 var mongoose = require('mongoose')
+const passport = require('passport')
 
 var config = require('./config/database')
 var indexs = require('./router/index')
@@ -33,6 +34,9 @@ app.use(express.static(path.join(__dirname,'node_modules')))
 app.use('/' , indexs)
 app.use('/user' , users)
 app.use('/review' , reviews)
+app.use(passport.initialize())
+app.use(passport.session())
+require('./config/passport')(passport)
 
 // test cookie
 app.get('/getCookie' , function(req,res){
