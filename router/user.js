@@ -1,5 +1,8 @@
 var routes = require('express').Router()
-var user = require('../model/user')
+var users = require('../model/user')
+var config = require('../config/database')
+var jwt = require('jsonwebtoken')
+var passport = require('passport')
 
 /*
     Register
@@ -26,22 +29,23 @@ routes.post('/register', function(req,res){
 })
 
 routes.post('/login', function(req,res){
-    users.findByUsername(req.body.username , function(err , user){
+    users.getUserByUsername(req.body.username , function(err , user){
         if(!user){
             res.json({message : "User not found"})
         }else{
             users.comparePassword(req.body.password , user.password , function(err , isMatch){
                 if(isMatch){
-                    res.cookie('username' , data.username , {
-                        expires : new Date(Date.now() + 36000000), httpOnly: true 
+                    const token = jwt.sign(user, config.secret, {
+                        expiresIn: 604800 // 1 week
                     })
-                    res.cookie('auth' , data.authen , {
-                        expires : new Date(Date.now() + 36000000), httpOnly: true
-                    })
-                    res.cookie('displayImage' , data.displayImage , {
-                        expires : new Date(Date.now() + 36000000), httpOnly: true 
-                    })
-                    res.json({username: data.username , displayImage : data.displayImage})
+                    res.json({
+                        success: true,
+                        token: 'JWT '+token,
+                        user: {
+                            id: user._id,
+                            username: user.username,
+                        }
+                    })    
                 }else{
                     res.json({message: "Username and Password aren't match"})
                 }
@@ -50,8 +54,8 @@ routes.post('/login', function(req,res){
     })
 })
 
-routes.post('/changePassword', function(req,res){
-    users.findByUsername(req.cookies.username , function(err , user){
+routes.post('/changePassword', passport.authenticate('jwt', {session:false}) , function(req,res){
+    users.getUserById(req.user._id , function(err , user){
         users.comparePassword(req.body.oldpassword , user.password , function(err , isMatch){
             if(isMatch){
                 user.password = req.body.newpassword
@@ -65,8 +69,8 @@ routes.post('/changePassword', function(req,res){
     })
 })
 
-routes.get('/getWishlist', function(req,res){
-    users.findByUsername(req.query.username , function(err , user){
+routes.get('/getWishlist', passport.authenticate('jwt', {session:false}), function(req,res){
+    users.getUserById(req.user._id , function(err , user){
         res.json(user.wishlist)
     })
 })
