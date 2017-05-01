@@ -15,6 +15,10 @@ var user = mongoose.Schema({
 
 var User = module.exports = mongoose.model('User', user)
 
+module.exports.getUserById = function(id, callback){
+  User.findById(id, callback);
+}
+
 module.exports.register = function(user , callback){
     bcrypt.genSalt(10 , function(err , salt){
         bcrypt.hash(user.password , salt , function(err , hash){
@@ -24,7 +28,7 @@ module.exports.register = function(user , callback){
     })
 }
 
-module.exports.findByUsername = function(username , callback){
+module.exports.getUserByUsername = function(username , callback){
     var query = {username : username}
     User.findOne(query , callback)
 }

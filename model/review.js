@@ -24,6 +24,10 @@ module.exports.getAllReview = function(cosmetic_name , callback){
     Review.findOne(query , callback)
 }
 
+module.exports.getReviewById = function(id , callback){
+    Review.findById(id , callback)
+}
+
 module.exports.review = function(review , callback){
     review.save(callback)
 }
