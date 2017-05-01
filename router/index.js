@@ -2,6 +2,7 @@ var routes = require('express').Router()
 var cosmetics = require('../model/cosmetic')
 var users = require('../model/user')
 var path = require('path')
+var passport = require('passport')
 
 /*
 	getCosmetic
@@ -11,17 +12,8 @@ var path = require('path')
 	editCosmetic
 	addToWishlist
 */
-
-function checkAuthen(req,res,next){
-    if(req.cookies.username && req.cookies.auth){
-        next()
-    }else{
-        res.json({message: 'You have to login before like , review'})
-    }
-}
-
 function checkAdminAuthen(req,res,next){
-    if(req.cookies.username && req.cookies.auth == 1){
+    if(req.user.authen == 1){
         next()
     }
 }
@@ -54,8 +46,8 @@ routes.get('/getCosmeticsByBrand' , function(req,res){
 	})
 })
 
-routes.get('/addToWishlist' , checkAuthen , function(req,res){
-	users.findByUsername(req.cookies.username , function(err , data){
+routes.get('/addToWishlist' , passport.authenticate('jwt', {session:false}) , function(req,res){
+	users.getUserById(req.user._id , function(err , data){
 		var isContain = false
 		for(var i = 0 ; i < data.wishlist.length ; i++){
 			if(data.wishlist[i].id == req.query.id){
@@ -78,7 +70,7 @@ routes.get('/addToWishlist' , checkAuthen , function(req,res){
 	})
 })
 
-routes.post('/addCosmetic' , checkAdminAuthen , function(req,res){
+routes.post('/addCosmetic'  , passport.authenticate('jwt', {session:false}) , checkAdminAuthen , function(req,res){
 	var file = req.files.file
 	var image = file.name
 	file.mv(path.join(__dirname , '../public/cosmetic_image/' , fc.stringForm(req.body.name) + "_image." + image.split('.').pop()))
@@ -100,7 +92,7 @@ routes.post('/addCosmetic' , checkAdminAuthen , function(req,res){
 	})
 })
 
-routes.post('/editCosmetic' , checkAdminAuthen , function(req,res){
+routes.post('/editCosmetic'  , passport.authenticate('jwt', {session:false}) , checkAdminAuthen , function(req,res){
 	cosmetics.getById(req.body.id , function(err , data){
 		var file = req.files.file
 		var image = file.name
