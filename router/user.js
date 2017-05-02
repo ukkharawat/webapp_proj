@@ -17,6 +17,7 @@ routes.post('/register', function(req,res){
             username : req.body.username,
             password : req.body.password,
             displayImage : req.body.username + "_image." + image.split('.').pop(),
+            email : req.body.email,
             authen: 0,
             wishlist : []
     })
