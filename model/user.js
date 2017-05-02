@@ -5,7 +5,7 @@ var user = mongoose.Schema({
     username: { type: String, index: { unique: true }},
     displayImage : String,
     password: String,
-    email : String,
+    email : {type: String , unique:true },
     authen: Number,
     wishlist: [{
         name : {type: String , ref : "Cosmetic"},
@@ -33,8 +33,26 @@ module.exports.getUserByUsername = function(username , callback){
     User.findOne(query , callback)
 }
 
+module.exports.getUserByEmail = function(email , callback){
+    var query = {email : email}
+    User.findOne(query , callback)
+}
+
 module.exports.comparePassword = function(password , hash , callback){
     bcrypt.compare(password , hash , function(err , isMatch){
         callback(null , isMatch)
+    })
+}
+
+module.exports.resetPassword = function(user , callback){
+    var query = {username : user.username}
+    User.findOne(query , function(err , data){
+        bcrypt.genSalt(10 , function(err , salt){
+            bcrypt.hash(user.password , salt , function(err , hash){
+                data.password = hash
+                data.authen = 0
+                data.save(callback)
+            })
+        })
     })
 }

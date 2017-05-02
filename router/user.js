@@ -3,11 +3,14 @@ var users = require('../model/user')
 var config = require('../config/database')
 var jwt = require('jsonwebtoken')
 var passport = require('passport')
+var nodemailer = require('nodemailer')
 
 /*
     Register
     Login
-    ChangePassword
+    resetPassword 2 process
+        : send email
+        : reset
     getWishlist
 */
 
@@ -22,9 +25,14 @@ routes.post('/register', function(req,res){
             wishlist : []
     })
     users.register(user , function(err , data){
-        if(image != 'default.png'){
-            var file = req.files.sampleFile
-            file.mv(path.join(__dirname , '../public/user_image/' , req.body.username + "_image." + image.split('.').pop()))
+        if(err){
+            res.json({message : "This account is exist"})
+        }else{
+            if(image != 'default.png'){
+                var file = req.files.sampleFile
+                file.mv(path.join(__dirname , '../public/user_image/' , req.body.username + "_image." + image.split('.').pop()))
+            }
+            res.json({message : "Success"})
         }
     })
 })
@@ -55,18 +63,49 @@ routes.post('/login', function(req,res){
     })
 })
 
-routes.post('/changePassword', passport.authenticate('jwt', {session:false}) , function(req,res){
-    users.getUserById(req.user._id , function(err , user){
-        users.comparePassword(req.body.oldpassword , user.password , function(err , isMatch){
-            if(isMatch){
-                user.password = req.body.newpassword
-                users.register(user , function(err , data){
-                    res.json({message : "complete"})
-                })
-            }else{
-                res.json({message : "Current password is wrong"})
+routes.post('/resetPassword' , function(req,res){
+    users.getUserByEmail(req.body.email , function(err ,user){
+        if(err){
+            res.json({message : "user not found"})
+        }else{
+            var smtpTrans = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: "test.cosmeme@gmail.com", // test email
+                pass: config.config 
             }
-        })
+            })
+            var mailOpts = {
+                from: "noreply@cosmeme.com", 
+                to: req.body.email,
+                subject: 'Reset your account password',
+                text: `please follow this link to reset your password 
+                        http://localhost:3000/reset/` + user.name
+            }
+            smtpTrans.sendMail(mailOpts, function (error, response) {
+                if(response){
+                    user.authen = -1
+                    users.register(user , function(err , data){
+                        if(data){
+                            res.json({message : "success"} )
+                        }
+                    })
+                }
+            })
+        }
+    })
+})
+
+routes.post('/reset/:username' , function(req,res){
+    users.getUserByUsername(req.params.username , function(err ,data){
+        if(data.authen == -1){
+            data.password = req.body.password
+            users.resetPassword(data , function(err , result){
+                res.json(result)
+            } )
+        }else{
+            res.json({message : "you can't reset your password"})
+        }
     })
 })
 
