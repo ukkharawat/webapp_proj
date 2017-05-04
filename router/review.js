@@ -4,8 +4,7 @@ var passport = require('passport')
 
 /*
     review
-    getTopReview
-    getAllReview
+    getAllReview sort by top review
     editReview
     likeReview
 */
@@ -37,35 +36,25 @@ routes.post('/review' , passport.authenticate('jwt', {session:false}) ,  functio
     })
 })
 
-routes.get('/getTopReview' ,  function(req,res){
-    reviews.getAllReview(req.query.cosmetic_name , function(err , data){
-        if(!data){
-            res.json({message : "No comment in this cosmetic"})
-        }else{
-            var max = 0
-            var index = 0
-            for(var i = 0 ; i < data.review.length ; i++){
-                if(data.review[i].like.count > max){
-                    max = data.review[i].like.count
-                    index = i
-                }
-            }
-            res.json(data.review[index])
-        }
-    })
-})
-
 routes.get('/getAllReview',  function(req,res){
     reviews.getAllReview(req.query.cosmetic_name , function(err , review){
         if(!review){
             res.json({message : "No comment in this cosmetic"})
         }else{
-            res.json(review.review)   
+            var sort_review = []
+            for(var i = 0 ; i < review.review.length ; i++){
+                sort_review.push(review.review[i])
+            }
+            sort_review.sort((a,b) => {
+                return -(a.like.count - b.like.count)
+            })
+            res.json(sort_review)
         }
     })
 })
 
 routes.get('/likeReview' , passport.authenticate('jwt', {session:false}) , function(req,res){
+    console.log("Hello")
     reviews.getReviewById(req.query.id , function(err , data){
         for(var i = 0 ; i < data.review.length ; i++){
             if(data.review[i]._id == req.query.idReview){
