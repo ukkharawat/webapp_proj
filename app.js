@@ -66,6 +66,10 @@ app.get('/failed', function(req, res) {
     res.send("This account already exists")
 })
 
+app.get('/user_image/:image', function(req, res) {
+    res.sendFile(path.join(__dirname, "public/user_image", req.params.image))
+})
+
 app.all('*', function(req, res) {
     res.redirect('/')
 })

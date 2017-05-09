@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken')
 var passport = require('passport')
 var nodemailer = require('nodemailer')
 var multer = require('multer')
-var DIR = '../public/user_image/'
+var DIR = 'public/user_image/'
     /*
         Register
         Login
@@ -19,35 +19,38 @@ var storage = multer.diskStorage({
         callback(null, `${DIR}/`)
     },
     filename: function(req, file, callback) {
+        console.log(req)
         callback(null, file.originalname)
     }
 })
 
 var upload = multer({ storage: storage })
 
-routes.post('/register', upload.any(), function(req, res) {
-    console.log(req.files)
+routes.post('/upload', upload.any(), function(req, res) {
     res.json({ message: "upload success" })
-        // var image = req.files.sampleFile ? req.files.sampleFile.name : 'default.png'
-        // var user = new users({
-        //     username: req.body.username,
-        //     password: req.body.password,
-        //     displayImage: req.body.username + "_image." + image.split('.').pop(),
-        //     email: req.body.email,
-        //     authen: 0,
-        //     wishlist: []
-        // })
-        // users.register(user, function(err, data) {
-        //     if (err) {
-        //         res.json({ message: "This account is exist" })
-        //     } else {
-        //         if (image != 'default.png') {
-        //             var file = req.files.sampleFile
-        //             file.mv(path.join(__dirname, '../public/user_image/', req.body.username + "_image." + image.split('.').pop()))
-        //         }
-        //         res.json({ message: "Success" })
-        //     }
-        // })
+})
+
+routes.post('/register', upload.any(), function(req, res) {
+    var image = req.files.sampleFile ? req.files.sampleFile.name : 'default.png'
+    var user = new users({
+        username: req.body.username,
+        password: req.body.password,
+        displayImage: req.body.username + "_image." + image.split('.').pop(),
+        email: req.body.email,
+        authen: 0,
+        wishlist: []
+    })
+    users.register(user, function(err, data) {
+        if (err) {
+            res.json({ message: "This account is exist" })
+        } else {
+            if (image != 'default.png') {
+                var file = req.files.sampleFile
+                file.mv(path.join(__dirname, '../public/user_image/', req.body.username + "_image." + image.split('.').pop()))
+            }
+            res.json({ message: "Success" })
+        }
+    })
 })
 
 routes.post('/login', function(req, res) {
