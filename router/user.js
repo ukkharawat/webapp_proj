@@ -30,12 +30,11 @@ routes.post('/upload', upload.any(), function(req, res) {
     res.json({ message: "upload success" })
 })
 
-routes.post('/register', upload.any(), function(req, res) {
-    var image = req.files.sampleFile ? req.files.sampleFile.name : 'default.png'
+routes.post('/register', function(req, res) {
     var user = new users({
         username: req.body.username,
         password: req.body.password,
-        displayImage: req.body.username + "_image." + image.split('.').pop(),
+        displayImage: req.body.displayImage,
         email: req.body.email,
         authen: 0,
         wishlist: []
@@ -44,10 +43,6 @@ routes.post('/register', upload.any(), function(req, res) {
         if (err) {
             res.json({ message: "This account is exist" })
         } else {
-            if (image != 'default.png') {
-                var file = req.files.sampleFile
-                file.mv(path.join(__dirname, '../public/user_image/', req.body.username + "_image." + image.split('.').pop()))
-            }
             res.json({ message: "Success" })
         }
     })
