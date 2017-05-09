@@ -6,8 +6,8 @@
             </div>
             <div class="panel-body">
                 <div class="col-md-3">
-                    <img src="http://localhost:3000/user_image/test_image.png">
-                    <input type="file" ng2FileSelect [uploader]="uploader" />
+                    <img [src]="url">
+                    <input type="file" accept="image/*" (change)="readUrl($event)" ng2FileSelect [uploader]="uploader" [(ngModel)]="i" name="i" />
                 </div>
                 <div class="col-md-9">
                     <form accept-charset="UTF-8" role="form">
