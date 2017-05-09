@@ -4,90 +4,103 @@ var config = require('../config/database')
 var jwt = require('jsonwebtoken')
 var passport = require('passport')
 var nodemailer = require('nodemailer')
-
-/*
-    Register
-    Login
-    resetPassword 2 process
-        : send email
-        : reset
-    getWishlist
-*/
-
-routes.post('/register', function(req,res){
-    var image = req.files.sampleFile ? req.files.sampleFile.name : 'default.png'
-    var user = new users({
-            username : req.body.username,
-            password : req.body.password,
-            displayImage : req.body.username + "_image." + image.split('.').pop(),
-            email : req.body.email,
-            authen: 0,
-            wishlist : []
-    })
-    users.register(user , function(err , data){
-        if(err){
-            res.json({message : "This account is exist"})
-        }else{
-            if(image != 'default.png'){
-                var file = req.files.sampleFile
-                file.mv(path.join(__dirname , '../public/user_image/' , req.body.username + "_image." + image.split('.').pop()))
-            }
-            res.json({message : "Success"})
-        }
-    })
+var multer = require('multer')
+var DIR = '../public/user_image/'
+    /*
+        Register
+        Login
+        resetPassword 2 process
+            : send email
+            : reset
+        getWishlist
+    */
+var storage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, `${DIR}/`)
+    },
+    filename: function(req, file, callback) {
+        callback(null, file.originalname)
+    }
 })
 
-routes.post('/login', function(req,res){
-    users.getUserByUsername(req.body.username , function(err , user){
-        if(!user){
-            res.json({message : "User not found"})
-        }else{
-            users.comparePassword(req.body.password , user.password , function(err , isMatch){
-                if(isMatch){
+var upload = multer({ storage: storage })
+
+routes.post('/register', upload.any(), function(req, res) {
+    console.log(req.files)
+    res.json({ message: "upload success" })
+        // var image = req.files.sampleFile ? req.files.sampleFile.name : 'default.png'
+        // var user = new users({
+        //     username: req.body.username,
+        //     password: req.body.password,
+        //     displayImage: req.body.username + "_image." + image.split('.').pop(),
+        //     email: req.body.email,
+        //     authen: 0,
+        //     wishlist: []
+        // })
+        // users.register(user, function(err, data) {
+        //     if (err) {
+        //         res.json({ message: "This account is exist" })
+        //     } else {
+        //         if (image != 'default.png') {
+        //             var file = req.files.sampleFile
+        //             file.mv(path.join(__dirname, '../public/user_image/', req.body.username + "_image." + image.split('.').pop()))
+        //         }
+        //         res.json({ message: "Success" })
+        //     }
+        // })
+})
+
+routes.post('/login', function(req, res) {
+    users.getUserByUsername(req.body.username, function(err, user) {
+        if (!user) {
+            res.json({ message: "User not found" })
+        } else {
+            users.comparePassword(req.body.password, user.password, function(err, isMatch) {
+                if (isMatch) {
                     const token = jwt.sign(user, config.secret, {
                         expiresIn: 604800 // 1 week
                     })
                     res.json({
                         success: true,
-                        token: 'JWT '+token,
+                        token: 'JWT ' + token,
                         user: {
                             id: user._id,
                             username: user.username,
                         }
-                    })    
-                }else{
-                    res.json({message: "Username and Password aren't match"})
+                    })
+                } else {
+                    res.json({ message: "Username and Password aren't match" })
                 }
             })
         }
     })
 })
 
-routes.post('/resetPassword' , function(req,res){
-    users.getUserByEmail(req.body.email , function(err ,user){
-        if(err){
-            res.json({message : "user not found"})
-        }else{
+routes.post('/resetPassword', function(req, res) {
+    users.getUserByEmail(req.body.email, function(err, user) {
+        if (err) {
+            res.json({ message: "user not found" })
+        } else {
             var smtpTrans = nodemailer.createTransport({
-            service: 'Gmail',
-            auth: {
-                user: "test.cosmeme@gmail.com", // test email
-                pass: config.config 
-            }
+                service: 'Gmail',
+                auth: {
+                    user: "test.cosmeme@gmail.com", // test email
+                    pass: config.config
+                }
             })
             var mailOpts = {
-                from: "noreply@cosmeme.com", 
+                from: "noreply@cosmeme.com",
                 to: req.body.email,
                 subject: 'Reset your account password',
                 text: `please follow this link to reset your password 
                         http://localhost:3000/reset/` + user.name
             }
-            smtpTrans.sendMail(mailOpts, function (error, response) {
-                if(response){
+            smtpTrans.sendMail(mailOpts, function(error, response) {
+                if (response) {
                     user.authen = -1
-                    users.register(user , function(err , data){
-                        if(data){
-                            res.json({message : "success"} )
+                    users.register(user, function(err, data) {
+                        if (data) {
+                            res.json({ message: "success" })
                         }
                     })
                 }
@@ -96,21 +109,21 @@ routes.post('/resetPassword' , function(req,res){
     })
 })
 
-routes.post('/reset/:username' , function(req,res){
-    users.getUserByUsername(req.params.username , function(err ,data){
-        if(data.authen == -1){
+routes.post('/reset/:username', function(req, res) {
+    users.getUserByUsername(req.params.username, function(err, data) {
+        if (data.authen == -1) {
             data.password = req.body.password
-            users.resetPassword(data , function(err , result){
+            users.resetPassword(data, function(err, result) {
                 res.json(result)
-            } )
-        }else{
-            res.json({message : "you can't reset your password"})
+            })
+        } else {
+            res.json({ message: "you can't reset your password" })
         }
     })
 })
 
-routes.get('/getWishlist', passport.authenticate('jwt', {session:false}), function(req,res){
-    users.getUserById(req.user._id , function(err , user){
+routes.get('/getWishlist', passport.authenticate('jwt', { session: false }), function(req, res) {
+    users.getUserById(req.user._id, function(err, user) {
         res.json(user.wishlist)
     })
 })
