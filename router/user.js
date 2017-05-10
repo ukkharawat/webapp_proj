@@ -6,6 +6,8 @@ var passport = require('passport')
 var nodemailer = require('nodemailer')
 var multer = require('multer')
 var DIR = 'public/user_image/'
+var fs = require('fs')
+var path = require('path')
     /*
         Register
         Login
@@ -19,7 +21,6 @@ var storage = multer.diskStorage({
         callback(null, `${DIR}/`)
     },
     filename: function(req, file, callback) {
-        console.log(req)
         callback(null, file.originalname)
     }
 })
@@ -31,10 +32,15 @@ routes.post('/upload', upload.any(), function(req, res) {
 })
 
 routes.post('/register', function(req, res) {
+    var displayImage = req.body.displayImage
+    if (req.body.displayImage != "default_image.png") {
+        fs.renameSync(path.join(__dirname, '../public/user_image/' + displayImage),
+            path.join(__dirname, '../public/user_image/' + req.body.username + "_image." + displayImage.split('.').pop()))
+    }
     var user = new users({
         username: req.body.username,
         password: req.body.password,
-        displayImage: req.body.displayImage,
+        displayImage: displayImage,
         email: req.body.email,
         authen: 0,
         wishlist: []
