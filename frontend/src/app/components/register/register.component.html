@@ -7,7 +7,8 @@
             <div class="panel-body">
                 <div class="col-md-3">
                     <img [src]="url">
-                    <input type="file" accept="image/*" (change)="readUrl($event)" ng2FileSelect [uploader]="uploader" [(ngModel)]="i" name="i" />
+                    <input type="file" accept="image/*" id="selectedFile" (change)="readUrl($event)" ng2FileSelect [uploader]="uploader" style="display: none;" />
+                    <input class="btn btn-sm btn-success btn-block" type="button" value="choose your image" onclick="document.getElementById('selectedFile').click();" />
                 </div>
                 <div class="col-md-9">
                     <form accept-charset="UTF-8" role="form">
@@ -24,7 +25,7 @@
                                 <label class="control-label" for="focusedInput">Email</label>
                                 <input class="form-control" id="focusedInput" type="text" [(ngModel)]="email" name="email" placeholder="Email">
                             </div>
-                            <input class="btn btn-lg btn-success btn-block" type="submit" (click)="register()" value="Login">
+                            <input class="btn btn-lg btn-success btn-block" type="submit" (click)="register()" value="Register">
                         </fieldset>
                     </form>
                 </div>

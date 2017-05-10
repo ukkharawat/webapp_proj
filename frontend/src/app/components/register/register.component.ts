@@ -16,10 +16,12 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private flashMessage:FlashMessagesService,
-    private authService:AuthService
+    private authService:AuthService,
+    private router:Router
   ) { }
 
   ngOnInit() {
+    this.url = "http://localhost:3000/user_image/default_image.png"
   }
 
   public uploader:FileUploader = new FileUploader({url: URL})
@@ -30,37 +32,51 @@ export class RegisterComponent implements OnInit {
   url : String
 
   public readUrl(event) {
-    
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+      }
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
 
   public register(e:any):void {
+    let displayImage = ""
+    if(this.uploader.queue[0]){
+      displayImage = this.uploader.queue[0].file.name
+    }else{
+      displayImage = "default_image.png"
+    }
     const user = {
       username : this.username,
       password : this.password,
       email : this.email,
-      displayImage : this.uploader.queue[0].file.name
+      displayImage : displayImage
     }
-    this.authService.registerUser(user).subscribe(data => {
-      if(data.message == "Success"){
-        this.flashMessage.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000})
-        this.uploader.uploadAll()
-      }else{
-        this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000})
+    if(displayImage == "default_image.png"){
+      this.authService.registerUser(user).subscribe(data => {
+        if(data.message == "Success"){
+          this.flashMessage.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000})
+          this.router.navigate(['/login'])
+        }else{
+          this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000})
+          this.router.navigate(['/register'])
+        }
+      })
+    }else{
+      this.uploader.uploadAll()
+      this.uploader.onCompleteItem = (item , res , sta , header) => {
+          this.authService.registerUser(user).subscribe(data => {
+            if(data.message == "Success"){
+              this.flashMessage.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000})
+              this.router.navigate(['/login'])
+            }else{
+              this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000})
+              this.router.navigate(['/register'])
+            }
+          })
       }
-      /*if(data.success){
-        this.flashMessage.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});
-        //this.router.navigate(['/login']);
-      } else {
-        this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
-        this.router.navigate(['/register']);
-      }*/
-    })
-    // this.uploader.uploadAll()
-    // this.uploader.onCompleteItem = (item , res , sta , header) => {
-    //     res => this.data = res.json()
-    //     console.log(this.data)
-    // }
+    }
   }
-
-
 }
