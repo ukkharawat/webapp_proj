@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import {AuthService} from '../../services/auth.service'
-import {Router} from '@angular/router'
-import {FlashMessagesService} from 'angular2-flash-messages'
+import { AuthService } from '../../services/auth.service'
+import { Router } from '@angular/router'
+import { FlashMessagesService } from 'angular2-flash-messages'
 
 @Component({
   selector: 'app-navbar',
@@ -11,25 +11,23 @@ import {FlashMessagesService} from 'angular2-flash-messages'
 export class NavbarComponent implements OnInit {
 
   constructor(
-    private authService : AuthService,
-    private router : Router,
-    private flashMessagesService : FlashMessagesService
+    private authService: AuthService,
+    private router: Router,
+    private flashMessagesService: FlashMessagesService
   ) { }
 
   ngOnInit() {
   }
 
-  public isCollapsed:boolean = false;
- 
-  public collapsed(event:any):void {
-    console.log(event);
-  }
- 
-  public expanded(event:any):void {
-    console.log(event);
+  public isCollapsed: boolean = false;
+
+  public collapsed(event: any): void {
   }
 
-  public logout(event: any) : void {
+  public expanded(event: any): void {
+  }
+
+  public logout(event: any): void {
     this.authService.logout()
   }
 }

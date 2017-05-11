@@ -57,7 +57,7 @@ routes.post('/register', function(req, res) {
 routes.post('/login', function(req, res) {
     users.getUserByUsername(req.body.username, function(err, user) {
         if (!user) {
-            res.json({ message: "User not found" })
+            res.json({ message: "Username and Password aren't match" })
         } else {
             users.comparePassword(req.body.password, user.password, function(err, isMatch) {
                 if (isMatch) {
