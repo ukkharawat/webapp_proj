@@ -35,4 +35,14 @@ export class AuthService {
     this.authToken = token
     this.user = user
   }
+
+  logout(){
+    this.authToken = null;
+    this.user = null;
+    localStorage.clear();
+  }
+
+  loggedIn(){
+    return tokenNotExpired();
+  }
 }
