@@ -42,7 +42,13 @@ export class AuthService {
     localStorage.clear();
   }
 
-  loggedIn(){
-    return tokenNotExpired();
+  loadToken(){
+    const token = localStorage.getItem('id_token')
+    this.authToken = token
   }
+
+  loggedIn(){
+    return tokenNotExpired('id_token')
+  }
+
 }
