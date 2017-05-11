@@ -1,20 +1,24 @@
 <nav class="navbar navbar-default navbar-color">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" (click)="isCollapsed = !isCollapsed">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" (click)="isCollapsed = !isCollapsed">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Brand</a>
+            <a class="navbar-brand" href="#">Brand</a>
+        </div>
+        <div class="collapse navbar-collapse" (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="!isCollapsed">
+            <ul class="nav navbar-nav navbar-right">
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="menuFont" [routerLink]="['/']">Home</a></li>
+                <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="menuFont" [routerLink]="['/login']">Login</a></li>
+                <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="menuFont" [routerLink]="['/register']">Register</a></li>
+
+                <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="menuFont" [routerLink]="['/login']">Profile</a></li>
+                <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="menuFont" [routerLink]="['/register']">Wishlist</a></li>
+                <li *ngIf="authService.loggedIn()"><a class="menuFont" (click)="logout()">Logout</a></li>
+            </ul>
+        </div>
     </div>
-    <div class="collapse navbar-collapse" (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="!isCollapsed">
-      <ul class="nav navbar-nav navbar-right">
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a class="menuFont" [routerLink]="['/']">Home</a></li>
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a class="menuFont" [routerLink]="['/login']">Login</a></li>
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a class="menuFont" [routerLink]="['/register']">Register</a></li>
-      </ul>
-    </div>
-  </div>
 </nav>

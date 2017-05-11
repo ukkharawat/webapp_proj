@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes} from '@angular/router'
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 
-
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CollapseModule  } from 'ngx-bootstrap'
@@ -16,6 +15,7 @@ import { RegisterComponent } from './components/register/register.component';
 
 import { CustExtBrowserXhrService } from './services/cust-ext-browser-xhr.service';
 import { AuthService } from './services/auth.service'
+import { AuthGuard } from './guards/auth.guard'
 
 const appRoutes: Routes = [ 
   {path:'', component: HomeComponent},
@@ -45,7 +45,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     CustExtBrowserXhrService,
-    AuthService
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
