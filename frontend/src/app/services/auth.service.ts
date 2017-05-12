@@ -57,4 +57,8 @@ export class AuthService {
   isAdmin() {
     return this.admin
   }
+
+  getUser() {
+    return this.user
+  }
 }
