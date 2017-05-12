@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private flashMessagesService: FlashMessagesService
+    private flashMessage: FlashMessagesService
   ) { }
 
   ngOnInit() {
@@ -29,5 +29,7 @@ export class NavbarComponent implements OnInit {
 
   public logout(event: any): void {
     this.authService.logout()
+    this.flashMessage.show('You are now logged out now', { cssClass: 'alert-success', timeout: 1000})
+    this.router.navigate(['/'])
   }
 }

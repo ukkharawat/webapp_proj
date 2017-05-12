@@ -3,5 +3,9 @@
 }
 
 .menuFont {
-    font-size : 18px;
+    font-size: 18px;
+}
+
+a {
+    cursor: pointer
 }
