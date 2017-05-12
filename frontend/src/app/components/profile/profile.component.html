@@ -1,3 +1,32 @@
-<p>
-  profile works!
-</p>
+<div class="row">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Profile</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-3">
+                    <img [src]="url" width="100%">
+                </div>
+                <div class="col-md-9">
+                    <form accept-charset="UTF-8" role="form">
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="control-label" for="focusedInput">Username</label>
+                                <input class="form-control" id="focusedInput" type="text" [(ngModel)]="username" name="username" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="focusedInput">Email</label>
+                                <input class="form-control" id="focusedInput" type="text" [(ngModel)]="email" name="email" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="focusedInput">Role</label>
+                                <input class="form-control" id="focusedInput" type="text" [(ngModel)]="role" name="role" readonly>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

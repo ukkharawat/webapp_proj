@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service'
+import { FlashMessagesService } from 'angular2-flash-messages'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private flashMessage: FlashMessagesService,
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
+    const user = this.authService.getUser()
+    console.log(user)
+    this.url = "http://localhost:3000//user_image/" + user.displayImage
+    this.username = user.username
+    this.email = user.email
+    this.role = user.authen == 1 ? "admin" : "user"
   }
+
+  url : String
+  username : String
+  email : String
+  role : String
 
 }

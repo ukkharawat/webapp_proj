@@ -70,6 +70,7 @@ routes.post('/login', function(req, res) {
                         user: {
                             id: user._id,
                             username: user.username,
+                            email: user.email,
                             authen: user.authen,
                             displayImage: user.displayImage
                         }
