@@ -51,20 +51,6 @@ app.use(passport.initialize())
 app.use(passport.session())
 require('./config/passport')(passport)
 
-// test cookie
-app.get('/getCookie', function(req, res) {
-    res.json(req.cookies)
-})
-
-app.get('/logout', function(req, res) {
-    for (var prop in req.cookies)
-        res.clearCookie(prop)
-    res.redirect('/')
-})
-
-app.get('/failed', function(req, res) {
-    res.send("This account already exists")
-})
 
 app.get('/user_image/:image', function(req, res) {
     res.sendFile(path.join(__dirname, "public/user_image", req.params.image))

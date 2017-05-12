@@ -14,16 +14,18 @@
                     <form accept-charset="UTF-8" role="form">
                         <fieldset>
                             <div class="form-group">
-                                <label class="control-label" for="focusedInput">Username</label>
-                                <input class="form-control" id="focusedInput" type="text" [(ngModel)]="username" name="username" placeholder="Username">
+                                <input class="form-control" id="focusedInput" type="text" [(ngModel)]="username" name="username" maxlength="20" placeholder="Username" required>
+                                <span id="helpBlock" class="help-block">You can use letters , numbers 8-20 characters</span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="focusedInput">Password</label>
-                                <input class="form-control" id="focusedInput" type="password" [(ngModel)]="password" name="password" placeholder="Password">
+                                <input class="form-control" id="focusedInput" type="password" [(ngModel)]="password" name="password" maxlength="20" placeholder="Password" required>
+                                <span id="helpBlock" class="help-block">Use at least 8 characters</span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="focusedInput">Email</label>
-                                <input class="form-control" id="focusedInput" type="text" [(ngModel)]="email" name="email" placeholder="Email">
+                                <input class="form-control" id="focusedInput" type="password" [(ngModel)]="repassword" name="repassword" maxlength="20" placeholder="Re-Password" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" id="focusedInput" type="text" [(ngModel)]="email" name="email" placeholder="Email" required>
                             </div>
                             <input class="btn btn-lg btn-success btn-block" type="submit" (click)="register()" value="Register">
                         </fieldset>
