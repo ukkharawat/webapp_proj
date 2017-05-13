@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Reset</h3>
+            </div>
+            <div class="panel-body">
+                <form accept-charset="UTF-8" role="form">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="control-label" for="focusedInput">Please enter your email address to send reset password's request.</label>
+                            <input class="form-control" id="focusedInput" [(ngModel)]="email" name="email" type="text" placeholder="Email">
+                        </div>
+                        <input class="btn btn-lg btn-success btn-block" type="submit" (click)="resetPassword()" value="RESET">
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

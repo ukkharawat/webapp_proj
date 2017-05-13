@@ -86,28 +86,27 @@ routes.post('/login', function(req, res) {
 routes.post('/resetPassword', function(req, res) {
     users.getUserByEmail(req.body.email, function(err, user) {
         if (err) {
-            res.json({ message: "user not found" })
+            res.json({ message: false })
         } else {
             var smtpTrans = nodemailer.createTransport({
                 service: 'Gmail',
                 auth: {
                     user: "test.cosmeme@gmail.com", // test email
-                    pass: config.config
+                    pass: config.password
                 }
             })
             var mailOpts = {
                 from: "noreply@cosmeme.com",
-                to: req.body.email,
+                to: user.email,
                 subject: 'Reset your account password',
-                text: `please follow this link to reset your password 
-                        http://localhost:3000/reset/` + user.name
+                text: `please follow this link to reset your password \n http://localhost:4200/resetConfirm/` + user.username
             }
             smtpTrans.sendMail(mailOpts, function(error, response) {
                 if (response) {
                     user.authen = -1
                     users.register(user, function(err, data) {
                         if (data) {
-                            res.json({ message: "success" })
+                            res.json({ message: true })
                         }
                     })
                 }
