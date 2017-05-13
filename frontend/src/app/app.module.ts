@@ -18,14 +18,16 @@ import { AuthService } from './services/auth.service'
 import { ValidateService } from './services/validate.service'
 import { AuthGuard } from './guards/auth.guard';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
-import { ProfileComponent } from './components/profile/profile.component'
+import { ProfileComponent } from './components/profile/profile.component';
+import { ResetComponent } from './components/reset/reset.component'
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'wishlist', component: WishlistComponent , canActivate:[AuthGuard]},
-  { path: 'profile' , component : ProfileComponent , canActivate:[AuthGuard]}
+  { path: 'profile' , component : ProfileComponent , canActivate:[AuthGuard]},
+  { path: 'reset' , component : ResetComponent}
 ]
 
 
@@ -40,7 +42,8 @@ const appRoutes: Routes = [
     FileSelectDirective,
     FileDropDirective,
     WishlistComponent,
-    ProfileComponent
+    ProfileComponent,
+    ResetComponent
   ],
   imports: [
     BrowserModule,

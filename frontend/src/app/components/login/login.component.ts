@@ -19,13 +19,8 @@ export class LoginComponent implements OnInit {
   username : String
   password : String
   
-
-
   ngOnInit() {
   }
-
-  
-
 
   public login(event:any) :void {
     const user = {

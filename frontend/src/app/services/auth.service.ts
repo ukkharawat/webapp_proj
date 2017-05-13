@@ -23,6 +23,14 @@ export class AuthService {
       .map(res => res.json());
   }
 
+  resetPassword(email){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json')
+    let ep = 'http://localhost:3000/user/resetPassword'
+    return this.http.post(ep, {email : email}, { headers: headers })
+      .map(res => res.json())
+  }
+
   loginUser(user) {
     let headers = new Headers()
     headers.append('Content-Type', 'application/json')

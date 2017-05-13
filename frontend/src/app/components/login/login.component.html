@@ -16,6 +16,7 @@
                             <input class="form-control" id="focusedInput" [(ngModel)]="password" name="password" type="password" placeholder="Password">
                         </div>
                         <input class="btn btn-lg btn-success btn-block" type="submit" (click)="login()" value="Login">
+                        <a style="float:right" [routerLink]="['/reset']">forget password</a>
                     </fieldset>
                 </form>
             </div>
