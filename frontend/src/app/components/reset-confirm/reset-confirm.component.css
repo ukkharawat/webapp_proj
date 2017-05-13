@@ -1,0 +1,13 @@
+.panel-title {
+    text-align: center;
+    font-size: 24px
+}
+
+.panel-heading {
+    background-color: #E3F2FD
+}
+
+.btn-success {
+    background-color: #BBDEFB;
+    color: #212121
+}

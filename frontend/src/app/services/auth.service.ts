@@ -31,6 +31,14 @@ export class AuthService {
       .map(res => res.json())
   }
 
+  resetConfirm(user){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json')
+    let ep = 'http://localhost:3000/user/reset'
+    return this.http.post(ep, user, { headers: headers })
+      .map(res => res.json())
+  }
+
   loginUser(user) {
     let headers = new Headers()
     headers.append('Content-Type', 'application/json')
