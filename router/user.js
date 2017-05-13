@@ -115,15 +115,15 @@ routes.post('/resetPassword', function(req, res) {
     })
 })
 
-routes.post('/reset/:username', function(req, res) {
-    users.getUserByUsername(req.params.username, function(err, data) {
+routes.post('/reset', function(req, res) {
+    users.getUserByUsername(req.body.username, function(err, data) {
         if (data.authen == -1) {
             data.password = req.body.password
             users.resetPassword(data, function(err, result) {
-                res.json(result)
+                res.json({ message: true })
             })
         } else {
-            res.json({ message: "you can't reset your password" })
+            res.json({ message: false })
         }
     })
 })
