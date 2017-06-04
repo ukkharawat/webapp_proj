@@ -20,7 +20,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ResetComponent } from './components/reset/reset.component';
-import { ResetConfirmComponent } from './components/reset-confirm/reset-confirm.component'
+import { ResetConfirmComponent } from './components/reset-confirm/reset-confirm.component';
+import { CosmeticComponent } from './components/cosmetic/cosmetic.component'
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
   { path: 'wishlist', component: WishlistComponent , canActivate:[AuthGuard]},
   { path: 'profile' , component : ProfileComponent , canActivate:[AuthGuard]},
   { path: 'reset' , component : ResetComponent},
-  { path: 'resetConfirm/:username' , component : ResetConfirmComponent}
+  { path: 'resetConfirm/:username' , component : ResetConfirmComponent},
+  { path: 'cosmetic/:category' , component : CosmeticComponent}
 ]
 
 
@@ -46,7 +48,8 @@ const appRoutes: Routes = [
     WishlistComponent,
     ProfileComponent,
     ResetComponent,
-    ResetConfirmComponent
+    ResetConfirmComponent,
+    CosmeticComponent
   ],
   imports: [
     BrowserModule,
