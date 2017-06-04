@@ -2,6 +2,7 @@ var mongoose = require('mongoose')
 var autoIncrement = require('mongoose-sequence')
 
 var cosmetic = mongoose.Schema({
+    id: Number,
     image: String,
     brand: String,
     category: String,
@@ -29,7 +30,7 @@ module.exports.getSortCosmetic = function(callback) {
 
 module.exports.getCosmeticByCategory = function(category, callback) {
     var query = { category: category }
-    Cosmetic.find(query).select({ name: 1, brand: 1, image: 1, like: 1 }).exec(callback)
+    Cosmetic.find(query).select({ id: 1, name: 1, brand: 1, image: 1, like: 1 }).exec(callback)
 }
 
 module.exports.getCosmeticByBrand = function(brand, callback) {
