@@ -25,11 +25,11 @@ export class HomeComponent implements OnInit {
       url : "http://localhost:3000/image/bronzer.png"
     },
     {
-      name : "Lip",
+      name : "Lips",
       url : "http://localhost:3000/image/lips.png"
     },
     {
-      name : "Eye",
+      name : "Eyes",
       url : "http://localhost:3000/image/eyes.png"
     },
     {

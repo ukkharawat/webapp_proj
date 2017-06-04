@@ -16,6 +16,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { CustExtBrowserXhrService } from './services/cust-ext-browser-xhr.service';
 import { AuthService } from './services/auth.service'
 import { ValidateService } from './services/validate.service'
+import { CosmeticService } from './services/cosmetic.service'
 import { AuthGuard } from './guards/auth.guard';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -63,7 +64,8 @@ const appRoutes: Routes = [
     CustExtBrowserXhrService,
     AuthService,
     AuthGuard,
-    ValidateService
+    ValidateService,
+    CosmeticService
   ],
   bootstrap: [AppComponent]
 })
