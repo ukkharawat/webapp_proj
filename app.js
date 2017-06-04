@@ -56,6 +56,11 @@ app.get('/user_image/:image', function(req, res) {
     res.sendFile(path.join(__dirname, "public/user_image", req.params.image))
 })
 
+app.get('/image/:image', function(req, res) {
+    res.sendFile(path.join(__dirname, "public/image", req.params.image))
+})
+
+
 app.all('*', function(req, res) {
     res.redirect('/')
 })
