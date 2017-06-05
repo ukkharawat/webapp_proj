@@ -72,6 +72,7 @@ routes.get('/addToWishlist', passport.authenticate('jwt', { session: false }), f
     users.getUserById(req.user._id, function(err, data) {
         var isContain = false
         for (var i = 0; i < data.wishlist.length; i++) {
+            console.log(data.wishlist[i]._id + " " + req.query.id)
             if (data.wishlist[i].id == req.query.id) {
                 isContain = true
                 var index = i
@@ -86,8 +87,12 @@ routes.get('/addToWishlist', passport.authenticate('jwt', { session: false }), f
                 id: req.query.id
             })
         }
-        data.save(function(err, data) {
-            res.json(data)
+        users.save(data.username, data.wishlist, function(err, data) {
+            if (!err) {
+                res.json({ message: "success" })
+            } else {
+                res.json({ message: "false" })
+            }
         })
     })
 })
@@ -104,11 +109,7 @@ routes.post('/addCosmetic', passport.authenticate('jwt', { session: false }), ch
         quality: req.body.quality,
         color: req.body.color,
         name: fc.stringForm(req.body.name),
-        detail: req.body.detail,
-        like: {
-            count: 0,
-            who: []
-        }
+        detail: req.body.detail
     })
     cosmetics.addCosmetic(cosmetic, function(err, data) {
         if (!err) {

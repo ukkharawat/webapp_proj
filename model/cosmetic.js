@@ -9,11 +9,7 @@ var cosmetic = mongoose.Schema({
     quality: String,
     color: [{ type: String }],
     name: { type: String, unique: true, index: true },
-    detail: String,
-    like: {
-        count: Number,
-        who: [{ type: String, ref: 'User' }] // collect who like it
-    }
+    detail: String
 })
 
 cosmetic.plugin(autoIncrement, { inc_field: 'id' })
@@ -30,7 +26,7 @@ module.exports.getSortCosmetic = function(callback) {
 
 module.exports.getCosmeticByCategory = function(category, callback) {
     var query = { category: category }
-    Cosmetic.find(query).select({ id: 1, name: 1, brand: 1, image: 1, like: 1 }).exec(callback)
+    Cosmetic.find(query).select({ id: 1, name: 1, brand: 1, image: 1 }).exec(callback)
 }
 
 module.exports.getCosmeticByBrand = function(brand, callback) {

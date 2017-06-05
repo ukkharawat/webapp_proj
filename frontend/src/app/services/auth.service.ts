@@ -46,6 +46,16 @@ export class AuthService {
       .map(res => res.json())
   }
 
+  getWishlist(){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json')
+    let ep = 'http://localhost:3000/user/getWishlist'
+    return this.http.get(ep, { headers: headers })
+      .map(res => res.json());
+  }
+
   storeUserData(token, user) {
     localStorage.setItem('id_token', token)
     localStorage.setItem('user', JSON.stringify(user))

@@ -17,12 +17,12 @@ export class CosmeticService {
       .map(res => res.json());
   }
 
-  addToWishlist(cosmetic){
+  addToWishlist(id , cosmetic){
     let headers = new Headers();
     this.authService.loadToken();
     headers.append('Authorization', this.authService.authToken);
     headers.append('Content-Type', 'application/json')
-    let ep = 'http://localhost:3000/addToWishlist?id=' + cosmetic
+    let ep = 'http://localhost:3000/addToWishlist?id='+ id + '&name=' + cosmetic
     return this.http.get(ep, { headers: headers })
       .map(res => res.json());
   }
