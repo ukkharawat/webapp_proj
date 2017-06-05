@@ -22,7 +22,8 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ResetComponent } from './components/reset/reset.component';
 import { ResetConfirmComponent } from './components/reset-confirm/reset-confirm.component';
-import { CosmeticComponent } from './components/cosmetic/cosmetic.component'
+import { CosmeticComponent } from './components/cosmetic/cosmetic.component';
+import { AddCosmeticComponent } from './components/add-cosmetic/add-cosmetic.component'
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -50,7 +51,8 @@ const appRoutes: Routes = [
     ProfileComponent,
     ResetComponent,
     ResetConfirmComponent,
-    CosmeticComponent
+    CosmeticComponent,
+    AddCosmeticComponent
   ],
   imports: [
     BrowserModule,
