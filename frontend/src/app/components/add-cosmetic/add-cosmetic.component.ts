@@ -79,9 +79,9 @@ export class AddCosmeticComponent implements OnInit {
     this.uploader.uploadAll()
       this.uploader.onCompleteItem = (item, res, sta, header) => {
         this.cosmeticService.addCosmetic(cosmetic).subscribe(data => {
-          if (data.message == "Success") {
+          if (data.message == "success") {
             this.flashMessage.show('Add done', { cssClass: 'alert-success', timeout: 3000 })
-            this.router.navigate(['/add'])
+            this.router.navigate(['/home'])
           } else {
             this.flashMessage.show('Something went wrong', { cssClass: 'alert-danger', timeout: 3000 })
             this.router.navigate(['/add'])

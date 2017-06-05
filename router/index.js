@@ -6,6 +6,7 @@ var passport = require('passport')
 var multer = require('multer')
 var DIR = 'public/cosmetic_image/'
 var fs = require('fs')
+var fc = require('../config/function')
 
 function checkAdminAuthen(req, res, next) {
     if (req.user.authen == 1) {
@@ -92,12 +93,12 @@ routes.get('/addToWishlist', passport.authenticate('jwt', { session: false }), f
 })
 
 routes.post('/addCosmetic', passport.authenticate('jwt', { session: false }), checkAdminAuthen, function(req, res) {
-    var displayImage = req.body.displayImage
-    fs.renameSync(path.join(__dirname, '../public/cosmetic_image/' + displayImage),
-        path.join(__dirname, '../public/cosmetic_image/' + req.body.name + "_image." + displayImage.split('.').pop()))
+    var image = req.body.image
+    fs.renameSync(path.join(__dirname, '../public/cosmetic_image/' + image),
+        path.join(__dirname, '../public/cosmetic_image/' + req.body.name + "_image." + image.split('.').pop()))
 
     var cosmetic = new cosmetics({
-        image: fc.stringForm(req.body.name) + "_image." + displayImage.split('.').pop(),
+        image: fc.stringForm(req.body.name) + "_image." + image.split('.').pop(),
         brand: req.body.brand,
         category: fc.stringForm(req.body.category),
         quality: req.body.quality,

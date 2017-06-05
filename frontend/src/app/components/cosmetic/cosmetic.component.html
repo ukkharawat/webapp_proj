@@ -3,10 +3,10 @@
         <div class="thumbnail">
             <div>
                 <p *ngIf="authService.loggedIn()" style="text-align:right">
-                    <i [id]="i" class="fa fa-2x" [ngClass]="{'fa-heart-o' :cosmetic.like , 'fa-heart' :!cosmetic.like}" (mouseover)="hover($event)" (mouseout)="hover($event)" (click)="addToWishlist($event)" aria-hidden="true"></i>
+                    <i [id]="i" class="fa fa-2x" [ngClass]="{'fa-heart-o' : !cosmetic.like , 'fa-heart' :cosmetic.like}" (mouseover)="hover($event)" (mouseout)="hover($event)" (click)="addToWishlist($event)" aria-hidden="true"></i>
                 </p>
             </div>
-            <img [src]="'http://localhost:3000/cosmetic_image/' + cosmetic.image">
+            <img [src]="'http://localhost:3000/cosmetic_image/' + cosmetic.image" width="100%">
             <div class="caption">
                 <h4>{{cosmetic.brand}}</h4>
                 <h5>{{cosmetic.name}}</h5>
