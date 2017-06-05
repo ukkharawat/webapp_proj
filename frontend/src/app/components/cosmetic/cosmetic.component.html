@@ -1,9 +1,9 @@
 <div class="row">
-    <div *ngFor="let cosmetic of cosmetics" class="col-sm-3 col-md-3">
+    <div *ngFor="let cosmetic of cosmetics;let i = index" class="col-sm-3 col-md-3">
         <div class="thumbnail">
             <div>
                 <p *ngIf="authService.loggedIn()" style="text-align:right">
-                    <i [id]="cosmetic.name" class="fa fa-2x" [ngClass]="{'fa-heart-o' :cosmetic.like , 'fa-heart' :!cosmetic.like}" (mouseover)="hover($event)" (mouseout)="hover($event)" (click)="addToWishlist($event)" aria-hidden="true"></i>
+                    <i [id]="i" class="fa fa-2x" [ngClass]="{'fa-heart-o' :cosmetic.like , 'fa-heart' :!cosmetic.like}" (mouseover)="hover($event)" (mouseout)="hover($event)" (click)="addToWishlist($event)" aria-hidden="true"></i>
                 </p>
             </div>
             <img [src]="'http://localhost:3000/cosmetic_image/' + cosmetic.image">

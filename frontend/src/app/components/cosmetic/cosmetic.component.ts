@@ -46,21 +46,12 @@ export class CosmeticComponent implements OnInit {
   }
 
   hover(e){
-    for(var i = 0 ; i < this.cosmetics.length ; i++){
-      if(this.cosmetics[i].name = e.target.id){
-        this.cosmetics[i].like = !this.cosmetics[i].like
-      }
-    }
+    this.cosmetics[e.target.id].like = !this.cosmetics[e.target.id].like
   }
 
   addToWishlist(e){
-    for(var i = 0 ; i < this.cosmetics.length ; i++){
-        if(this.cosmetics[i].name = e.target.id){
-          this.cosmetics[i].like = !this.cosmetics[i].like
-        }
-      }
+    this.cosmetics[e.target.id].like = !this.cosmetics[e.target.id].like
     this.cosmetic.addToWishlist(e.target.id).subscribe(data => {
-      
     })
   }
 
