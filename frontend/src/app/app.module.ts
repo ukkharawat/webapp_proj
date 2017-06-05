@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router'
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
+import { ColorPickerModule } from 'angular2-color-picker';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -61,7 +62,8 @@ const appRoutes: Routes = [
     HttpModule,
     CollapseModule.forRoot(),
     FlashMessagesModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    ColorPickerModule
   ],
   providers: [
     CustExtBrowserXhrService,

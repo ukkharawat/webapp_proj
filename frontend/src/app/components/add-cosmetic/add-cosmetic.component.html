@@ -1,3 +1,53 @@
-<p>
-  add-cosmetic works!
-</p>
+<div class="row">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Add Cosmetic</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-3 col-sm-3">
+                    <img [src]="url">
+                    <input type="file" accept="image/*" id="selectedFile" (change)="readUrl($event)" ng2FileSelect [uploader]="uploader" style="display: none;" />
+                    <input class="btn btn-sm btn-success btn-block" type="button" value="choose your image" onclick="document.getElementById('selectedFile').click();" />
+                </div>
+                <div class="col-md-9">
+                    <form accept-charset="UTF-8" role="form">
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" id="focusedInput" type="text" [(ngModel)]="name" name="name" placeholder="Cosmetic name" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" id="focusedInput" type="text" [(ngModel)]="brand" name="brand" placeholder="Brand" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" id="focusedInput" type="text" [(ngModel)]="quality" name="quality" placeholder="Quality" required>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" [(ngModel)]="category" name="category" placeholder="Category">
+                                  <option selected>Face</option>
+                                  <option>Cheek</option>
+                                  <option>Bronzer</option>
+                                  <option>Lips</option>
+                                  <option>Eyes</option>
+                                  <option>Eyebrow</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <div *ngFor="let x of colors; let i = index" style="display:inline-block;">
+                                    <img class="imgDisplay" [style.background]="x" src="" alt="" [title]="x" (click)="remove(i)">
+                                </div>
+                            </div>
+                            <input [colorPicker]="color" (colorPickerChange)="color=$event" [style.background]="color" />
+                            <a (click)="addColors()">ADD</a>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="5" [(ngModel)]="detail" name="detail" placeholder="Detail" style="resize:none"></textarea>
+                            </div>
+                            <input class="btn btn-lg btn-success btn-block" type="submit" (click)="add()" value="Add">
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
