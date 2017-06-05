@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-add-cosmetic',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddCosmeticComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private autheService : AuthService,
+    private router : Router
+  ) { }
 
   ngOnInit() {
+    if(this.autheService.isAdmin() == 0){
+      this.router.navigate(['/'])
+    }
   }
 
 }

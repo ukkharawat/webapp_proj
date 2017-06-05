@@ -52,6 +52,7 @@ export class AuthService {
     this.authToken = token
     this.user = user
     this.admin = user.authen == 1 ? true : false
+    
   }
 
   logout() {
@@ -71,10 +72,11 @@ export class AuthService {
   }
 
   isAdmin() {
-    return this.admin
+    const user = localStorage.getItem('user')
+    return JSON.parse(user).authen
   }
 
   getUser() {
-    return this.user
+    return JSON.parse(localStorage.getItem('user'))
   }
 }

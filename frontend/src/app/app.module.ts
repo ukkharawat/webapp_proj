@@ -31,6 +31,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'wishlist', component: WishlistComponent , canActivate:[AuthGuard]},
   { path: 'profile' , component : ProfileComponent , canActivate:[AuthGuard]},
+  { path: 'add' , component : AddCosmeticComponent , canActivate:[AuthGuard]},
   { path: 'reset' , component : ResetComponent},
   { path: 'resetConfirm/:username' , component : ResetConfirmComponent},
   { path: 'cosmetic/:category' , component : CosmeticComponent}

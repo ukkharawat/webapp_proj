@@ -17,7 +17,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     const user = this.authService.getUser()
-    console.log(user)
     this.url = "http://localhost:3000//user_image/" + user.displayImage
     this.username = user.username
     this.email = user.email
