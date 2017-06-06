@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CosmeticService } from '../../services/cosmetic.service'
 import { AuthService } from '../../services/auth.service'
+import { FlashMessagesService } from 'angular2-flash-messages'
 
 @Component({
   selector: 'app-cosmetic',
@@ -12,6 +13,7 @@ export class CosmeticComponent implements OnInit {
   category: string
   cosmetics = []
   constructor(
+    private flashMessage: FlashMessagesService,
     private router: Router,
     private route: ActivatedRoute,
     private cosmetic: CosmeticService,
@@ -52,12 +54,14 @@ export class CosmeticComponent implements OnInit {
     if(this.cosmetics[e.target.id].like == true){
       this.cosmetic.removeFromWishlist(this.cosmetics[e.target.id].id).subscribe(data => {
         if (data.message == "success") {
+          this.flashMessage.show('Remove ' + this.cosmetics[e.target.id].name  + ' done', { cssClass: 'alert-success', timeout: 3000 })
           this.cosmetics[e.target.id].like = !this.cosmetics[e.target.id].like
         }
       })      
     }else{
       this.cosmetic.addToWishlist(this.cosmetics[e.target.id].id).subscribe(data => {
         if (data.message == "success") {
+          this.flashMessage.show('Add ' + this.cosmetics[e.target.id].name  + ' To wishlist', { cssClass: 'alert-success', timeout: 3000 })
           this.cosmetics[e.target.id].like = !this.cosmetics[e.target.id].like
         }
       })
