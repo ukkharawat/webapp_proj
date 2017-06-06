@@ -44,6 +44,12 @@ routes.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '../public/index.html'))
 })
 
+routes.post('/getCosmeticByIds', passport.authenticate('jwt', { session: false }), function(req, res) {
+    cosmetics.getByIds(req.body, function(err, data) {
+        res.json(data)
+    })
+})
+
 routes.get('/getCosmetics', function(req, res) {
     cosmetics.getAllCosmetic(function(err, data) {
         res.json(data)
@@ -72,7 +78,6 @@ routes.get('/addToWishlist', passport.authenticate('jwt', { session: false }), f
     users.getUserById(req.user._id, function(err, data) {
         var isContain = false
         for (var i = 0; i < data.wishlist.length; i++) {
-            console.log(data.wishlist[i]._id + " " + req.query.id)
             if (data.wishlist[i].id == req.query.id) {
                 isContain = true
                 var index = i
@@ -83,7 +88,6 @@ routes.get('/addToWishlist', passport.authenticate('jwt', { session: false }), f
             data.wishlist.splice(index, 1)
         } else {
             data.wishlist.push({
-                name: req.query.name,
                 id: req.query.id
             })
         }

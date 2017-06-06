@@ -38,7 +38,6 @@ module.exports.addCosmetic = function(cosmetic, callback) {
     cosmetic.save(callback)
 }
 
-module.exports.getById = function(id, callback) {
-    var query = { id: id }
-    Cosmetic.findOne(query, callback)
+module.exports.getByIds = function(id, callback) {
+    Cosmetic.find().where({ id: { $in: id } }).select({ id: 1, name: 1, brand: 1, image: 1 }).exec(callback)
 }
