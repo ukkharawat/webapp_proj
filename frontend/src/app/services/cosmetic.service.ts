@@ -27,6 +27,16 @@ export class CosmeticService {
       .map(res => res.json());
   }
 
+  removeFromWishlist(id){
+    let headers = new Headers();
+    this.authService.loadToken();
+    headers.append('Authorization', this.authService.authToken);
+    headers.append('Content-Type', 'application/json')
+    let ep = 'http://localhost:3000/removeFromWishlist?id='+ id 
+    return this.http.get(ep, { headers: headers })
+      .map(res => res.json());
+  }
+
   addCosmetic(cosmetic){
     let headers = new Headers();
     this.authService.loadToken();

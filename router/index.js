@@ -76,20 +76,26 @@ routes.get('/getCosmeticsByBrand', function(req, res) {
 
 routes.get('/addToWishlist', passport.authenticate('jwt', { session: false }), function(req, res) {
     users.getUserById(req.user._id, function(err, data) {
-        var isContain = false
+        data.wishlist.push({
+            id: req.query.id
+        })
+        users.save(data.username, data.wishlist, function(err, data) {
+            if (!err) {
+                res.json({ message: "success" })
+            } else {
+                res.json({ message: "false" })
+            }
+        })
+    })
+})
+
+routes.get('/removeFromWishlist', passport.authenticate('jwt', { session: false }), function(req, res) {
+    users.getUserById(req.user._id, function(err, data) {
         for (var i = 0; i < data.wishlist.length; i++) {
             if (data.wishlist[i].id == req.query.id) {
-                isContain = true
-                var index = i
+                data.wishlist.splice(i, 1)
                 break
             }
-        }
-        if (isContain) {
-            data.wishlist.splice(index, 1)
-        } else {
-            data.wishlist.push({
-                id: req.query.id
-            })
         }
         users.save(data.username, data.wishlist, function(err, data) {
             if (!err) {

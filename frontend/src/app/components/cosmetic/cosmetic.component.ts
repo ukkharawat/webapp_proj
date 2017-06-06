@@ -49,11 +49,20 @@ export class CosmeticComponent implements OnInit {
   }
 
   addToWishlist(e) {
-    this.cosmetic.addToWishlist(this.cosmetics[e.target.id].id).subscribe(data => {
-      if (data.message == "success") {
-        this.cosmetics[e.target.id].like = !this.cosmetics[e.target.id].like
-      }
-    })
+    if(this.cosmetics[e.target.id].like == true){
+      this.cosmetic.removeFromWishlist(this.cosmetics[e.target.id].id).subscribe(data => {
+        if (data.message == "success") {
+          this.cosmetics[e.target.id].like = !this.cosmetics[e.target.id].like
+        }
+      })      
+    }else{
+      this.cosmetic.addToWishlist(this.cosmetics[e.target.id].id).subscribe(data => {
+        if (data.message == "success") {
+          this.cosmetics[e.target.id].like = !this.cosmetics[e.target.id].like
+        }
+      })
+    }
+    
   }
 
 }
