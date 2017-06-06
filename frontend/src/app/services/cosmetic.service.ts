@@ -17,12 +17,12 @@ export class CosmeticService {
       .map(res => res.json());
   }
 
-  addToWishlist(id , cosmetic){
+  addToWishlist(id){
     let headers = new Headers();
     this.authService.loadToken();
     headers.append('Authorization', this.authService.authToken);
     headers.append('Content-Type', 'application/json')
-    let ep = 'http://localhost:3000/addToWishlist?id='+ id + '&name=' + cosmetic
+    let ep = 'http://localhost:3000/addToWishlist?id='+ id 
     return this.http.get(ep, { headers: headers })
       .map(res => res.json());
   }
@@ -34,6 +34,16 @@ export class CosmeticService {
     headers.append('Content-Type', 'application/json')
     let ep = 'http://localhost:3000/addCosmetic'
     return this.http.post(ep, cosmetic , { headers: headers })
+      .map(res => res.json());
+  }
+
+  getCosmeticByIds(ids){
+    let headers = new Headers();
+    this.authService.loadToken();
+    headers.append('Authorization', this.authService.authToken);
+    headers.append('Content-Type', 'application/json')
+    let ep = 'http://localhost:3000/getCosmeticByIds'
+    return this.http.post(ep, ids , { headers: headers })
       .map(res => res.json());
   }
 
