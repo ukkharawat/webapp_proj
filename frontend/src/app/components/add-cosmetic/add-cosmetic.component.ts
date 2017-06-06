@@ -81,7 +81,7 @@ export class AddCosmeticComponent implements OnInit {
         this.cosmeticService.addCosmetic(cosmetic).subscribe(data => {
           if (data.message == "success") {
             this.flashMessage.show('Add done', { cssClass: 'alert-success', timeout: 3000 })
-            this.router.navigate(['/home'])
+            this.router.navigate(['/'])
           } else {
             this.flashMessage.show('Something went wrong', { cssClass: 'alert-danger', timeout: 3000 })
             this.router.navigate(['/add'])
