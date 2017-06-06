@@ -5,3 +5,19 @@ img {
 i {
     cursor: pointer
 }
+
+.ared {
+    color: red
+}
+
+.ared:hover {
+    color: grey
+}
+
+.agrey {
+    color: grey
+}
+
+.agrey:hover {
+    color: red
+}

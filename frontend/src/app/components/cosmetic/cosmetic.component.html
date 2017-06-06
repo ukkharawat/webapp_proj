@@ -2,9 +2,9 @@
     <div *ngFor="let cosmetic of cosmetics;let i = index" class="col-sm-3 col-md-3">
         <div class="thumbnail">
             <div>
-                <p *ngIf="authService.loggedIn()" style="text-align:right">
-                    <i [id]="i" class="fa fa-2x" [ngClass]="{'fa-heart-o' : !cosmetic.like , 'fa-heart' :cosmetic.like}" (mouseover)="hover($event)" (mouseout)="hover($event)" (click)="addToWishlist($event)" aria-hidden="true"></i>
-                </p>
+                <a *ngIf="authService.loggedIn()" style="float:right" [ngClass]="{'ared' : cosmetic.like , 'agrey' :!cosmetic.like}">
+                    <i [id]="i" class="fa fa-2x fa-heart" (click)="addToWishlist($event)" aria-hidden="true"></i>
+                </a>
             </div>
             <img [src]="'http://localhost:3000/cosmetic_image/' + cosmetic.image" width="100%">
             <div class="caption">

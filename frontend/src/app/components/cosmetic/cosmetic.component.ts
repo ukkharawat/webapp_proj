@@ -48,12 +48,8 @@ export class CosmeticComponent implements OnInit {
     })
   }
 
-  hover(e) {
-    this.cosmetics[e.target.id].like = !this.cosmetics[e.target.id].like
-  }
-
   addToWishlist(e) {
-    this.cosmetic.addToWishlist(this.cosmetics[e.target.id].id, this.cosmetics[e.target.id].name).subscribe(data => {
+    this.cosmetic.addToWishlist(this.cosmetics[e.target.id].id).subscribe(data => {
       if (data.message == "success") {
         this.cosmetics[e.target.id].like = !this.cosmetics[e.target.id].like
       }
