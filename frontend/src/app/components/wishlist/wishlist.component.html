@@ -1,3 +1,16 @@
-<p>
-  wishlist works!
-</p>
+<div class="row">
+    <div *ngFor="let cosmetic of cosmetics;let i = index" class="col-sm-3 col-md-3">
+        <div class="thumbnail">
+            <div>
+                <a style="float:right" class="ared">
+                    <i [id]="i" class="fa fa-2x fa-heart" title="remove" (click)="removeFromWishlist($event)" aria-hidden="true"></i>
+                </a>
+            </div>
+            <img [src]="'http://localhost:3000/cosmetic_image/' + cosmetic.image" width="100%">
+            <div class="caption">
+                <h5>{{cosmetic.brand}}</h5>
+                <h6>{{cosmetic.name}}</h6>
+            </div>
+        </div>
+    </div>
+</div>

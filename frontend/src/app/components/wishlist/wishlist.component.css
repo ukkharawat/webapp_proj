@@ -1,0 +1,19 @@
+img {
+    cursor: pointer
+}
+
+i {
+    cursor: pointer
+}
+
+.ared {
+    color: red
+}
+
+.ared:hover {
+    color: grey
+}
+
+.thumbnail {
+    height: 410px
+}
