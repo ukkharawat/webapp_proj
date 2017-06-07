@@ -12,6 +12,7 @@ import { FlashMessagesService } from 'angular2-flash-messages'
 export class CosmeticComponent implements OnInit {
   category: string
   cosmetics = []
+  isAdmin : boolean
   constructor(
     private flashMessage: FlashMessagesService,
     private router: Router,
@@ -25,6 +26,7 @@ export class CosmeticComponent implements OnInit {
       this.category = params['category']
       this.cosmetic.getCosmeticByCategory(this.category).subscribe(data => {
         if (this.authService.getUser()) {
+          this.isAdmin = this.authService.isAdmin() == 1 ? true : false
           this.authService.getWishlist().subscribe(wishlist => {
             for (var i = 0; i < data.length; i++) {
               var like = false
@@ -66,7 +68,10 @@ export class CosmeticComponent implements OnInit {
         }
       })
     }
-    
+  }
+
+  edit(e) {
+    this.router.navigate(['/edit' , this.cosmetics[e.target.id].id])
   }
 
 }

@@ -1,8 +1,11 @@
 <div class="row">
     <div *ngFor="let cosmetic of cosmetics;let i = index" class="col-sm-3 col-md-3">
         <div class="thumbnail">
-            <div>
-                <a *ngIf="authService.loggedIn()" style="float:right" [ngClass]="{'ared' : cosmetic.like , 'agrey' :!cosmetic.like}">
+            <div style="float:right">
+                <a *ngIf="isAdmin" style="color : #616161">
+                    <i [id]="i" class="fa fa-wrench fa-2x" (click)="edit($event)" aria-hidden="true"></i>
+                </a>
+                <a *ngIf="authService.loggedIn()" [ngClass]="{'ared' : cosmetic.like , 'agrey' :!cosmetic.like}">
                     <i [id]="i" class="fa fa-2x fa-heart" (click)="addToWishlist($event)" aria-hidden="true"></i>
                 </a>
             </div>

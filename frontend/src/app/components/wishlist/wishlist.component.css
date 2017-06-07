@@ -7,11 +7,11 @@ i {
 }
 
 .ared {
-    color: red
+    color: #FF1744
 }
 
 .ared:hover {
-    color: grey
+    color: #616161
 }
 
 .thumbnail {
