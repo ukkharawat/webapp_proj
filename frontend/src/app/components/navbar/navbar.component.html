@@ -15,7 +15,6 @@
                 <li (click)="isCollapsed = !isCollapsed" *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="menuFont" [routerLink]="['/login']">Login</a></li>
                 <li (click)="isCollapsed = !isCollapsed" *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="menuFont" [routerLink]="['/register']">Register</a></li>
                 <li (click)="isCollapsed = !isCollapsed" *ngIf="authService.loggedIn() && authService.isAdmin()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="menuFont" [routerLink]="['/add']">Add</a></li>
-                <li (click)="isCollapsed = !isCollapsed" *ngIf="authService.loggedIn() && authService.isAdmin()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="menuFont" [routerLink]="['/profile']">Edit</a></li>
                 <li (click)="isCollapsed = !isCollapsed" *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="menuFont" [routerLink]="['/profile']">Profile</a></li>
                 <li (click)="isCollapsed = !isCollapsed" *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="menuFont" [routerLink]="['/wishlist']">Wishlist</a></li>
                 <li (click)="isCollapsed = !isCollapsed" *ngIf="authService.loggedIn()"><a class="menuFont" (click)="logout()">Logout</a></li>
