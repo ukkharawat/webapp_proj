@@ -50,6 +50,12 @@ routes.post('/getCosmeticByIds', passport.authenticate('jwt', { session: false }
     })
 })
 
+routes.post('/getCosmeticById', function(req, res) {
+    cosmetics.getCosmeticById(req.body.id, function(err, data) {
+        res.json(data)
+    })
+})
+
 routes.get('/getCosmetics', function(req, res) {
     cosmetics.getAllCosmetic(function(err, data) {
         res.json(data)
@@ -80,11 +86,7 @@ routes.get('/addToWishlist', passport.authenticate('jwt', { session: false }), f
             id: req.query.id
         })
         users.save(data.username, data.wishlist, function(err, data) {
-            if (!err) {
-                res.json({ message: "success" })
-            } else {
-                res.json({ message: "false" })
-            }
+            res.json({ message: err ? false : true })
         })
     })
 })
@@ -98,15 +100,10 @@ routes.get('/removeFromWishlist', passport.authenticate('jwt', { session: false 
             }
         }
         users.save(data.username, data.wishlist, function(err, data) {
-            if (!err) {
-                res.json({ message: "success" })
-            } else {
-                res.json({ message: "false" })
-            }
+            res.json({ message: err ? false : true })
         })
     })
 })
-
 routes.post('/addCosmetic', passport.authenticate('jwt', { session: false }), checkAdminAuthen, function(req, res) {
     var image = req.body.image
     fs.renameSync(path.join(__dirname, '../public/cosmetic_image/' + image),
@@ -122,28 +119,29 @@ routes.post('/addCosmetic', passport.authenticate('jwt', { session: false }), ch
         detail: req.body.detail
     })
     cosmetics.addCosmetic(cosmetic, function(err, data) {
-        if (!err) {
-            res.json({ message: "success" })
-        } else {
-            res.json({ message: "false" })
-        }
+        res.json({ message: err ? false : true })
     })
 })
 
 routes.post('/editCosmetic', passport.authenticate('jwt', { session: false }), checkAdminAuthen, function(req, res) {
-    cosmetics.getById(req.body.id, function(err, data) {
-        var file = req.files.file
-        var image = file.name
-        file.mv(path.join(__dirname, '../public/cosmetic_image/', fc.stringForm(req.body.name) + "_image." + image.split('.').pop()))
-        data.image = fc.stringForm(req.body.name) + "_image." + image.split('.').pop()
-        data.brand = fc.stringForm(req.body.brand)
+    cosmetics.getCosmeticById(req.body.id, function(err, data) {
+        var image = req.body.image
+        if (data.image != image) {
+            fs.unlinkSync(path.join(__dirname, '../public/cosmetic_image/' + data.image))
+            fs.renameSync(path.join(__dirname, '../public/cosmetic_image/' + image),
+                path.join(__dirname, '../public/cosmetic_image/' + req.body.name + "_image." + image.split('.').pop()))
+            data.image = fc.stringForm(req.body.name) + "_image." + image.split('.').pop()
+        }
+        data.brand = req.body.brand
         data.category = fc.stringForm(req.body.category)
-        data.quality = fc.stringForm(req.body.quality)
+        data.quality = req.body.quality
         data.color = req.body.color
-        data.name = req.body.name
+        data.name = fc.stringForm(req.body.name)
+        data.brand = req.body.brand
         data.detail = req.body.detail
-        cosmetics.addCosmetic(data, function(err, data) {
-            res.json(data)
+        data.image = req.body.image
+        cosmetics.save(data, function(err, data) {
+            res.json({ message: err ? false : true })
         })
     })
 })
