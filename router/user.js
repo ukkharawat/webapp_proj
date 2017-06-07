@@ -46,11 +46,7 @@ routes.post('/register', function(req, res) {
         wishlist: []
     })
     users.register(user, function(err, data) {
-        if (err) {
-            res.json({ message: "This account is exist" })
-        } else {
-            res.json({ message: "Success" })
-        }
+        res.json({ message: err ? false : true })
     })
 })
 
@@ -105,9 +101,7 @@ routes.post('/resetPassword', function(req, res) {
                 if (response) {
                     user.authen = -1
                     users.register(user, function(err, data) {
-                        if (data) {
-                            res.json({ message: true })
-                        }
+                        res.json({ message: err ? false : true })
                     })
                 }
             })

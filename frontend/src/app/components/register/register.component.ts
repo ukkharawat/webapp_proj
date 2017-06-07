@@ -62,24 +62,22 @@ export class RegisterComponent implements OnInit {
         if (this.validateService.validateUser(user.email)) {
           if (displayImage == "default_image.png") {
             this.authService.registerUser(user).subscribe(data => {
-              if (data.message == "Success") {
+              if (data.message) {
                 this.flashMessage.show('You are now registered and can log in', { cssClass: 'alert-success', timeout: 3000 })
                 this.router.navigate(['/login'])
               } else {
-                this.flashMessage.show('Something went wrong', { cssClass: 'alert-danger', timeout: 3000 })
-                this.router.navigate(['/register'])
+                this.flashMessage.show('The account is already exists', { cssClass: 'alert-danger', timeout: 3000 })
               }
             })
           } else {
             this.uploader.uploadAll()
             this.uploader.onCompleteItem = (item, res, sta, header) => {
               this.authService.registerUser(user).subscribe(data => {
-                if (data.message == "Success") {
+                if (data.message) {
                   this.flashMessage.show('You are now registered and can log in', { cssClass: 'alert-success', timeout: 3000 })
                   this.router.navigate(['/login'])
                 } else {
-                  this.flashMessage.show('Something went wrong', { cssClass: 'alert-danger', timeout: 3000 })
-                  this.router.navigate(['/register'])
+                  this.flashMessage.show('The account is already exists', { cssClass: 'alert-danger', timeout: 3000 })
                 }
               })
             }

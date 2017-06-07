@@ -28,7 +28,6 @@ export class ResetComponent implements OnInit {
           this.router.navigate(['/'])
       }else{
           this.flashMessage.show("Your email doesn't exist", { cssClass: 'alert-success', timeout: 3000 })
-          this.router.navigate(['/reset'])
       }
     })
   }
