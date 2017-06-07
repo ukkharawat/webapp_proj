@@ -24,7 +24,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ResetComponent } from './components/reset/reset.component';
 import { ResetConfirmComponent } from './components/reset-confirm/reset-confirm.component';
 import { CosmeticComponent } from './components/cosmetic/cosmetic.component';
-import { AddCosmeticComponent } from './components/add-cosmetic/add-cosmetic.component'
+import { AddCosmeticComponent } from './components/add-cosmetic/add-cosmetic.component';
+import { EditCosmeticComponent } from './components/edit-cosmetic/edit-cosmetic.component'
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
   { path: 'wishlist', component: WishlistComponent , canActivate:[AuthGuard]},
   { path: 'profile' , component : ProfileComponent , canActivate:[AuthGuard]},
   { path: 'add' , component : AddCosmeticComponent , canActivate:[AuthGuard]},
+  { path: 'edit/:id' , component : EditCosmeticComponent , canActivate:[AuthGuard]},
   { path: 'reset' , component : ResetComponent},
   { path: 'resetConfirm/:username' , component : ResetConfirmComponent},
   { path: 'cosmetic/:category' , component : CosmeticComponent}
@@ -54,7 +56,8 @@ const appRoutes: Routes = [
     ResetComponent,
     ResetConfirmComponent,
     CosmeticComponent,
-    AddCosmeticComponent
+    AddCosmeticComponent,
+    EditCosmeticComponent
   ],
   imports: [
     BrowserModule,
