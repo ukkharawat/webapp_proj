@@ -47,6 +47,24 @@ export class CosmeticService {
       .map(res => res.json());
   }
 
+  editCosmetic(cosmetic){
+    let headers = new Headers();
+    this.authService.loadToken();
+    headers.append('Authorization', this.authService.authToken);
+    headers.append('Content-Type', 'application/json')
+    let ep = 'http://localhost:3000/editCosmetic'
+    return this.http.post(ep, cosmetic , { headers: headers })
+      .map(res => res.json());
+  }
+
+  getCosmeticById(id){
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    let ep = 'http://localhost:3000/getCosmeticById'
+    return this.http.post(ep,  { id: id ,  headers: headers })
+      .map(res => res.json());
+  }
+
   getCosmeticByIds(ids){
     let headers = new Headers();
     this.authService.loadToken();
