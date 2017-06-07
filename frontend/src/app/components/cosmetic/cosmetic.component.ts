@@ -55,14 +55,14 @@ export class CosmeticComponent implements OnInit {
   addToWishlist(e) {
     if(this.cosmetics[e.target.id].like == true){
       this.cosmetic.removeFromWishlist(this.cosmetics[e.target.id].id).subscribe(data => {
-        if (data.message == "success") {
+        if (data.message) {
           this.flashMessage.show('Remove ' + this.cosmetics[e.target.id].name  + ' done', { cssClass: 'alert-success', timeout: 3000 })
           this.cosmetics[e.target.id].like = !this.cosmetics[e.target.id].like
         }
       })      
     }else{
       this.cosmetic.addToWishlist(this.cosmetics[e.target.id].id).subscribe(data => {
-        if (data.message == "success") {
+        if (data.message) {
           this.flashMessage.show('Add ' + this.cosmetics[e.target.id].name  + ' To wishlist', { cssClass: 'alert-success', timeout: 3000 })
           this.cosmetics[e.target.id].like = !this.cosmetics[e.target.id].like
         }

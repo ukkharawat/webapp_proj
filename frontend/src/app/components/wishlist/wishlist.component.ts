@@ -33,7 +33,7 @@ export class WishlistComponent implements OnInit {
 
   removeFromWishlist(e) {
     this.cosmetic.removeFromWishlist(this.cosmetics[e.target.id].id).subscribe(data => {
-      if(data.message == "success"){
+      if(data.message){
         this.flashMessage.show('Remove ' + this.cosmetics[e.target.id].name  + ' done', { cssClass: 'alert-success', timeout: 3000 })
         this.cosmetics.splice(e.target.id , 1)
       }
