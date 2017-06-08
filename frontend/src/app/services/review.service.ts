@@ -19,10 +19,10 @@ export class ReviewService {
       .map(res => res.json());
   }
 
-  getReview(){
+  getReview(cosmetic_name){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json')
-    let ep = 'http://localhost:3000/review/getAllReview'
+    let ep = 'http://localhost:3000/review/getAllReview?cosmetic_name=' + cosmetic_name
     return this.http.get(ep, { headers: headers })
       .map(res => res.json());
   }
@@ -44,6 +44,16 @@ export class ReviewService {
     headers.append('Content-Type', 'application/json')
     let ep = 'http://localhost:3000/review/unlikeReview?id=' + _id + '&idReview=' + idReview
     return this.http.get(ep, { headers: headers })
+      .map(res => res.json());
+  }
+
+  editReview(ncontent){
+    let headers = new Headers();
+    this.authService.loadToken();
+    headers.append('Authorization', this.authService.authToken);
+    headers.append('Content-Type', 'application/json')
+    let ep = 'http://localhost:3000/review/editReview'
+    return this.http.post(ep, ncontent , { headers: headers })
       .map(res => res.json());
   }
 

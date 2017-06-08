@@ -97,3 +97,12 @@ h1 {
 .rating>input:checked~label:hover~label {
     color: #FFED85;
 }
+
+.media-body {
+    background: #EEEEEE;
+    border-radius: 10px
+}
+
+i {
+    cursor: pointer
+}
