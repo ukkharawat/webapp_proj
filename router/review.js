@@ -44,7 +44,7 @@ routes.get('/getAllReview', function(req, res) {
             for (var i = 0; i < review.review.length; i++) {
                 reviews.push(review.review[i])
             }
-            var sortReviews = reviews.sort((a, b) => b.like.count - a.like.count)
+            var sortReviews = reviews.sort((a, b) => b.count - a.count)
             res.json({ _id: review._id, review: sortReviews })
         }
     })
@@ -89,16 +89,15 @@ routes.get('/unlikeReview', passport.authenticate('jwt', { session: false }), fu
 routes.post('/editReview', passport.authenticate('jwt', { session: false }), function(req, res) {
     reviews.getReviewById(req.body.id, function(err, review) {
         for (var i = 0; i < review.review.length; i++) {
-            if (data.review[i]._id == req.query.idReview && review.review[i].reviewer == req.user.username) {
-                review.review[i].content = req.body.newcontent
+            if (review.review[i]._id == req.body.idReview && review.review[i].reviewer == req.user.username) {
+                review.review[i].content = req.body.content
                 review.review[i].starPoint = req.body.starPoint
-                review.review[i].date = new Date()
-                reviews.review(review, function(err, data) {
-                    res.json({ message: err ? false : true })
-                })
                 break
             }
         }
+        reviews.review(review, function(err, data) {
+            res.json({ message: err ? false : true })
+        })
     })
 })
 
