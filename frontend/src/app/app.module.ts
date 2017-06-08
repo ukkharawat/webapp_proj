@@ -25,7 +25,8 @@ import { ResetComponent } from './components/reset/reset.component';
 import { ResetConfirmComponent } from './components/reset-confirm/reset-confirm.component';
 import { CosmeticComponent } from './components/cosmetic/cosmetic.component';
 import { AddCosmeticComponent } from './components/add-cosmetic/add-cosmetic.component';
-import { EditCosmeticComponent } from './components/edit-cosmetic/edit-cosmetic.component'
+import { EditCosmeticComponent } from './components/edit-cosmetic/edit-cosmetic.component';
+import { DetailComponent } from './components/detail/detail.component'
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -37,8 +38,9 @@ const appRoutes: Routes = [
   { path: 'edit/:id' , component : EditCosmeticComponent , canActivate:[AuthGuard]},
   { path: 'reset' , component : ResetComponent},
   { path: 'resetConfirm/:username' , component : ResetConfirmComponent},
-  { path: 'cosmetic/:category' , component : CosmeticComponent}
-]
+  { path: 'cosmetic/:category' , component : CosmeticComponent},
+  { path: 'detail/:id' , component: DetailComponent}
+] 
 
 
 @NgModule({
@@ -57,7 +59,8 @@ const appRoutes: Routes = [
     ResetConfirmComponent,
     CosmeticComponent,
     AddCosmeticComponent,
-    EditCosmeticComponent
+    EditCosmeticComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,
