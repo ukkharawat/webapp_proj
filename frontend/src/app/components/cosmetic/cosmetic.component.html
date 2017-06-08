@@ -9,10 +9,10 @@
                     <i [id]="i" class="fa fa-2x fa-heart" (click)="addToWishlist($event)" aria-hidden="true"></i>
                 </a>
             </div>
-            <img [src]="'http://localhost:3000/cosmetic_image/' + cosmetic.image" width="100%">
+            <img [src]="'http://localhost:3000/cosmetic_image/' + cosmetic.image" width="100%" [id]="i" (click)="goToDetail($event)">
             <div class="caption">
-                <h4>{{cosmetic.brand}}</h4>
-                <h5>{{cosmetic.name}}</h5>
+                <h5>{{cosmetic.brand}}</h5>
+                <h6><a [id]="i" (click)="goToDetail($event)">{{cosmetic.name}}</a></h6>
             </div>
         </div>
     </div>

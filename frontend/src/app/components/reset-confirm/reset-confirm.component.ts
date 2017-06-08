@@ -37,7 +37,7 @@ export class ResetConfirmComponent implements OnInit {
       this.authService.resetConfirm(user).subscribe( data => {
         if(data.message){
           this.flashMessage.show("Now you can login with your new password" , { cssClass: 'alert-success', timeout: 3000 })
-          this.router.navigate(['/login'])
+          this.router.navigate(['login'])
         }else{
           this.flashMessage.show("You can't reset your password" , { cssClass: 'alert-danger', timeout: 3000 })
           this.router.navigate(['/'])

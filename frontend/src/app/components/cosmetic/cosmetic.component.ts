@@ -71,7 +71,11 @@ export class CosmeticComponent implements OnInit {
   }
 
   edit(e) {
-    this.router.navigate(['/edit' , this.cosmetics[e.target.id].id])
+    this.router.navigate(['edit' , this.cosmetics[e.target.id].id])
+  }
+
+  goToDetail(e) {
+    this.router.navigate(['detail' , this.cosmetics[e.target.id].id])
   }
 
 }

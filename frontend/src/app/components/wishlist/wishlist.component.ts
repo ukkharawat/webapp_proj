@@ -40,4 +40,8 @@ export class WishlistComponent implements OnInit {
     })
   }
 
+  goToDetail(e) {
+    this.router.navigate(['detail' , this.cosmetics[e.target.id].id])
+  }
+
 }
