@@ -31,7 +31,49 @@
                     <h4>Comment</h4>
                     <hr>
                     <div class="col-md-8 col-sm-12 col-md-offset-2">
-                        <h5>Username : </h5>
+                        <form *ngIf="authService.loggedIn()" class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="inputEmail" class="col-lg-2 control-label">Username</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" [ngModel]="username" name="username" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="textArea" class="col-lg-2 control-label">Comment</label>
+                                    <div class="col-lg-10">
+                                        <textarea class="form-control" rows="5" [(ngModel)]="comment" name="comment" style="resize:none"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="textArea" class="col-lg-2 control-label">Rating</label>
+                                    <div class="col-lg-10">
+                                        <fieldset class="rating">
+                                            <input type="radio" id="5" name="rating" value="5" (change)="onSelectionChange($event)" /><label class="full" for="5" title="Awesome - 5 stars"></label>
+                                            <input type="radio" id="4.5" name="rating" value="4 and a half" (change)="onSelectionChange($event)" /><label class="half" for="4.5" title="Pretty good - 4.5 stars"></label>
+                                            <input type="radio" id="4" name="rating" value="4" (change)="onSelectionChange($event)" /><label class="full" for="4" title="Pretty good - 4 stars"></label>
+                                            <input type="radio" id="3.5" name="rating" value="3 and a half" (change)="onSelectionChange($event)" /><label class="half" for="3.5" title="Meh - 3.5 stars"></label>
+                                            <input type="radio" id="3" name="rating" value="3" (change)="onSelectionChange($event)" /><label class="full" for="3" title="Meh - 3 stars"></label>
+                                            <input type="radio" id="2.5" name="rating" value="2 and a half" (change)="onSelectionChange($event)" /><label class="half" for="2.5" title="Kinda bad - 2.5 stars"></label>
+                                            <input type="radio" id="2" name="rating" value="2" (change)="onSelectionChange($event)" /><label class="full" for="2" title="Kinda bad - 2 stars"></label>
+                                            <input type="radio" id="1.5" name="rating" value="1 and a half" (change)="onSelectionChange($event)" /><label class="half" for="1.5" title="Meh - 1.5 stars"></label>
+                                            <input type="radio" id="1" name="rating" value="1" (change)="onSelectionChange($event)" /><label class="full" for="1" title="Sucks big time - 1 star"></label>
+                                            <input type="radio" id="0.5" name="rating" value="half" (change)="onSelectionChange($event)" /><label class="half" for="0.5" title="Sucks big time - 0.5 stars"></label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-2">
+                                        <button type="submit" class="btn btn-primary" (click)="review()">Submit</button>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+
+                        </form>
+                        <h4 *ngIf="!authService.loggedIn()" style="text-align:center"> You have to Log in before Review</h4>
                     </div>
                 </div>
             </div>
