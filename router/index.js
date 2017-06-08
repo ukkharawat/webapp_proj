@@ -46,7 +46,7 @@ routes.get('/', function(req, res) {
 
 routes.post('/getCosmeticByIds', passport.authenticate('jwt', { session: false }), function(req, res) {
     cosmetics.getByIds(req.body, function(err, data) {
-        res.json(data)
+        res.json(data.sort((a, b) => b.id - a.id))
     })
 })
 
@@ -58,7 +58,7 @@ routes.post('/getCosmeticById', function(req, res) {
 
 routes.get('/getCosmetics', function(req, res) {
     cosmetics.getAllCosmetic(function(err, data) {
-        res.json(data)
+        res.json(data.sort((a, b) => b.id - a.id))
     })
 })
 
