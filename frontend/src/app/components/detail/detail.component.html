@@ -35,7 +35,7 @@
                                     <h4 class="media-heading"><b>{{rev.reviewer}}</b></h4>
                                     <h6>Date : {{rev.date | date }} </h6>
                                     <h6>{{rev.content}}</h6>
-                                    <h6><a [id]="i" (click)="likeReview($event)">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{rev.like.count}}</a></h6>
+                                    <h6><a [id]="i" [ngClass]="{'active' : likes[i] }" (click)="likeReview($event)">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{rev.count}}</a></h6>
                                 </div>
                             </div>
                             <br>

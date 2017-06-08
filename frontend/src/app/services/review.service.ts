@@ -27,4 +27,24 @@ export class ReviewService {
       .map(res => res.json());
   }
 
+  likeReview(_id , idReview){
+    let headers = new Headers();
+    this.authService.loadToken();
+    headers.append('Authorization', this.authService.authToken);
+    headers.append('Content-Type', 'application/json')
+    let ep = 'http://localhost:3000/review/likeReview?id=' + _id + '&idReview=' + idReview
+    return this.http.get(ep, { headers: headers })
+      .map(res => res.json());
+  }
+
+  unlikeReview(_id , idReview){
+    let headers = new Headers();
+    this.authService.loadToken();
+    headers.append('Authorization', this.authService.authToken);
+    headers.append('Content-Type', 'application/json')
+    let ep = 'http://localhost:3000/review/unlikeReview?id=' + _id + '&idReview=' + idReview
+    return this.http.get(ep, { headers: headers })
+      .map(res => res.json());
+  }
+
 }

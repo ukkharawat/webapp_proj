@@ -20,6 +20,8 @@ export class DetailComponent implements OnInit {
   id : Number
   message : String = ""
   isReview = false
+  likes = []
+  _id : Number
 
   constructor(
     private flashMessage: FlashMessagesService,
@@ -41,10 +43,21 @@ export class DetailComponent implements OnInit {
             this.username = user.username
           }
           this.reviewService.getReview().subscribe( rev => {
+            this._id = rev._id
               if(rev.message){
                 this.message = rev.message
               }else{
-                this.reviews = rev
+                for(var i = 0 ; i < rev.review.length ; i++){
+                  var isLike = false
+                  for(var j = 0 ; j < rev.review[i].count ; j++){
+                    if(this.username == rev.review[i].who[j]){
+                      isLike = true
+                      break;
+                    }
+                  }
+                  this.reviews.push(rev.review[i])
+                  this.likes.push(isLike)
+                }
               }
           })
         })
@@ -73,6 +86,29 @@ export class DetailComponent implements OnInit {
           this.flashMessage.show('Something went wrong', { cssClass: 'alert-danger', timeout: 3000 })
         }
     })
+  }
+
+  likeReview($event){
+    var id = Number($event.target.id)
+    if(this.likes[id]){
+      this.reviewService.unlikeReview(this._id , this.reviews[id]._id).subscribe( data => {
+        if(data){
+          this.reviews[id].count -= 1
+          this.likes[id] = !this.likes[id]
+        }else{
+          this.flashMessage.show('Something went wrong', { cssClass: 'alert-danger', timeout: 3000 })
+        }
+      })
+    }else{
+      this.reviewService.likeReview(this._id , this.reviews[id]._id).subscribe( data => {
+        if(data){
+          this.reviews[id].count += 1
+          this.likes[id] = !this.likes[id]
+        }else{
+          this.flashMessage.show('Something went wrong', { cssClass: 'alert-danger', timeout: 3000 })
+        }
+      })
+    }
   }
 
 }

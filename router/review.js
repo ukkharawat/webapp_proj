@@ -17,10 +17,8 @@ routes.post('/review', passport.authenticate('jwt', { session: false }), functio
         content: req.body.content,
         date: new Date(),
         starPoint: req.body.starPoint,
-        like: {
-            count: 0,
-            who: []
-        }
+        count: 0,
+        who: []
     }
     reviews.getAllReview(req.body.cosmetic_name, function(err, review) {
         if (!review) {
@@ -46,7 +44,8 @@ routes.get('/getAllReview', function(req, res) {
             for (var i = 0; i < review.review.length; i++) {
                 reviews.push(review.review[i])
             }
-            res.json(reviews.sort((a, b) => b.like.count - a.like.count))
+            var sortReviews = reviews.sort((a, b) => b.like.count - a.like.count)
+            res.json({ _id: review._id, review: sortReviews })
         }
     })
 })
@@ -55,8 +54,8 @@ routes.get('/likeReview', passport.authenticate('jwt', { session: false }), func
     reviews.getReviewById(req.query.id, function(err, data) {
         for (var i = 0; i < data.review.length; i++) {
             if (data.review[i]._id == req.query.idReview) {
-                data.review[index].like.count += 1
-                data.review[index].like.who.push(req.user.username)
+                data.review[i].count += 1
+                data.review[i].who.push(req.user.username)
                 break
             }
         }
@@ -71,10 +70,10 @@ routes.get('/unlikeReview', passport.authenticate('jwt', { session: false }), fu
     reviews.getReviewById(req.query.id, function(err, data) {
         for (var i = 0; i < data.review.length; i++) {
             if (data.review[i]._id == req.query.idReview) {
-                for (var j = 0; j < data.review[i].like.who.length; j++) {
-                    if (data.review[i].like.who[j] == req.user.username) {
-                        data.review[index].like.count -= 1
-                        data.review[index].like.who.splice(j, 1)
+                for (var j = 0; j < data.review[i].count; j++) {
+                    if (data.review[i].who[j] == req.user.username) {
+                        data.review[i].count -= 1
+                        data.review[i].who.splice(j, 1)
                         break
                     }
                 }
