@@ -18,6 +18,8 @@ export class DetailComponent implements OnInit {
   rating : Number = 0
   comment : String
   id : Number
+  message : String = ""
+  isReview = false
 
   constructor(
     private flashMessage: FlashMessagesService,
@@ -38,6 +40,13 @@ export class DetailComponent implements OnInit {
           if(user){
             this.username = user.username
           }
+          this.reviewService.getReview().subscribe( rev => {
+              if(rev.message){
+                this.message = rev.message
+              }else{
+                this.reviews = rev
+              }
+          })
         })
     })
   }

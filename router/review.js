@@ -13,6 +13,7 @@ var passport = require('passport')
 routes.post('/review', passport.authenticate('jwt', { session: false }), function(req, res) {
     var newreview = {
         reviewer: req.user.username,
+        displayImage: req.user.displayImage,
         content: req.body.content,
         date: new Date(),
         starPoint: req.body.starPoint,
@@ -41,11 +42,11 @@ routes.get('/getAllReview', function(req, res) {
         if (!review) {
             res.json({ message: "No comment in this cosmetic" })
         } else {
-            var review = []
+            var reviews = []
             for (var i = 0; i < review.review.length; i++) {
-                review.push(review.review[i])
+                reviews.push(review.review[i])
             }
-            res.json(review.sort((a, b) => b.like.count - a.like.count))
+            res.json(reviews.sort((a, b) => b.like.count - a.like.count))
         }
     })
 })
@@ -54,22 +55,31 @@ routes.get('/likeReview', passport.authenticate('jwt', { session: false }), func
     reviews.getReviewById(req.query.id, function(err, data) {
         for (var i = 0; i < data.review.length; i++) {
             if (data.review[i]._id == req.query.idReview) {
-                var index = i
-                var isContain = false
+                data.review[index].like.count += 1
+                data.review[index].like.who.push(req.user.username)
+                break
+            }
+        }
+        reviews.review(data, function(err, data) {
+            res.json({ message: err ? false : true })
+        })
+    })
+})
+
+
+routes.get('/unlikeReview', passport.authenticate('jwt', { session: false }), function(req, res) {
+    reviews.getReviewById(req.query.id, function(err, data) {
+        for (var i = 0; i < data.review.length; i++) {
+            if (data.review[i]._id == req.query.idReview) {
                 for (var j = 0; j < data.review[i].like.who.length; j++) {
                     if (data.review[i].like.who[j] == req.user.username) {
-                        isContain = true
-                        data.review[index].like.count--
-                            data.review[index].like.who.splice(j, 1)
+                        data.review[index].like.count -= 1
+                        data.review[index].like.who.splice(j, 1)
                         break
                     }
                 }
                 break
             }
-        }
-        if (!isContain) {
-            data.review[index].like.count++
-                data.review[index].like.who.push(req.user.username)
         }
         reviews.review(data, function(err, data) {
             res.json({ message: err ? false : true })

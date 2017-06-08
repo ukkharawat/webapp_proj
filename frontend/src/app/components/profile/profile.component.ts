@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     const user = this.authService.getUser()
-    this.url = "http://localhost:3000//user_image/" + user.displayImage
+    this.url = "http://localhost:3000/user_image/" + user.displayImage
     this.username = user.username
     this.email = user.email
     this.role = user.authen == 1 ? "admin" : "user"

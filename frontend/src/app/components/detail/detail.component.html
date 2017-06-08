@@ -24,6 +24,23 @@
                 <div class="col-sm-12 col-md-10 col-md-offset-1">
                     <h4>Rating and Review</h4>
                     <hr>
+                    <h4 *ngIf="message != ''" style="text-align:center">{{message}}</h4>
+                    <div *ngIf="message == ''">
+                        <div *ngFor="let rev of reviews ; let i = index">
+                            <div class="media">
+                                <div class="media-left media-middle">
+                                    <img class="media-object" [src]="'http://localhost:3000/user_image/' + rev.displayImage">
+                                </div>
+                                <div class="media-body" style="padding-left:50px">
+                                    <h4 class="media-heading"><b>{{rev.reviewer}}</b></h4>
+                                    <h6>Date : {{rev.date | date }} </h6>
+                                    <h6>{{rev.content}}</h6>
+                                    <h6><a [id]="i" (click)="likeReview($event)">Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{rev.like.count}}</a></h6>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="panel-body">

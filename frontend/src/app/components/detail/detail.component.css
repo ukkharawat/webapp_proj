@@ -1,11 +1,19 @@
-.imgDisplay {
-    width: 30px;
-    height: 30px;
-    margin-right: 5px
+.media-object {
+    width: 120px;
 }
 
 h6 a {
     color: #212121;
+    cursor: pointer;
+}
+
+h6 a:hover {
+    color: #0A6ECC;
+    cursor: pointer;
+}
+
+h6 a.active {
+    color: #0A6ECC;
     cursor: pointer;
 }
 

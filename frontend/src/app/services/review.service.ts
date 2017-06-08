@@ -19,4 +19,12 @@ export class ReviewService {
       .map(res => res.json());
   }
 
+  getReview(){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json')
+    let ep = 'http://localhost:3000/review/getAllReview'
+    return this.http.get(ep, { headers: headers })
+      .map(res => res.json());
+  }
+
 }
