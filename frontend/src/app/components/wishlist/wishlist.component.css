@@ -19,5 +19,11 @@ i {
 }
 
 h6 a {
-    color: #212121
+    color: #212121;
+    cursor: pointer
+}
+
+h5 a {
+    color: #212121;
+    cursor: pointer
 }

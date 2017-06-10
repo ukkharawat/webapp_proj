@@ -78,4 +78,8 @@ export class CosmeticComponent implements OnInit {
     this.router.navigate(['detail' , this.cosmetics[e.target.id].id])
   }
 
+  goToBrand(e){
+    this.router.navigate(['brand' , this.cosmetics[e.target.id].brand])
+  }
+
 }

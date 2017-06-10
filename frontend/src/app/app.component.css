@@ -3,3 +3,7 @@ section {
     background-color: #FAFAFA;
     color: #212121
 }
+
+a {
+    cursor: pointer
+}

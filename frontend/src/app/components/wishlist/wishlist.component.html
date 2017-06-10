@@ -8,7 +8,7 @@
             </div>
             <img [src]="'http://localhost:3000/cosmetic_image/' + cosmetic.image" width="100%" [id]="i" (click)="goToDetail($event)">
             <div class="caption">
-                <h5>{{cosmetic.brand}}</h5>
+                <h5><a [id]="i" (click)="goToBrand($event)">{{cosmetic.brand}}</a></h5>
                 <h6><a [id]="i" (click)="goToDetail($event)">{{cosmetic.name}}</a></h6>
             </div>
         </div>
