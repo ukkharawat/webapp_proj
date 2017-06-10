@@ -17,6 +17,14 @@ export class CosmeticService {
       .map(res => res.json());
   }
 
+  getCosmeticByBrand(brand){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json')
+    let ep = 'http://localhost:3000/getCosmeticsByBrand/' + brand
+    return this.http.get(ep, { headers: headers })
+      .map(res => res.json());
+  }
+
   addToWishlist(id){
     let headers = new Headers();
     this.authService.loadToken();
