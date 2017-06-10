@@ -27,7 +27,8 @@ import { ResetConfirmComponent } from './components/reset-confirm/reset-confirm.
 import { CosmeticComponent } from './components/cosmetic/cosmetic.component';
 import { AddCosmeticComponent } from './components/add-cosmetic/add-cosmetic.component';
 import { EditCosmeticComponent } from './components/edit-cosmetic/edit-cosmetic.component';
-import { DetailComponent } from './components/detail/detail.component'
+import { DetailComponent } from './components/detail/detail.component';
+import { BrandComponent } from './components/brand/brand.component'
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -40,6 +41,7 @@ const appRoutes: Routes = [
   { path: 'reset' , component : ResetComponent},
   { path: 'resetConfirm/:username' , component : ResetConfirmComponent},
   { path: 'cosmetic/:category' , component : CosmeticComponent},
+  { path: 'brand/:brand' , component: BrandComponent},
   { path: 'detail/:id' , component: DetailComponent}
 ] 
 
@@ -61,7 +63,8 @@ const appRoutes: Routes = [
     CosmeticComponent,
     AddCosmeticComponent,
     EditCosmeticComponent,
-    DetailComponent
+    DetailComponent,
+    BrandComponent
   ],
   imports: [
     BrowserModule,
