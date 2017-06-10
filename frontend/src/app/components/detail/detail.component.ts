@@ -70,7 +70,12 @@ export class DetailComponent implements OnInit {
                   }
                   if(rev.review[i].count != 0 ){
                     if(isLike){
-                      this.cmessage.push("You and " + ( rev.review[i].count-1) + " others")
+                      if(rev.review[i].count == 1 ){
+                        this.cmessage.push("You like this")
+                      }else{
+                        this.cmessage.push("You and " + ( rev.review[i].count-1) + " others")
+                      }
+                      
                     }else{
                       this.cmessage.push(rev.review[i].count + " others")
                     }
