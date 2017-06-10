@@ -22,6 +22,10 @@ i {
     color: #FF1744
 }
 
+.thumbnail {
+    height: 410px
+}
+
 h6 a {
     color: #212121;
     cursor: pointer

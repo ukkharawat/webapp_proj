@@ -1,3 +1,19 @@
-<p>
-  brand works!
-</p>
+<div class="row">
+    <div *ngFor="let cosmetic of cosmetics;let i = index" class="col-sm-3 col-md-3">
+        <div class="thumbnail">
+            <div style="float:right">
+                <a *ngIf="isAdmin" style="color : #616161">
+                    <i [id]="i" class="fa fa-wrench fa-2x" (click)="edit($event)" aria-hidden="true"></i>
+                </a>
+                <a *ngIf="authService.loggedIn()" [ngClass]="{'ared' : cosmetic.like , 'agrey' :!cosmetic.like}">
+                    <i [id]="i" class="fa fa-2x fa-heart" (click)="addToWishlist($event)" aria-hidden="true"></i>
+                </a>
+            </div>
+            <img [src]="'http://localhost:3000/cosmetic_image/' + cosmetic.image" width="100%" [id]="i" (click)="goToDetail($event)">
+            <div class="caption">
+                <h5>{{cosmetic.brand}}</h5>
+                <h6><a [id]="i" (click)="goToDetail($event)">{{cosmetic.name}}</a></h6>
+            </div>
+        </div>
+    </div>
+</div>

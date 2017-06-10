@@ -1,0 +1,36 @@
+img {
+    cursor: pointer
+}
+
+i {
+    cursor: pointer
+}
+
+.ared {
+    color: #FF1744
+}
+
+.ared:hover {
+    color: #616161
+}
+
+.agrey {
+    color: #616161
+}
+
+.agrey:hover {
+    color: #FF1744
+}
+
+.thumbnail {
+    height: 410px
+}
+
+h6 a {
+    color: #212121;
+    cursor: pointer
+}
+
+h5 {
+    cursor: default
+}
