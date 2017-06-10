@@ -74,8 +74,8 @@ routes.get('/getCosmeticsByCategory/:category', function(req, res) {
     })
 })
 
-routes.get('/getCosmeticsByBrand', function(req, res) {
-    cosmetics.getCosmeticByBrand(req.query.brand, function(err, data) {
+routes.get('/getCosmeticsByBrand/:brand', function(req, res) {
+    cosmetics.getCosmeticByBrand(req.params.brand, function(err, data) {
         res.json(data)
     })
 })
