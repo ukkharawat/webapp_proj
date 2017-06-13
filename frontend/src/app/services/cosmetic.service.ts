@@ -9,6 +9,14 @@ export class CosmeticService {
   constructor(private http: Http , private authService : AuthService) {
   }
 
+  getAllCosmetic(){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json')
+    let ep = 'http://localhost:3000/getCosmetics'
+    return this.http.get(ep, { headers: headers })
+      .map(res => res.json());
+  }
+
   getCosmeticByCategory(category){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json')
