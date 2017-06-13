@@ -66,6 +66,9 @@ export class SearchComponent implements OnInit {
         this.up()
         break
       }
+      case "Backspace" : {
+        this.current = 0
+      }
     }
   }
 
