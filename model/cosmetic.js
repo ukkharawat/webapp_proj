@@ -17,7 +17,7 @@ cosmetic.plugin(autoIncrement, { inc_field: 'id' })
 var Cosmetic = module.exports = mongoose.model('Cosmetic', cosmetic)
 
 module.exports.getAllCosmetic = function(callback) {
-    Cosmetic.find({}, callback)
+    Cosmetic.find({}).select({ name: 1, id: 1 }).exec(callback)
 }
 
 module.exports.getSortCosmetic = function(callback) {
