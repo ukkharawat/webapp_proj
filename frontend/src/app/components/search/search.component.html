@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+        <div [ngClass]="{'open': open}" style="position:relative">
+            <input type="text" class="form-control" placeholder="Search for ..." [(ngModel)]="word" (ngModelChange)="valuechange($event)" (keydown)="enter($event)">
+            <ul class="dropdown-menu" style="width:100%">
+                <li *ngFor="let cosmetic of matches;let i = index" [ngClass]="{active : isActive(i)}" (click)="click(i)">
+                    <a>{{cosmetic.name}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -28,7 +28,8 @@ import { CosmeticComponent } from './components/cosmetic/cosmetic.component';
 import { AddCosmeticComponent } from './components/add-cosmetic/add-cosmetic.component';
 import { EditCosmeticComponent } from './components/edit-cosmetic/edit-cosmetic.component';
 import { DetailComponent } from './components/detail/detail.component';
-import { BrandComponent } from './components/brand/brand.component'
+import { BrandComponent } from './components/brand/brand.component';
+import { SearchComponent } from './components/search/search.component'
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -64,7 +65,8 @@ const appRoutes: Routes = [
     AddCosmeticComponent,
     EditCosmeticComponent,
     DetailComponent,
-    BrandComponent
+    BrandComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
