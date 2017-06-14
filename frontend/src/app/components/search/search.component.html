@@ -3,7 +3,7 @@
         <div [ngClass]="{'open': open}" style="position:relative">
             <input type="text" class="form-control" placeholder="Search for ..." [(ngModel)]="word" (ngModelChange)="valuechange($event)" (keydown)="enter($event)">
             <ul class="dropdown-menu" style="width:100%">
-                <li *ngFor="let cosmetic of matches;let i = index" [ngClass]="{active : isActive(i)}" (click)="click(i)">
+                <li *ngFor="let cosmetic of matches;let i = index" [ngClass]="{active : isActive(i)}" (click)="click(i)" (mouseover)="hover(i)">
                     <a>{{cosmetic.name}}</a>
                 </li>
             </ul>

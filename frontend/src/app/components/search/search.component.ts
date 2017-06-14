@@ -59,10 +59,12 @@ export class SearchComponent implements OnInit {
         break
       }
       case "ArrowDown" : {
+        e.preventDefault()
         this.down()
         break
       }
       case "ArrowUp" : {
+        e.preventDefault()
         this.up()
         break
       }
@@ -93,6 +95,10 @@ export class SearchComponent implements OnInit {
     this.router.navigate(['/']).then( () => {
       this.router.navigate(['/detail',  this.currentCosmetic.id])
     })
+  }
+
+  hover(index){
+    this.current = index
   }
 
 }
