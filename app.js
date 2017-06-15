@@ -66,7 +66,7 @@ app.get('/image/:image', function(req, res) {
 
 
 app.all('*', function(req, res) {
-    res.redirect('/')
+    res.send("THIS IS BACK-END , TRY ANOTHER WAY TO CONNECT")
 })
 app.listen(3000 || process.env.PORT, () => {
     console.log(process.env.PORT ? process.env.PORT : 3000)

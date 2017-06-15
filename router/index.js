@@ -39,11 +39,6 @@ routes.post('/upload', upload.any(), function(req, res) {
     res.json({ message: "upload success" })
 })
 
-
-routes.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, '../public/index.html'))
-})
-
 routes.post('/getCosmeticByIds', passport.authenticate('jwt', { session: false }), function(req, res) {
     cosmetics.getByIds(req.body, function(err, data) {
         res.json(data.sort((a, b) => b.id - a.id))
