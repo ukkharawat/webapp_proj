@@ -99,6 +99,10 @@ export class DetailComponent implements OnInit {
     this.router.navigate(['cosmetic' , this.cosmetic[0].category])
   }
 
+  goToBrand(){
+    this.router.navigate(['brand' , this.cosmetic[0].brand])
+  }
+
   onSelectionChange($event){
     this.rating = Number($event.target.id)
   }

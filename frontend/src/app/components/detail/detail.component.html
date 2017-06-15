@@ -6,7 +6,7 @@
                     <img [src]="'http://localhost:3000/cosmetic_image/' + cosmetic.image">
                 </div>
                 <div class="col-md-5">
-                    <h5><b>{{cosmetic.brand}}</b></h5>
+                    <h5><a (click)="goToBrand()"><b>{{cosmetic.brand}}</b></a></h5>
                     <h5>{{cosmetic.name}}</h5>
                     <h6>Category : <a (click)="goToCosmetic()"><b>{{cosmetic.category}}</b></a></h6>
                     <h6>Quality : {{cosmetic.quality}}</h6>

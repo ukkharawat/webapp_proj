@@ -8,17 +8,20 @@
     width: 120px;
 }
 
-h6 a {
+h6 a,
+h5 a {
     color: #212121;
     cursor: pointer;
 }
 
-h6 a:hover {
+h6 a:hover,
+h5 a:hover {
     color: #0A6ECC;
     cursor: pointer;
 }
 
-h6 a.active {
+h6 a.active,
+h5 a.active {
     color: #0A6ECC;
     cursor: pointer;
 }
