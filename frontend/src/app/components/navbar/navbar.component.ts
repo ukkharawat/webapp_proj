@@ -16,6 +16,8 @@ export class NavbarComponent implements OnInit {
     private flashMessage: FlashMessagesService
   ) { }
 
+  logo = "http://localhost:3000/image/logo.png"
+
   ngOnInit() {
   }
 
