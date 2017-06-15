@@ -20,6 +20,7 @@ export class WishlistComponent implements OnInit {
   ) { }
   cosmetics = []
   ngOnInit() {
+    this.authService.changeIsSearchable(true)
     var wishlists = []
     this.authService.getWishlist().subscribe(wishlist => {
       for(var i = 0 ; i < wishlist.length ; i++){

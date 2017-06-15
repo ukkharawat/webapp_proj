@@ -1,6 +1,6 @@
 <section>
     <app-navbar></app-navbar>
-    <app-search></app-search>
+    <app-search *ngIf="authService.isSearchable()"></app-search>
     <br>
     <div class="container">
         <flash-messages></flash-messages>

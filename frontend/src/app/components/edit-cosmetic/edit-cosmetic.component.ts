@@ -36,6 +36,7 @@ export class EditCosmeticComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({ url: URL })
 
   ngOnInit() {
+    this.authService.changeIsSearchable(false)
     if(this.authService.isAdmin() == 0){
       this.router.navigate(['/'])
     }else{

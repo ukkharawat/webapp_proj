@@ -20,6 +20,7 @@ export class ResetConfirmComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.authService.changeIsSearchable(false)
     this.route.params.subscribe(params => {
        this.username = params['username']
     })

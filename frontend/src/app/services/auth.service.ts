@@ -10,6 +10,7 @@ export class AuthService {
   admin: boolean
   user: any
   isDev: boolean
+  isSearch = true
 
   constructor(private http: Http) {
     this.isDev = true; // Change to false before deployment
@@ -88,5 +89,13 @@ export class AuthService {
 
   getUser() {
     return JSON.parse(localStorage.getItem('user'))
+  }
+
+  changeIsSearchable(bool){
+    this.isSearch = bool
+  }
+
+  isSearchable(){
+    return this.isSearch
   }
 }

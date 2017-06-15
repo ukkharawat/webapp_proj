@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   password : String
   
   ngOnInit() {
+    this.authService.changeIsSearchable(false)
   }
 
   public login(event:any) :void {

@@ -10,7 +10,7 @@
 6 silly lifecycle web-app-proj@1.0.0~predev: no script for predev, continuing
 7 info lifecycle web-app-proj@1.0.0~dev: web-app-proj@1.0.0
 8 verbose lifecycle web-app-proj@1.0.0~dev: unsafe-perm in lifecycle true
-9 verbose lifecycle web-app-proj@1.0.0~dev: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Users\TheTonG\Desktop\webapp_proj\node_modules\.bin;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\TheTonG\AppData\Roaming\npm;D:\Microsoft VS Code\bin;C:\Program Files\MongoDB\Server\3.4\bin
+9 verbose lifecycle web-app-proj@1.0.0~dev: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Users\TheTonG\Desktop\webapp_proj\node_modules\.bin;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\IBM\SPSS\Statistics\24\JRE\bin;C:\Users\TheTonG\AppData\Roaming\npm;D:\Microsoft VS Code\bin;C:\Program Files\MongoDB\Server\3.4\bin;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;
 10 verbose lifecycle web-app-proj@1.0.0~dev: CWD: C:\Users\TheTonG\Desktop\webapp_proj
 11 silly lifecycle web-app-proj@1.0.0~dev: Args: [ '/d /s /c', './node_modules/nodemon/bin/nodemon.js app.js' ]
 12 silly lifecycle web-app-proj@1.0.0~dev: Returned: code: 1  signal: null
@@ -27,7 +27,7 @@
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid web-app-proj@1.0.0
 16 verbose cwd C:\Users\TheTonG\Desktop\webapp_proj
-17 error Windows_NT 10.0.10586
+17 error Windows_NT 10.0.15063
 18 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run" "dev"
 19 error node v6.10.2
 20 error npm  v3.10.10

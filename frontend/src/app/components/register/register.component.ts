@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.authService.changeIsSearchable(false)
     this.url = "http://localhost:3000/user_image/default_image.png"
   }
 

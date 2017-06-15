@@ -22,6 +22,7 @@ export class CosmeticComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.authService.changeIsSearchable(true)
     this.route.params.subscribe(params => {
       this.category = params['category']
       this.cosmetic.getCosmeticByCategory(this.category).subscribe(data => {

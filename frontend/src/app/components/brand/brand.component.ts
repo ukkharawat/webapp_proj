@@ -22,6 +22,7 @@ export class BrandComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.authService.changeIsSearchable(true)
     this.route.params.subscribe(params => {
       this.brand = params['brand']
       this.cosmetic.getCosmeticByBrand(this.brand).subscribe(data => {

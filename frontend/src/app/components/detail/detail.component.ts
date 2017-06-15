@@ -41,7 +41,7 @@ export class DetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+    this.authService.changeIsSearchable(true)
     this.route.params.subscribe( params => {
       this.id = params['id']  
         this.cosmeticService.getCosmeticById(this.id).subscribe( data => {

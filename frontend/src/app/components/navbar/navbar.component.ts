@@ -21,15 +21,15 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
-  public isCollapsed: boolean = false;
+  isCollapsed: boolean = false;
 
-  public collapsed(event: any): void {
+  collapsed(event: any): void {
   }
 
-  public expanded(event: any): void {
+  expanded(event: any): void {
   }
 
-  public logout(event: any): void {
+  logout(event: any): void {
     this.authService.logout()
     this.flashMessage.show('You are now logged out now', { cssClass: 'alert-success', timeout: 1000})
     this.router.navigate(['/'])

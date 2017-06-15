@@ -17,6 +17,7 @@ export class ResetComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.authService.changeIsSearchable(false)
   }
 
   email : String

@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.authService.changeIsSearchable(true)
     const user = this.authService.getUser()
     this.url = "http://localhost:3000/user_image/" + user.displayImage
     this.username = user.username
