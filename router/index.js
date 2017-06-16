@@ -65,13 +65,13 @@ routes.get('/getNewCosmetics', function(req, res) {
 
 routes.get('/getCosmeticsByCategory/:category', function(req, res) {
     cosmetics.getCosmeticByCategory(req.params.category, function(err, data) {
-        res.json(data)
+        res.json(data.sort((a, b) => b.id - a.id))
     })
 })
 
 routes.get('/getCosmeticsByBrand/:brand', function(req, res) {
     cosmetics.getCosmeticByBrand(req.params.brand, function(err, data) {
-        res.json(data)
+        res.json(data.sort((a, b) => b.id - a.id))
     })
 })
 
