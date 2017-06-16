@@ -3,7 +3,7 @@
         <div class="panel panel-default">
             <div *ngFor="let cosmetic of cosmetic" class="panel-body">
                 <div class="col-md-6 col-sm-6">
-                    <img [src]="'http://localhost:3000/cosmetic_image/' + cosmetic.image">
+                    <img [src]="'http://localhost:3000/cosmetic_image/' + cosmetic.image" width="100%">
                 </div>
                 <div class="col-md-5">
                     <h5><a (click)="goToBrand()"><b>{{cosmetic.brand}}</b></a></h5>
