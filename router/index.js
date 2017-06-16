@@ -134,7 +134,7 @@ routes.post('/editCosmetic', passport.authenticate('jwt', { session: false }), c
         data.name = fc.stringForm(req.body.name)
         data.brand = req.body.brand
         data.detail = req.body.detail
-        data.image = req.body.image
+        data.image = fc.stringForm(req.body.name) + "_image." + image.split('.').pop()
         cosmetics.save(data, function(err, data) {
             res.json({ message: err ? false : true })
         })
