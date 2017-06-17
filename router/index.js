@@ -53,7 +53,7 @@ routes.post('/getCosmeticById', function(req, res) {
 
 routes.get('/getCosmetics', function(req, res) {
     cosmetics.getAllCosmetic(function(err, data) {
-        res.json(data.sort((a, b) => b.id - a.id))
+        res.json(data.sort((a, b) => a.name.localeCompare(b.name)))
     })
 })
 
