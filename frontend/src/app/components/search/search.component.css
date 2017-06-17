@@ -1,3 +1,10 @@
 a {
     cursor: pointer
 }
+
+.dropdown-menu {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: auto;
+    max-height: 200px;
+}
